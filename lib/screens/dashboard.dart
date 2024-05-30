@@ -56,11 +56,10 @@ class _DashboardState extends State<Dashboard> {
           ),
           Column(
             children: [
-              
               Row(
                 children: [
                   Flexible(
-                    flex: 2,
+                    flex: 1,
                     child: Container(
                       width: double.infinity,
                       child: Card(
@@ -71,120 +70,137 @@ class _DashboardState extends State<Dashboard> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: const Color.fromARGB(80, 0, 0, 0),
+                            color: Color.fromARGB(136, 45, 218, 131),
                           ),
-                          padding: const EdgeInsets.all(16),
-                          child: Row(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'RPG Stats',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15.0),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 10.0, bottom: 10.0),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Hero Name',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 25.0,
-                                              color: Colors.blue),
-                                        ),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        const Text(
-                                          'Level 5 Warrior',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 15.0),
-                                        ),
-                                      ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.card_giftcard_outlined,
+                                  size: 80.0,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 10.0,
                                     ),
-                                  ),
-                                  Container(
-                                    height: 0.5,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.2,
-                                    color: const Color.fromARGB(255, 206, 206, 206),
-                                  ),
-                                  const SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  const Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Health',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w200),
-                                          ),
-                                          Text(
-                                            '100%',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        width: 20.0,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Mana',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w200),
-                                          ),
-                                          Text(
-                                            '80%',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                width: 20.0,
-                              ),
-                              const CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('assets/avatar.jpg'),
-                                radius: 60.0,
-                              )
-                            ],
+                                    Text(
+                                      'Gifts',
+                                      style: TextStyle(
+                                          fontSize: 25.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.amberAccent),
+                                    ),
+                                    SizedBox(
+                                      height: 15.0,
+                                    ),
+                                    Text(
+                                      'enjoy free gifts',
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w200),
+                                    ),
+                                    SizedBox(height: 7.0),
+                                    Text(
+                                      '60.4%',
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     width: 20.0,
                   ),
                   Flexible(
-                    flex: 2,
+                    flex: 1,
                     child: Container(
                       width: double.infinity,
-                      height: 350.0,
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.amberAccent,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.card_giftcard_outlined,
+                                  size: 80.0,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Text(
+                                      'Gifts',
+                                      style: TextStyle(
+                                          fontSize: 25.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    SizedBox(
+                                      height: 15.0,
+                                    ),
+                                    Text(
+                                      'enjoy free gifts',
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w200,
+                                          color: Colors.black),
+                                    ),
+                                    SizedBox(height: 7.0),
+                                    Text(
+                                      '60.4%',
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      width: double.infinity,
                       child: Card(
                         elevation: 4,
                         shape: RoundedRectangleBorder(
@@ -195,107 +211,29 @@ class _DashboardState extends State<Dashboard> {
                             borderRadius: BorderRadius.circular(16),
                             color: const Color.fromARGB(80, 0, 0, 0),
                           ),
-                          padding: const EdgeInsets.all(16),
-                          child: Row(
+                          padding: EdgeInsets.all(16),
+                          child: const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Quest Progress',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15.0),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 10.0, bottom: 10.0),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Epic Journey',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 25.0,
-                                              color: Colors.greenAccent),
-                                        ),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        const Text(
-                                          'Ongoing',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 15.0),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.2,
-                                    color: const Color.fromARGB(255, 206, 206, 206),
-                                  ),
-                                  const SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  const Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Monsters Slain',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w200),
-                                          ),
-                                          Text(
-                                            '25',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        width: 20.0,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Gold Earned',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w200),
-                                          ),
-                                          Text(
-                                            '500',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                                ],
+                              Text(
+                                'Inventory',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0),
                               ),
-                              const SizedBox(
-                                width: 20.0,
+                              SizedBox(height: 10.0),
+                              Text(
+                                'Sword x 1',
+                                style: TextStyle(fontWeight: FontWeight.w200),
                               ),
-                              const CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('assets/avatar1.jpeg'),
-                                radius: 60.0,
-                              )
+                              Text(
+                                'Potion x 5',
+                                style: TextStyle(fontWeight: FontWeight.w200),
+                              ),
+                              Text(
+                                'Armor Set',
+                                style: TextStyle(fontWeight: FontWeight.w200),
+                              ),
                             ],
                           ),
                         ),
@@ -304,7 +242,6 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ],
               ),
-            
             ],
           )
         ],
