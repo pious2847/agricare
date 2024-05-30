@@ -332,7 +332,7 @@ class _DashboardState extends State<Dashboard> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Icon(
-                                  Iconsax.user_octagon_copy,
+                                  Iconsax.shopping_bag_copy,
                                   size: 80.0,
                                   color: Colors.black,
                                 ),
