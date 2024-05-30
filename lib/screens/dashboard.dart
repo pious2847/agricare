@@ -248,14 +248,13 @@ class _DashboardState extends State<Dashboard> {
                  
                 ],
               ),
-
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
                 Row(
                 children: [
                   Flexible(
                     flex: 1,
                     child: SizedBox(
-                      width: double.infinity,
+                      width: MediaQuery.of(context).size.width * 0.3,
                       child: Card(
                         elevation: 4,
                         shape: RoundedRectangleBorder(
@@ -286,7 +285,7 @@ class _DashboardState extends State<Dashboard> {
                                       height: 10.0,
                                     ),
                                     Text(
-                                      'Total Employees',
+                                      'Total Farms',
                                       style: TextStyle(
                                           fontSize: 25.0,
                                           fontWeight: FontWeight.bold,
@@ -316,7 +315,6 @@ class _DashboardState extends State<Dashboard> {
                   Flexible(
                     flex: 1,
                     child: SizedBox(
-                      // width: double.infinity,
                       width: MediaQuery.of(context).size.width * 0.3,
                       child: Card(
                         elevation: 4,
@@ -349,7 +347,7 @@ class _DashboardState extends State<Dashboard> {
                                       height: 10.0,
                                     ),
                                     Text(
-                                      'Total Supervisors',
+                                      'Total Products',
                                       style: TextStyle(
                                           fontSize: 25.0,
                                           fontWeight: FontWeight.bold,
@@ -375,14 +373,8 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                   ),
-                 
-                  // const SizedBox(
-                  //   width: 420.0,
-                  // ),
-
                 ],
               ),
-
             ],
           )
         ],
