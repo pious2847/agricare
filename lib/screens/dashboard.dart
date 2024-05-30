@@ -70,7 +70,7 @@ class _DashboardState extends State<Dashboard> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: const Color.fromARGB(136, 45, 218, 131),
+                            color: Colors.white,
                           ),
                           child: const Padding(
                             padding: EdgeInsets.all(10.0),
@@ -78,7 +78,7 @@ class _DashboardState extends State<Dashboard> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Icon(
-                                  Icons.card_giftcard_outlined,
+                                  Iconsax.user_octagon_copy,
                                   size: 80.0,
                                 ),
                                 SizedBox(
@@ -92,27 +92,20 @@ class _DashboardState extends State<Dashboard> {
                                       height: 10.0,
                                     ),
                                     Text(
-                                      'Gifts',
+                                      'Total Employees',
                                       style: TextStyle(
                                           fontSize: 25.0,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.amberAccent),
-                                    ),
-                                    SizedBox(
-                                      height: 15.0,
-                                    ),
-                                    Text(
-                                      'enjoy free gifts',
-                                      style: TextStyle(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w200),
-                                    ),
-                                    SizedBox(height: 7.0),
+                                          ),
+                                    ),                             
+                                    SizedBox(height: 3.0),
                                     Text(
                                       '60.4%',
                                       style: TextStyle(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.bold),
+                                          fontSize: 54.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.amberAccent
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -125,8 +118,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   const SizedBox(
                     width: 20.0,
-                  ),
-                  
+                  ),           
                   Flexible(
                     flex: 1,
                     child: SizedBox(
@@ -139,15 +131,15 @@ class _DashboardState extends State<Dashboard> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: Colors.amberAccent,
+                            color: Colors.white,
                           ),
                           child: const Padding(
                             padding: EdgeInsets.all(10.0),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Icon(
-                                  Icons.card_giftcard_outlined,
+                                  Iconsax.user_octagon_copy,
                                   size: 80.0,
                                   color: Colors.black,
                                 ),
@@ -162,30 +154,23 @@ class _DashboardState extends State<Dashboard> {
                                       height: 10.0,
                                     ),
                                     Text(
-                                      'Gifts',
+                                      'Total Supervisors',
                                       style: TextStyle(
                                           fontSize: 25.0,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     ),
                                     SizedBox(
-                                      height: 15.0,
+                                      height: 3.0,
                                     ),
-                                    Text(
-                                      'enjoy free gifts',
-                                      style: TextStyle(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w200,
-                                          color: Colors.black),
-                                    ),
-                                    SizedBox(height: 7.0),
                                     Text(
                                       '60.4%',
                                       style: TextStyle(
-                                          fontSize: 15.0,
+                                          fontSize: 54.0,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.black),
+                                          color: Color.fromARGB(136, 45, 218, 131)),
                                     ),
+                                    
                                   ],
                                 ),
                               ],
@@ -195,9 +180,78 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                   ),
+                 
                   const SizedBox(
                     width: 20.0,
                   ),
+                    Flexible(
+                    flex: 1,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.white,
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Iconsax.truck_copy,
+                                  size: 80.0,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Text(
+                                      'Total Machinery',
+                                      style: TextStyle(
+                                          fontSize: 25.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    SizedBox(
+                                      height: 3.0,
+                                    ),
+                                    Text(
+                                      '60.4%',
+                                      style: TextStyle(
+                                          fontSize: 54.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color.fromARGB(188, 100, 218, 45)),
+                                    ),
+                                    
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                 
+                ],
+              ),
+
+              SizedBox(height: 20,),
+                Row(
+                children: [
                   Flexible(
                     flex: 1,
                     child: SizedBox(
@@ -210,40 +264,125 @@ class _DashboardState extends State<Dashboard> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: const Color.fromARGB(80, 0, 0, 0),
+                            color: Colors.white,
                           ),
-                          padding: const EdgeInsets.all(16),
-                          child: const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Inventory',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.0),
-                              ),
-                              SizedBox(height: 10.0),
-                              Text(
-                                'Sword x 1',
-                                style: TextStyle(fontWeight: FontWeight.w200),
-                              ),
-                              Text(
-                                'Potion x 5',
-                                style: TextStyle(fontWeight: FontWeight.w200),
-                              ),
-                              Text(
-                                'Armor Set',
-                                style: TextStyle(fontWeight: FontWeight.w200),
-                              ),
-                            ],
+                          child: const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Iconsax.user_octagon_copy,
+                                  size: 80.0,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Text(
+                                      'Total Employees',
+                                      style: TextStyle(
+                                          fontSize: 25.0,
+                                          fontWeight: FontWeight.bold,
+                                          ),
+                                    ),                             
+                                    SizedBox(height: 3.0),
+                                    Text(
+                                      '60.4%',
+                                      style: TextStyle(
+                                          fontSize: 54.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.amberAccent
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                
+                  const SizedBox(
+                    width: 20.0,
+                  ),           
+                  Flexible(
+                    flex: 1,
+                    child: SizedBox(
+                      // width: double.infinity,
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.white,
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Iconsax.user_octagon_copy,
+                                  size: 80.0,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Text(
+                                      'Total Supervisors',
+                                      style: TextStyle(
+                                          fontSize: 25.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    SizedBox(
+                                      height: 3.0,
+                                    ),
+                                    Text(
+                                      '60.4%',
+                                      style: TextStyle(
+                                          fontSize: 54.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color.fromARGB(136, 45, 218, 131)),
+                                    ),
+                                    
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                 
+                  // const SizedBox(
+                  //   width: 420.0,
+                  // ),
+
                 ],
               ),
+
             ],
           )
         ],
