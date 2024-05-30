@@ -5,13 +5,17 @@ import 'package:sqflite/sqflite.dart';
 class FarmCrud {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
 
-  Future<int> addFarm(Farm farm) async {
-    Database db = await _dbHelper.database;
-    return await db.insert('farm', farm.toMap());
-  }
+Future<int> addFarm(Farm farm) async {
+  Database db = await _dbHelper.initDb();
+  return await db.insert('farm', farm.toMap());
+}
 
+Future<int> updateFarm(Farm farm) async {
+  Database db = await _dbHelper.initDb();
+  return await db.update('farm', farm.toMap(), where: 'id = ?', whereArgs: [farm.id]);
+}
   Future<List<Farm>> getFarms() async {
-    Database db = await _dbHelper.database;
+    Database db = await _dbHelper.initDb();
     var farms = await db.query('farm');
     return farms.map((farm) => Farm(
       id: farm['id'] as int,
@@ -20,13 +24,13 @@ class FarmCrud {
       farmproduce: farm['farmproduce'] as String,
     )).toList();
   }
-  Future<int> updateFarm(Farm farm) async {
-    Database db = await _dbHelper.database;
-    return await db.update('farm', farm.toMap(), where: 'id = ?', whereArgs: [farm.id]);
-  }
+  // Future<int> updateFarm(Farm farm) async {
+  //   Database db = await _dbHelper.initDb();
+  //   return await db.update('farm', farm.toMap(), where: 'id = ?', whereArgs: [farm.id]);
+  // }
 
   Future<int> deleteFarm(int id) async {
-    Database db = await _dbHelper.database;
+    Database db = await _dbHelper.initDb();
     return await db.delete('farm', where: 'id = ?', whereArgs: [id]);
   }
 }

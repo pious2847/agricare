@@ -1,3 +1,4 @@
+import 'package:agricare/forms/admin.dart';
 import 'package:agricare/forms/employee.dart';
 import 'package:agricare/forms/farm_form.dart';
 import 'package:agricare/forms/machinery_modal.dart';
@@ -64,17 +65,18 @@ class _DashboardState extends State<Dashboard> {
                   const SizedBox(
                     width: 10,
                   ),
+                 
                   TextButton.icon(
                       onPressed: () {
                         showDialog(
                           context: context,
                           builder: (context) {
-                            return const MachineryModal();
+                            return const AdminModal();
                           },
                         );
                       },
                       icon: const Icon(Iconsax.additem_copy),
-                      label: const Text('Add Machinery')),
+                      label: const Text('Add Admin')),
                 ],
               ),
             ),

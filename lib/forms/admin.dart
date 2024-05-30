@@ -47,7 +47,7 @@ class _AdminModalState extends State<AdminModal> {
 
       if (widget.admin == null) {
           
-        await databaseHelper.admincrud.addAdmin(admin);
+        await databaseHelper.addAdmin(admin);
       } else {
         await databaseHelper.admincrud.updateAdmin(admin);
       }
@@ -69,10 +69,10 @@ class _AdminModalState extends State<AdminModal> {
           children: [
             TextFormField(
               controller: _usernameController,
-              decoration: const InputDecoration(labelText: 'Name'),
+              decoration: const InputDecoration(labelText: 'Username'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter a name';
+                  return 'Please enter a username';
                 }
                 return null;
               },
@@ -82,7 +82,7 @@ class _AdminModalState extends State<AdminModal> {
               decoration: const InputDecoration(labelText: 'Password'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter a location';
+                  return 'Please enter a Password';
                 }
                 return null;
               },

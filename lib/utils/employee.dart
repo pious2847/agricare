@@ -6,12 +6,12 @@ class EmployeeCrud {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
 
   Future<int> addEmployee(Employee employee) async {
-    Database db = await _dbHelper.database;
+    Database db = await _dbHelper.initDb();
     return await db.insert('employee', employee.toMap());
   }
 
   Future<List<Employee>> getEmployees() async {
-    Database db = await _dbHelper.database;
+    Database db = await _dbHelper.initDb();
     var employees = await db.query('employee');
     return employees.map((employee) => Employee(
       id: employee['id'] as int,
@@ -23,12 +23,12 @@ class EmployeeCrud {
   }
 
   Future<int> updateEmployee(Employee employee) async {
-    Database db = await _dbHelper.database;
+    Database db = await _dbHelper.initDb();
     return await db.update('employee', employee.toMap(), where: 'id = ?', whereArgs: [employee.id]);
   }
 
   Future<int> deleteEmployee(int id) async {
-    Database db = await _dbHelper.database;
+    Database db = await _dbHelper.initDb();
     return await db.delete('employee', where: 'id = ?', whereArgs: [id]);
   }
 }

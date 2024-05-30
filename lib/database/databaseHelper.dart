@@ -1,3 +1,4 @@
+import 'package:agricare/models/admin.dart';
 import 'package:agricare/utils/employee.dart';
 import 'package:agricare/utils/farm.dart';
 import 'package:agricare/utils/machinery.dart';
@@ -29,20 +30,20 @@ class DatabaseHelper {
   //   _db ??= await _initDb();
   //   return _db!;
   // }
-  Future<Database> get database async {
-    if (_db != null) return _db!;
-    _db = await _initDb();
-    return _db!;
-  }
+  // Future<Database> get database async {
+  //   if (_db != null) return _db!;
+  //   _db = await _initDb();
+  //   return _db!;
+  // }
 
-  Future<Database> _initDb() async {
+  Future<Database> initDb() async {
     String path = join(await getDatabasesPath(), 'farm_management.db');
     return await openDatabase(path, version: 1, onCreate: _createDb);
   }
 
   void _createDb(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE IF NOT EXIST user(
+      CREATE TABLE IF NOT EXIST admin(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL,
         password TEXT NOT NULL
@@ -109,4 +110,11 @@ class DatabaseHelper {
       )
     ''');
   }
+
+// CRUD operations for User
+  Future<int> addAdmin(Admin admin) async {
+    Database db = await instance.initDb();
+    return await db.insert('admin', admin.toMap());
+  }
+
 }

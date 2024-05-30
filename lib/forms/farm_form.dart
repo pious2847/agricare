@@ -37,27 +37,27 @@ class _FarmModalState extends State<FarmModal> {
     super.dispose();
   }
 
-  Future<void> _saveFarm() async {
-    if (_formKey.currentState!.validate()) {
-      final farm = Farm(
-        id: widget.farm?.id,
-        name: _nameController.text,
-        location: _locationController.text,
-        farmproduce: _farmProduceController.text,
-      );
+final databaseHelper = DatabaseHelper.instance.farmCrud;
 
-      final databaseHelper = FarmCrud();
-      if (widget.farm == null) {
-          
-        await databaseHelper.addFarm(farm);
-      } else {
-        await databaseHelper.updateFarm(farm);
-      }
+Future<void> _saveFarm() async {
+  if (_formKey.currentState!.validate()) {
+    final farm = Farm(
+      id: widget.farm?.id,
+      name: _nameController.text,
+      location: _locationController.text,
+      farmproduce: _farmProduceController.text,
+    );
 
-      // Close the modal after saving
-      Navigator.of(context).pop();
+    if (widget.farm == null) {
+      await databaseHelper.addFarm(farm);
+    } else {
+      await databaseHelper.updateFarm(farm);
     }
+
+    // Close the modal after saving
+    Navigator.of(context).pop();
   }
+}
 
   @override
   Widget build(BuildContext context) {
