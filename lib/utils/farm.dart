@@ -17,7 +17,7 @@ class FarmCrud {
       id: farm['id'] as int,
       name: farm['name'] as String,
       location: farm['location'] as String, 
-      farmproduce: '',
+      farmproduce: farm['farmproduce'] as String,
     )).toList();
   }
 
