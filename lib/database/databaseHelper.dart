@@ -9,7 +9,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DatabaseHelper {
-   // Private constructor
+  // Private constructor
   DatabaseHelper._instance();
 
   // Static field for the singleton instance
@@ -25,8 +25,13 @@ class DatabaseHelper {
   final supplies = SuppliesCrud();
   final requestedcrud = RequestedCrud();
 
+  // Future<Database> get database async {
+  //   _db ??= await _initDb();
+  //   return _db!;
+  // }
   Future<Database> get database async {
-    _db ??= await _initDb();
+    if (_db != null) return _db!;
+    _db = await _initDb();
     return _db!;
   }
 
@@ -37,15 +42,16 @@ class DatabaseHelper {
 
   void _createDb(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE user(
+      CREATE TABLE IF NOT EXIST user(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL,
         password TEXT NOT NULL
       )
     ''');
 
+    print('user table created');
     await db.execute('''
-      CREATE TABLE farm(
+      CREATE TABLE IF NOT EXIST farm(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         location TEXT NOT NULL
@@ -53,7 +59,7 @@ class DatabaseHelper {
     ''');
 
     await db.execute('''
-      CREATE TABLE machinery(
+      CREATE TABLE IF NOT EXIST machinery(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         tagNumber TEXT NOT NULL
@@ -61,7 +67,7 @@ class DatabaseHelper {
     ''');
 
     await db.execute('''
-      CREATE TABLE employee(
+      CREATE TABLE IF NOT EXIST employee(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         contact TEXT NOT NULL,
@@ -73,7 +79,7 @@ class DatabaseHelper {
     ''');
 
     await db.execute('''
-      CREATE TABLE supervisor(
+      CREATE TABLE IF NOT EXIST supervisor(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         contact TEXT NOT NULL,
@@ -84,7 +90,7 @@ class DatabaseHelper {
     ''');
 
     await db.execute('''
-      CREATE TABLE supplies(
+      CREATE TABLE IF NOT EXIST supplies(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         product TEXT NOT NULL,
         stock INTEGER NOT NULL,
@@ -93,7 +99,7 @@ class DatabaseHelper {
     ''');
 
     await db.execute('''
-      CREATE TABLE requested(
+      CREATE TABLE IF NOT EXIST requested(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         product TEXT NOT NULL,
         farmRequesting INTEGER,

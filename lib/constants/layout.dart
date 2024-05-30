@@ -87,6 +87,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
           selected: topIndex,
           onChanged: (index) => setState(() => topIndex = index),
           displayMode: PaneDisplayMode.compact,
+          
           items: items,
           footerItems: [
             PaneItem(

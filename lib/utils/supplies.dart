@@ -13,17 +13,34 @@ class SuppliesCrud {
   Future<List<Supplies>> getSupplies() async {
     Database db = await _dbHelper.database;
     var suppliesList = await db.query('supplies');
-    return suppliesList.map((supplies) => Supplies(
-      id: supplies['id'] as int,
-      product: supplies['product'] as String,
-      stock: supplies['stock'] as int,
-      description: supplies['description'] as String,
-    )).toList();
+    return suppliesList
+        .map((supplies) => Supplies(
+              id: supplies['id'] as int,
+              product: supplies['product'] as String,
+              stock: supplies['stock'] as int,
+              description: supplies['description'] as String,
+            ))
+        .toList();
+  }
+
+  Future<List<Supplies>> getLowStock() async {
+    Database db = await _dbHelper.database;
+    var lowsupplies = await db.query('supplies', where: 'stock <= 10', );
+     return lowsupplies
+        .map((supplies) => Supplies(
+              id: supplies['id'] as int,
+              product: supplies['product'] as String,
+              stock: supplies['stock'] as int,
+              description: supplies['description'] as String,
+            ))
+        .toList();
+    
   }
 
   Future<int> updateSupplies(Supplies supplies) async {
     Database db = await _dbHelper.database;
-    return await db.update('supplies', supplies.toMap(), where: 'id = ?', whereArgs: [supplies.id]);
+    return await db.update('supplies', supplies.toMap(),
+        where: 'id = ?', whereArgs: [supplies.id]);
   }
 
   Future<int> deleteSupplies(int id) async {

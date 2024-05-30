@@ -20,7 +20,6 @@ class FarmCrud {
       farmproduce: farm['farmproduce'] as String,
     )).toList();
   }
-
   Future<int> updateFarm(Farm farm) async {
     Database db = await _dbHelper.database;
     return await db.update('farm', farm.toMap(), where: 'id = ?', whereArgs: [farm.id]);
