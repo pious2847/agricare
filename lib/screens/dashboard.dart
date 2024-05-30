@@ -1,3 +1,4 @@
+import 'package:agricare/forms/employee.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -23,7 +24,14 @@ class _DashboardState extends State<Dashboard> {
               child: Row(
                 children: [
                   TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return EmployeeForm();
+                          },
+                        );
+                      },
                       icon: const Icon(Iconsax.additem_copy),
                       label: const Text('Add Employees')),
                   const SizedBox(
@@ -94,18 +102,17 @@ class _DashboardState extends State<Dashboard> {
                                     Text(
                                       'Total Employees',
                                       style: TextStyle(
-                                          fontSize: 25.0,
-                                          fontWeight: FontWeight.bold,
-                                          ),
-                                    ),                             
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     SizedBox(height: 3.0),
                                     Text(
                                       '60.4%',
                                       style: TextStyle(
                                           fontSize: 54.0,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.amberAccent
-                                          ),
+                                          color: Colors.amberAccent),
                                     ),
                                   ],
                                 ),
@@ -118,7 +125,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   const SizedBox(
                     width: 20.0,
-                  ),           
+                  ),
                   Flexible(
                     flex: 1,
                     child: SizedBox(
@@ -168,9 +175,9 @@ class _DashboardState extends State<Dashboard> {
                                       style: TextStyle(
                                           fontSize: 54.0,
                                           fontWeight: FontWeight.bold,
-                                          color: Color.fromARGB(136, 45, 218, 131)),
+                                          color: Color.fromARGB(
+                                              136, 45, 218, 131)),
                                     ),
-                                    
                                   ],
                                 ),
                               ],
@@ -180,11 +187,10 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                   ),
-                 
                   const SizedBox(
                     width: 20.0,
                   ),
-                    Flexible(
+                  Flexible(
                     flex: 1,
                     child: SizedBox(
                       width: double.infinity,
@@ -233,9 +239,9 @@ class _DashboardState extends State<Dashboard> {
                                       style: TextStyle(
                                           fontSize: 54.0,
                                           fontWeight: FontWeight.bold,
-                                          color: Color.fromARGB(188, 100, 218, 45)),
+                                          color: Color.fromARGB(
+                                              188, 100, 218, 45)),
                                     ),
-                                    
                                   ],
                                 ),
                               ],
@@ -245,11 +251,12 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                   ),
-                 
                 ],
               ),
-              const SizedBox(height: 20,),
-                Row(
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
                 children: [
                   Flexible(
                     flex: 1,
@@ -287,18 +294,17 @@ class _DashboardState extends State<Dashboard> {
                                     Text(
                                       'Total Farms',
                                       style: TextStyle(
-                                          fontSize: 25.0,
-                                          fontWeight: FontWeight.bold,
-                                          ),
-                                    ),                             
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                     SizedBox(height: 3.0),
                                     Text(
                                       '60.4%',
                                       style: TextStyle(
                                           fontSize: 54.0,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.amberAccent
-                                          ),
+                                          color: Colors.amberAccent),
                                     ),
                                   ],
                                 ),
@@ -311,7 +317,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   const SizedBox(
                     width: 20.0,
-                  ),           
+                  ),
                   Flexible(
                     flex: 1,
                     child: SizedBox(
@@ -361,9 +367,9 @@ class _DashboardState extends State<Dashboard> {
                                       style: TextStyle(
                                           fontSize: 54.0,
                                           fontWeight: FontWeight.bold,
-                                          color: Color.fromARGB(136, 45, 218, 131)),
+                                          color: Color.fromARGB(
+                                              136, 45, 218, 131)),
                                     ),
-                                    
                                   ],
                                 ),
                               ],
