@@ -1,4 +1,3 @@
-import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -52,7 +51,7 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           Column(
@@ -74,13 +73,13 @@ class _DashboardState extends State<Dashboard> {
                             borderRadius: BorderRadius.circular(16),
                             color: const Color.fromARGB(80, 0, 0, 0),
                           ),
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           child: Row(
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'RPG Stats',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -100,10 +99,10 @@ class _DashboardState extends State<Dashboard> {
                                               fontSize: 25.0,
                                               color: Colors.blue),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10.0,
                                         ),
-                                        Text(
+                                        const Text(
                                           'Level 5 Warrior',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w400,
@@ -116,12 +115,12 @@ class _DashboardState extends State<Dashboard> {
                                     height: 0.5,
                                     width:
                                         MediaQuery.of(context).size.width * 0.2,
-                                    color: Color.fromARGB(255, 206, 206, 206),
+                                    color: const Color.fromARGB(255, 206, 206, 206),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10.0,
                                   ),
-                                  Row(
+                                  const Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -164,10 +163,10 @@ class _DashboardState extends State<Dashboard> {
                                   )
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20.0,
                               ),
-                              CircleAvatar(
+                              const CircleAvatar(
                                 backgroundImage:
                                     AssetImage('assets/avatar.jpg'),
                                 radius: 60.0,
@@ -178,7 +177,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20.0,
                   ),
                   Flexible(
@@ -196,13 +195,13 @@ class _DashboardState extends State<Dashboard> {
                             borderRadius: BorderRadius.circular(16),
                             color: const Color.fromARGB(80, 0, 0, 0),
                           ),
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           child: Row(
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Quest Progress',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -224,10 +223,10 @@ class _DashboardState extends State<Dashboard> {
                                               fontSize: 25.0,
                                               color: Colors.greenAccent),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10.0,
                                         ),
-                                        Text(
+                                        const Text(
                                           'Ongoing',
                                           style: TextStyle(
                                               fontWeight: FontWeight.w400,
@@ -239,12 +238,12 @@ class _DashboardState extends State<Dashboard> {
                                   Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.2,
-                                    color: Color.fromARGB(255, 206, 206, 206),
+                                    color: const Color.fromARGB(255, 206, 206, 206),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10.0,
                                   ),
-                                  Row(
+                                  const Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment:
@@ -289,10 +288,10 @@ class _DashboardState extends State<Dashboard> {
                                   )
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20.0,
                               ),
-                              CircleAvatar(
+                              const CircleAvatar(
                                 backgroundImage:
                                     AssetImage('assets/avatar1.jpeg'),
                                 radius: 60.0,
