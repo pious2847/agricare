@@ -3,7 +3,7 @@ class Admin {
   late String username;
   late String password;
 
-  Admin({this.id, required this.username, required this.password,} );
+  Admin({this.id, required this.username, required this.password, } );
 
   Map<String, dynamic> toMap() {
     return {

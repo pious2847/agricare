@@ -41,11 +41,11 @@ class _MachineryModalState extends State<MachineryModal> {
         tagNumber: _tagNumberController.text,
       );
 
-      final databaseHelper = MachineryCrud();
+      final databaseHelper = DatabaseHelper.instance;
       if (widget.machinery == null) {
-        await databaseHelper.addMachinery(machinery);
+        await databaseHelper.machineryCrud.addMachinery(machinery);
       } else {
-        await databaseHelper.updateMachinery(machinery);
+        await databaseHelper.machineryCrud.updateMachinery(machinery);
       }
 
       // Close the modal after saving

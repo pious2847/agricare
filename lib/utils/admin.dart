@@ -11,7 +11,7 @@ class UserCrud {
     return await db.insert('admin', admin.toMap());
   }
 
-  Future<List<Admin>> getUsers() async {
+  Future<List<Admin>> getAdmin() async {
     Database db = await _dbHelper.database;
     var users = await db.query('admin');
     return users.map((admin) => Admin(
@@ -21,12 +21,12 @@ class UserCrud {
     )).toList();
   }
 
-  Future<int> updateUser(Admin admin) async {
+  Future<int> updateAdmin(Admin admin) async {
     Database db = await _dbHelper.database;
     return await db.update('admin', admin.toMap(), where: 'id = ?', whereArgs: [admin.id]);
   }
 
-  Future<int> deleteUser(int id) async {
+  Future<int> deleteAdmin(int id) async {
     Database db = await _dbHelper.database;
     return await db.delete('admin', where: 'id = ?', whereArgs: [id]);
   }

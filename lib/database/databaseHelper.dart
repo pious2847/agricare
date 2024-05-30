@@ -4,7 +4,7 @@ import 'package:agricare/utils/machinery.dart';
 import 'package:agricare/utils/requested.dart';
 import 'package:agricare/utils/supervisor.dart';
 import 'package:agricare/utils/supplies.dart';
-import 'package:agricare/utils/user.dart';
+import 'package:agricare/utils/admin.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
