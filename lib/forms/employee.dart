@@ -30,9 +30,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
     _nameController.text = widget.employee?.name ?? '';
     _contactController.text = widget.employee?.contact ?? '';
     _selectedFarmId = widget.employee?.farmAssigned;
-    _selectedMachineIds = widget.employee?.machineAssigned.map((e) => e).toList() ?? [];
-
-    // _selectedMachineIds = widget.employee?.machineAssigned ?? [];
+    _selectedMachineIds = widget.employee?.machineAssigned ?? [];
     _loadFarms();
     _loadMachines();
   }
@@ -158,3 +156,4 @@ class _EmployeeFormState extends State<EmployeeForm> {
     );
   }
 }
+
