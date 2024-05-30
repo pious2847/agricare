@@ -9,10 +9,14 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DatabaseHelper {
+   // Private constructor
+  DatabaseHelper._instance();
+
+  // Static field for the singleton instance
   static final DatabaseHelper instance = DatabaseHelper._instance();
+
   static Database? _db;
 
-  DatabaseHelper._instance();
   final admincrud = UserCrud();
   final employeeCrud = EmployeeCrud();
   final supervisorcrud = SupervisorCrud();
