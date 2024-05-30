@@ -17,7 +17,7 @@ class EmployeeCrud {
       id: employee['id'] as int,
       name: employee['name'] as String,
       contact: employee['contact'] as String,
-      machineAssigned: employee['machineAssigned'] as int,
+      machineAssigned: employee['machineAssigned'] as List<int>,
       farmAssigned: employee['farmAssigned'] as int,
     )).toList();
   }

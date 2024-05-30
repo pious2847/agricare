@@ -3,17 +3,6 @@ import 'package:agricare/models/farm.dart';
 import 'package:agricare/utils/farm.dart';
 import 'package:flutter/material.dart';
 
-Future<void> showFarmModal(BuildContext context, {Farm? farm}) async {
-  final navigator = Navigator.of(context);
-  await showModalBottomSheet(
-    isScrollControlled: true,
-    context: context,
-    builder: (BuildContext context) {
-      return FarmModal(farm: farm);
-    },
-  );
-  navigator.pop(); // Close the modal when it's dismissed
-}
 
 class FarmModal extends StatefulWidget {
   final Farm? farm;
@@ -72,14 +61,9 @@ class _FarmModalState extends State<FarmModal> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-        top: 16.0,
-        left: 16.0,
-        right: 16.0,
-      ),
-      child: Form(
+    return AlertDialog(
+      title: const Text('Add Farm'),
+      content: Form(
         key: _formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,

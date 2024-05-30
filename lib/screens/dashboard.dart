@@ -1,4 +1,8 @@
 import 'package:agricare/forms/employee.dart';
+import 'package:agricare/forms/farm_form.dart';
+import 'package:agricare/forms/machinery_modal.dart';
+import 'package:agricare/models/farm.dart';
+import 'package:agricare/models/machinery.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -10,6 +14,8 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,14 +51,28 @@ class _DashboardState extends State<Dashboard> {
                     width: 10,
                   ),
                   TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const FarmModal();
+                          },
+                        );
+                      },
                       icon: const Icon(Iconsax.additem_copy),
                       label: const Text('Add Farm')),
                   const SizedBox(
                     width: 10,
                   ),
                   TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const MachineryModal();
+                          },
+                        );
+                      },
                       icon: const Icon(Iconsax.additem_copy),
                       label: const Text('Add Machinery')),
                 ],

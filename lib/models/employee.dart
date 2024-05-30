@@ -2,10 +2,10 @@ class Employee {
   int? id;
   String name;
   String contact;
-  int? machineAssigned;
+   final List<int> machineAssigned; // This should be a list
   int? farmAssigned;
 
-  Employee({this.id, required this.name, required this.contact, this.machineAssigned, this.farmAssigned});
+  Employee({this.id, required this.name, required this.contact, required this.machineAssigned, this.farmAssigned});
 
   Map<String, dynamic> toMap() {
     return {
