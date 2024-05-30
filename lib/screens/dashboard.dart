@@ -60,7 +60,7 @@ class _DashboardState extends State<Dashboard> {
                 children: [
                   Flexible(
                     flex: 1,
-                    child: Container(
+                    child: SizedBox(
                       width: double.infinity,
                       child: Card(
                         elevation: 4,
@@ -70,12 +70,12 @@ class _DashboardState extends State<Dashboard> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: Color.fromARGB(136, 45, 218, 131),
+                            color: const Color.fromARGB(136, 45, 218, 131),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
+                          child: const Padding(
+                            padding: EdgeInsets.all(10.0),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Icon(
                                   Icons.card_giftcard_outlined,
@@ -123,12 +123,13 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20.0,
                   ),
+                  
                   Flexible(
                     flex: 1,
-                    child: Container(
+                    child: SizedBox(
                       width: double.infinity,
                       child: Card(
                         elevation: 4,
@@ -140,8 +141,8 @@ class _DashboardState extends State<Dashboard> {
                             borderRadius: BorderRadius.circular(16),
                             color: Colors.amberAccent,
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
+                          child: const Padding(
+                            padding: EdgeInsets.all(10.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -194,12 +195,12 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20.0,
                   ),
                   Flexible(
                     flex: 1,
-                    child: Container(
+                    child: SizedBox(
                       width: double.infinity,
                       child: Card(
                         elevation: 4,
@@ -211,7 +212,7 @@ class _DashboardState extends State<Dashboard> {
                             borderRadius: BorderRadius.circular(16),
                             color: const Color.fromARGB(80, 0, 0, 0),
                           ),
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -240,6 +241,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                   ),
+                
                 ],
               ),
             ],

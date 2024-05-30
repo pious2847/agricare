@@ -12,7 +12,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FluentApp(
-      title: 'Flutter Demo',
       theme: FluentThemeData(brightness: Brightness.light),
       debugShowCheckedModeBanner: false,
       home: const LayoutScreen(),
