@@ -3,9 +3,17 @@ import 'package:agricare/models/admin.dart';
 import 'package:sqflite/sqflite.dart';
 
 class UserCrud {
-  final DatabaseHelper _dbHelper = DatabaseHelper.instance;
-
+  // final DatabaseHelper _dbHelper = DatabaseHelper.instance;
+     final DatabaseHelper _dbHelper;
+    UserCrud(this._dbHelper);
   
+
+    // CRUD operations for User
+  Future<int> addAdmin(Admin admin) async {
+    Database db = await _dbHelper.initDb();
+      print('Admin Data saved ${admin.toMap()}');
+    return await db.insert('admin', admin.toMap());
+  }
   Future<List<Admin>> getAdmin() async {
     Database db = await _dbHelper.initDb();
     var users = await db.query('admin');

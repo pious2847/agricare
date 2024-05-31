@@ -3,7 +3,10 @@ import 'package:agricare/models/employee.dart';
 import 'package:sqflite/sqflite.dart';
 
 class EmployeeCrud {
-  final DatabaseHelper _dbHelper = DatabaseHelper.instance;
+  // final DatabaseHelper _dbHelper = DatabaseHelper.instance;
+      final DatabaseHelper _dbHelper;
+    EmployeeCrud(this._dbHelper);
+  
 
   Future<int> addEmployee(Employee employee) async {
     Database db = await _dbHelper.initDb();

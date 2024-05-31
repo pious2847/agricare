@@ -1,8 +1,6 @@
-import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/models/farm.dart';
 import 'package:agricare/utils/farm.dart';
 import 'package:flutter/material.dart';
-
 
 class FarmModal extends StatefulWidget {
   final Farm? farm;
@@ -18,6 +16,8 @@ class _FarmModalState extends State<FarmModal> {
   late TextEditingController _nameController;
   late TextEditingController _locationController;
   late TextEditingController _farmProduceController;
+
+  final _farmUtils = FarmCrud();
 
   @override
   void initState() {
@@ -37,27 +37,25 @@ class _FarmModalState extends State<FarmModal> {
     super.dispose();
   }
 
-final databaseHelper = DatabaseHelper.instance.farmCrud;
+  Future<void> _saveFarm() async {
+    if (_formKey.currentState!.validate()) {
+      final farm = Farm(
+        id: widget.farm?.id,
+        name: _nameController.text,
+        location: _locationController.text,
+        farmproduce: _farmProduceController.text,
+      );
 
-Future<void> _saveFarm() async {
-  if (_formKey.currentState!.validate()) {
-    final farm = Farm(
-      id: widget.farm?.id,
-      name: _nameController.text,
-      location: _locationController.text,
-      farmproduce: _farmProduceController.text,
-    );
+      if (widget.farm == null) {
+        await _farmUtils.addFarm(farm);
+      } else {
+        await _farmUtils.updateFarm(farm);
+      }
 
-    if (widget.farm == null) {
-      await databaseHelper.addFarm(farm);
-    } else {
-      await databaseHelper.updateFarm(farm);
+      // Close the modal after saving
+      Navigator.of(context).pop();
     }
-
-    // Close the modal after saving
-    Navigator.of(context).pop();
   }
-}
 
   @override
   Widget build(BuildContext context) {

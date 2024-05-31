@@ -42,12 +42,12 @@ class _AdminModalState extends State<AdminModal> {
         username: _usernameController.text,
         password: _passwordController.text,
       );
-
+      
       final databaseHelper = DatabaseHelper.instance;
 
       if (widget.admin == null) {
           
-        await databaseHelper.addAdmin(admin);
+        await databaseHelper.admincrud.addAdmin(admin);
       } else {
         await databaseHelper.admincrud.updateAdmin(admin);
       }

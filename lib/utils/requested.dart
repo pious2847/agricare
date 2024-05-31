@@ -3,8 +3,11 @@ import 'package:agricare/models/requested.dart';
 import 'package:sqflite/sqflite.dart';
 
 class RequestedCrud {
-  final DatabaseHelper _dbHelper = DatabaseHelper.instance;
+  // final DatabaseHelper _dbHelper = DatabaseHelper.instance;
 
+      final DatabaseHelper _dbHelper;
+    RequestedCrud(this._dbHelper);
+  
   Future<int> addRequested(Requested requested) async {
     Database db = await _dbHelper.initDb();
     return await db.insert('requested', requested.toMap());

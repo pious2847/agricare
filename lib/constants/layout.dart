@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:agricare/screens/dashboard.dart';
+import 'package:agricare/screens/emplyee.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -26,28 +27,46 @@ class _LayoutScreenState extends State<LayoutScreen> {
     ),
     PaneItemSeparator(),
     PaneItem(
-      icon: const Icon(FluentIcons.issue_tracking),
-      title: const Text('Track orders'),
-      infoBadge: const InfoBadge(source: Text('8')),
+      icon: const Icon(FluentIcons.user_event),
+      title: const Text('Employee'),
       body: const _NavigationBodyItem(
-        header: 'Badging',
-        content: Text(
-          'Badging is a non-intrusive and intuitive way to display '
-          'notifications or bring focus to an area within an app - '
-          'whether that be for notifications, indicating new content, '
-          'or showing an alert. An InfoBadge is a small piece of UI '
-          'that can be added into an app and customized to display a '
-          'number, icon, or a simple dot.',
-        ),
+        header: 'Employee',
+        content: EmployeePage(),
       ),
     ),
     PaneItem(
-      icon: const Icon(FluentIcons.disable_updates),
-      title: const Text('Disabled Item'),
-      body: const _NavigationBodyItem(content: Text('Disabled Item')),
-      enabled: false,
+      icon: const Icon(FluentIcons.user_gauge),
+      title: const Text('Superisor'),
+      body: const _NavigationBodyItem(
+        header: 'Superisor',
+        content: EmployeePage(),
+      ),
     ),
-    
+    PaneItem(
+      icon: const Icon(FluentIcons.machine_learning),
+      title: const Text('Machinery'),
+      body: const _NavigationBodyItem(
+        header: 'Machinery',
+        content: EmployeePage(),
+      ),
+    ),
+    PaneItem(
+      icon: const Icon(FluentIcons.product_release),
+      title: const Text('Supplies'),
+      body: const _NavigationBodyItem(
+        header: 'Supplies',
+        content: EmployeePage(),
+      ),
+    ),
+    PaneItem(
+      icon: const Icon(FluentIcons.file_request),
+      title: const Text('Requested'),
+      body: const _NavigationBodyItem(
+        header: 'Requested',
+        content: EmployeePage(),
+      ),
+    ),
+
     PaneItemExpander(
       icon: const Icon(FluentIcons.account_management),
       title: const Text('Account'),
@@ -87,7 +106,6 @@ class _LayoutScreenState extends State<LayoutScreen> {
           selected: topIndex,
           onChanged: (index) => setState(() => topIndex = index),
           displayMode: PaneDisplayMode.compact,
-          
           items: items,
           footerItems: [
             PaneItem(
@@ -95,7 +113,6 @@ class _LayoutScreenState extends State<LayoutScreen> {
               title: const Text('Settings'),
               body: const _NavigationBodyItem(content: Text('Settings')),
             ),
-            
           ],
         ),
       ),

@@ -10,35 +10,37 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DatabaseHelper {
-  // Private constructor
-  DatabaseHelper._instance();
+ DatabaseHelper._instance() {
+    _initializeInstances();
+  }
 
   // Static field for the singleton instance
   static final DatabaseHelper instance = DatabaseHelper._instance();
 
   static Database? _db;
 
-  final admincrud = UserCrud();
-  final employeeCrud = EmployeeCrud();
-  final supervisorcrud = SupervisorCrud();
-  final farmCrud = FarmCrud();
-  final machineryCrud = MachineryCrud();
-  final supplies = SuppliesCrud();
-  final requestedcrud = RequestedCrud();
-
-  // Future<Database> get database async {
-  //   _db ??= await _initDb();
-  //   return _db!;
-  // }
-  // Future<Database> get database async {
-  //   if (_db != null) return _db!;
-  //   _db = await _initDb();
-  //   return _db!;
-  // }
+  late final UserCrud admincrud;
+  late final EmployeeCrud employeeCrud;
+  late final SupervisorCrud supervisorcrud;
+  late final FarmCrud farmCrud;
+  late final MachineryCrud machineryCrud;
+  late final SuppliesCrud supplies;
+  late final RequestedCrud requestedcrud;
 
   Future<Database> initDb() async {
     String path = join(await getDatabasesPath(), 'farm_management.db');
-    return await openDatabase(path, version: 1, onCreate: _createDb);
+    _db ??= await openDatabase(path, version: 1, onCreate: _createDb, singleInstance: true,);
+    return _db!;
+  }
+
+  void _initializeInstances() {
+    admincrud = UserCrud(instance);
+    employeeCrud = EmployeeCrud(instance);
+    supervisorcrud = SupervisorCrud(instance);
+    farmCrud = FarmCrud();
+    machineryCrud = MachineryCrud(instance);
+    supplies = SuppliesCrud(instance);
+    requestedcrud = RequestedCrud(instance);
   }
 
   void _createDb(Database db, int version) async {
@@ -53,9 +55,9 @@ class DatabaseHelper {
     print('user table created');
     await db.execute('''
       CREATE TABLE IF NOT EXIST farm(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        location TEXT NOT NULL
+        "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "name" TEXT NOT NULL,
+        "location" TEXT NOT NULL
       )
     ''');
 
@@ -111,10 +113,6 @@ class DatabaseHelper {
     ''');
   }
 
-// CRUD operations for User
-  Future<int> addAdmin(Admin admin) async {
-    Database db = await instance.initDb();
-    return await db.insert('admin', admin.toMap());
-  }
+
 
 }

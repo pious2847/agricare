@@ -3,7 +3,11 @@ import 'package:agricare/models/supervisor.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SupervisorCrud {
-  final DatabaseHelper _dbHelper = DatabaseHelper.instance;
+  // final DatabaseHelper _dbHelper = DatabaseHelper.instance;
+
+     final DatabaseHelper _dbHelper;
+    SupervisorCrud(this._dbHelper);
+  
 
   Future<int> addSupervisor(Supervisor supervisor) async {
     Database db = await _dbHelper.initDb();
