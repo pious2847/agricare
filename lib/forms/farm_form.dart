@@ -1,6 +1,7 @@
 import 'package:agricare/models/farm.dart';
 import 'package:agricare/utils/farm.dart';
 import 'package:flutter/material.dart';
+import 'package:agricare/database/databaseHelper.dart';
 
 class FarmModal extends StatefulWidget {
   final Farm? farm;
@@ -17,7 +18,8 @@ class _FarmModalState extends State<FarmModal> {
   late TextEditingController _locationController;
   late TextEditingController _farmProduceController;
 
-  final _farmUtils = FarmCrud();
+  // Use the farmCrudInstance getter
+  late final FarmCrud _farmCrud = DatabaseHelper.instance.farmCrudInstance;
 
   @override
   void initState() {
@@ -47,9 +49,9 @@ class _FarmModalState extends State<FarmModal> {
       );
 
       if (widget.farm == null) {
-        await _farmUtils.addFarm(farm);
+        await _farmCrud.addFarm(farm);
       } else {
-        await _farmUtils.updateFarm(farm);
+        await _farmCrud.updateFarm(farm);
       }
 
       // Close the modal after saving

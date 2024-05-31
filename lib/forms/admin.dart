@@ -60,7 +60,7 @@ class _AdminModalState extends State<AdminModal> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Add Farm'),
+      title: const Text('Add Admin'),
       content: Form(
         key: _formKey,
         child: Column(

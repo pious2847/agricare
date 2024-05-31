@@ -1,4 +1,8 @@
-import 'package:agricare/models/admin.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+
+// Import your other dependencies
 import 'package:agricare/utils/employee.dart';
 import 'package:agricare/utils/farm.dart';
 import 'package:agricare/utils/machinery.dart';
@@ -6,15 +10,10 @@ import 'package:agricare/utils/requested.dart';
 import 'package:agricare/utils/supervisor.dart';
 import 'package:agricare/utils/supplies.dart';
 import 'package:agricare/utils/admin.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 
 class DatabaseHelper {
- DatabaseHelper._instance() {
-    _initializeInstances();
-  }
+  DatabaseHelper._instance();
 
-  // Static field for the singleton instance
   static final DatabaseHelper instance = DatabaseHelper._instance();
 
   static Database? _db;
@@ -27,20 +26,53 @@ class DatabaseHelper {
   late final SuppliesCrud supplies;
   late final RequestedCrud requestedcrud;
 
-  Future<Database> initDb() async {
-    String path = join(await getDatabasesPath(), 'farm_management.db');
-    _db ??= await openDatabase(path, version: 1, onCreate: _createDb, singleInstance: true,);
+  Future<Database> get database async {
+    _db ??= await initDb();
     return _db!;
   }
 
-  void _initializeInstances() {
-    admincrud = UserCrud(instance);
-    employeeCrud = EmployeeCrud(instance);
-    supervisorcrud = SupervisorCrud(instance);
+  Future<Database> initDb() async {
+    // Initialize the database factory for sqflite_common_ffi
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+
+    String path = join(await getDatabasesPath(), 'farm_management.db');
+    return await openDatabase(path, version: 1, onCreate: _createDb, singleInstance: true);
+  }
+
+  UserCrud get adminCrudInstance {
+    admincrud = UserCrud(this);
+    return admincrud;
+  }
+
+  EmployeeCrud get employeeCrudInstance {
+    employeeCrud = EmployeeCrud(this);
+    return employeeCrud;
+  }
+
+  SupervisorCrud get supervisorCrudInstance {
+    supervisorcrud = SupervisorCrud(this);
+    return supervisorcrud;
+  }
+
+  FarmCrud get farmCrudInstance {
     farmCrud = FarmCrud();
-    machineryCrud = MachineryCrud(instance);
-    supplies = SuppliesCrud(instance);
-    requestedcrud = RequestedCrud(instance);
+    return farmCrud;
+  }
+
+  MachineryCrud get machineryCrudInstance {
+    machineryCrud = MachineryCrud(this);
+    return machineryCrud;
+  }
+
+  SuppliesCrud get suppliesCrudInstance {
+    supplies = SuppliesCrud(this);
+    return supplies;
+  }
+
+  RequestedCrud get requestedCrudInstance {
+    requestedcrud = RequestedCrud(this);
+    return requestedcrud;
   }
 
   void _createDb(Database db, int version) async {
@@ -112,7 +144,4 @@ class DatabaseHelper {
       )
     ''');
   }
-
-
-
 }
