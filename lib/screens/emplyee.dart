@@ -1,6 +1,8 @@
 import 'package:agricare/database/databaseHelper.dart';
+import 'package:agricare/forms/employee.dart';
 import 'package:agricare/models/employee.dart';
 import 'package:agricare/utils/employee.dart';
+import 'package:agricare/utils/farm.dart';
 import 'package:agricare/utils/machinery.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +14,11 @@ class EmployeePage extends StatefulWidget {
 }
 
 class _EmployeePageState extends State<EmployeePage> {
-  late final EmployeeCrud _employeeCrud = DatabaseHelper.instance.employeeCrudInstance;
-  late final MachineryCrud _machineryCrud = DatabaseHelper.instance.machineryCrud;
+  late final EmployeeCrud _employeeCrud =
+      DatabaseHelper.instance.employeeCrudInstance;
+  late final FarmCrud _farmCrud = DatabaseHelper.instance.farmCrudInstance;
+  late final MachineryCrud _machineryCrud =
+      DatabaseHelper.instance.machineryCrudInstance;
 
   late List<Employee> _employees = [];
 
@@ -34,7 +39,13 @@ class _EmployeePageState extends State<EmployeePage> {
   }
 
   void _editEmployee(Employee employee) {
-    // Open the EmployeeForm for editing here
+    Navigator.of(context)
+        .push(
+          MaterialPageRoute(
+            builder: (context) => EmployeeForm(employee: employee),
+          ),
+        )
+        .then((_) => _loadEmployees());
   }
 
   @override
@@ -44,49 +55,54 @@ class _EmployeePageState extends State<EmployeePage> {
       child: Column(
         children: [
           if (_employees.isNotEmpty)
-            Expanded(
-              child: SingleChildScrollView(
-                child: DataTable(
-                  columns: const [
-                    DataColumn(label: Text('Name')),
-                    DataColumn(label: Text('Contact')),
-                    DataColumn(label: Text('Machinery Assigned')),
-                    DataColumn(label: Text('Farm Assigned')),
-                    DataColumn(label: Text('Actions')),
-                  ],
-                  rows: _employees.map((employee) {
-                    final machineNames = employee.machinery_id?.map((id) {
-                      final machine = _machineryCrud.getMachineById(id);
-                      return machine?.name ?? '';
-                    }).join(', ') ?? '';
+          Text('hellow'),
+            // Expanded(
+            //   child: SingleChildScrollView(
+            //     child: DataTable(
+            //       columns: const [
+            //         DataColumn(label: Text('Name')),
+            //         DataColumn(label: Text('Contact')),
+            //         DataColumn(label: Text('Machinery Assigned')),
+            //         DataColumn(label: Text('Farm Assigned')),
+            //         DataColumn(label: Text('Actions')),
+            //       ],
+            //       rows: _employees.map((employee) {
+            //         final machineNames = employee.machinery_id?.map((id) {
+            //               final machine = _machineryCrud.getMachineById(id);
+            //               return machine?.name ?? '';
+            //             }).join(', ') ??
+            //             '';
 
-                    final farmName = _farmCrud.getFarmById(employee.farmAssigned)?.name ?? '';
+            //         final farmName =
+            //             _farmCrud.getFarmName(employee.farmAssigned);
 
-                    return DataRow(
-                      cells: [
-                        DataCell(Text(employee.name)),
-                        DataCell(Text(employee.contact)),
-                        DataCell(Text(machineNames)),
-                        DataCell(Text(farmName)),
-                        DataCell(Column(children: [
-                           IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () => _editEmployee(employee),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () => _deleteEmployee(employee.id!),
-                            ),
-                        ],))
-                       
-                      ],
-                    );
-                  }).toList(),
-                ),
-              ),
-            )
-          else
-            const Text('No records found'),
+            //         return DataRow(
+            //           cells: [
+            //             DataCell(Text(employee.name)),
+            //             DataCell(Text(employee.contact)),
+            //             DataCell(Text(machineNames)),
+            //             DataCell(Text(farmName as String)),
+            //             DataCell(Row(
+            //               children: [
+            //                 IconButton(
+            //                   icon: const Icon(Icons.edit),
+            //                   onPressed: () => _editEmployee(employee),
+            //                 ),
+            //                 IconButton(
+            //                   icon: const Icon(Icons.delete),
+            //                   onPressed: () => _deleteEmployee(employee.id!),
+            //                 ),
+            //               ],
+            //             )),
+            //           ],
+            //         );
+            //       }).toList(),
+            //     ),
+            //   ),
+            // )
+         
+          // else
+          //   const Text('No records found'),
         ],
       ),
     );

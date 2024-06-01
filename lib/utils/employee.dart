@@ -20,7 +20,7 @@ class EmployeeCrud {
     return employeeId;
   }
 
-  Future<List<Employee>> getEmployees() async {
+Future<List<Employee>> getEmployees() async {
     Database db = await _dbHelper.initDb();
     var employees = await db.query(
       'employee e LEFT JOIN employee_machinery em ON e.id = em.employee_id',

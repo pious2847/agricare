@@ -3,7 +3,6 @@ import 'package:agricare/models/machinery.dart';
 import 'package:agricare/utils/machinery.dart';
 import 'package:flutter/material.dart';
 
-
 class MachineryModal extends StatefulWidget {
   final Machinery? machinery;
 
@@ -17,10 +16,10 @@ class _MachineryModalState extends State<MachineryModal> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _nameController;
   late TextEditingController _tagNumberController;
-    
-    // Use the machineryCrudInstance getter
-  late final MachineryCrud _machineryCrud = DatabaseHelper.instance.machineryCrudInstance;
 
+  // Use the machineryCrudInstance getter
+  late final MachineryCrud _machineryCrud =
+      DatabaseHelper.instance.machineryCrudInstance;
 
   @override
   void initState() {
@@ -45,19 +44,30 @@ class _MachineryModalState extends State<MachineryModal> {
         tagNumber: _tagNumberController.text,
       );
 
-      if (widget.machinery == null) {
-        await _machineryCrud.addMachinery(machinery);
-      Navigator.of(context).pop();
-      } else {
-        await _machineryCrud.updateMachinery(machinery);
-      Navigator.of(context).pop();
-      }    }
+      try {
+        if (widget.machinery == null) {
+          await _machineryCrud.addMachinery(machinery);
+          setState(() {});
+          print('Machinery added');
+        } else {
+          await _machineryCrud.updateMachinery(machinery);
+          setState(() {});
+        }
+        Navigator.of(context).pop();
+      } catch (e) {
+        // Handle errors appropriately
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Add Machinery'),
+      title:
+          Text(widget.machinery == null ? 'Add Machinery' : 'Edit Machinery'),
       content: Form(
         key: _formKey,
         child: Column(

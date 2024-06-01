@@ -24,7 +24,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
   final _contactController = TextEditingController();
 
   late final FarmCrud _farmCrud = DatabaseHelper.instance.farmCrudInstance;
-  
+
   late final MachineryCrud _machineryCrud =
       DatabaseHelper.instance.machineryCrudInstance;
   late final EmployeeCrud _employeeCrud =
@@ -84,66 +84,71 @@ class _EmployeeFormState extends State<EmployeeForm> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.white,
       title: Text(widget.employee == null ? 'Add Employee' : 'Edit Employee'),
-      content: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a name';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _contactController,
-                decoration: const InputDecoration(labelText: 'Contact'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a contact';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16.0),
-              DropdownButtonFormField<int>(
-                value: _selectedFarmId,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedFarmId = value;
-                  });
-                },
-                items: _farms.map((farm) {
-                  return DropdownMenuItem<int>(
-                    value: farm.id,
-                    child: Text(farm.name),
-                  );
-                }).toList(),
-                decoration: const InputDecoration(labelText: 'Assigned Farm'),
-              ),
-              const SizedBox(height: 16.0),
-              const Text('Select Machinery'),
-              const SizedBox(height: 16.0),
-              CustomMultiSelect(
-                items: _machines.map((machine) {
-                  return MultiSelectItem<int>(machine.id!, machine.name);
-                }).toList(),
-                initialValue: _selectedMachineIds,
-                onSelectionChanged: (selectedValues) {
-                  setState(() {
-                    _selectedMachineIds = selectedValues;
-                  });
-                  print('_selectedMachineIds : $_selectedMachineIds');
-                },
-              ),
-            ],
+      content: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.13,
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextFormField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(labelText: 'Name'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a name';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _contactController,
+                  decoration: const InputDecoration(labelText: 'Contact'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a contact';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16.0),
+                const SizedBox(width: 200.0),
+                DropdownButtonFormField<int>(
+                  value: _selectedFarmId,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedFarmId = value;
+                    });
+                  },
+                  items: _farms.map((farm) {
+                    return DropdownMenuItem<int>(
+                      value: farm.id,
+                      child: Text(farm.name),
+                    );
+                  }).toList(),
+                  decoration: const InputDecoration(labelText: 'Assigned Farm'),
+                ),
+                const SizedBox(height: 16.0),
+                const Text('Select Machinery'),
+                const SizedBox(height: 16.0),
+                CustomMultiSelect(
+                  items: _machines.map((machine) {
+                    return MultiSelectItem<int>(machine.id!, machine.name);
+                  }).toList(),
+                  initialValue: _selectedMachineIds,
+                  onSelectionChanged: (selectedValues) {
+                    setState(() {
+                      _selectedMachineIds = selectedValues;
+                    });
+                    print('_selectedMachineIds : $_selectedMachineIds');
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

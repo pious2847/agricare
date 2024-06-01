@@ -50,13 +50,14 @@ class _FarmModalState extends State<FarmModal> {
 
       if (widget.farm == null) {
         await _farmCrud.addFarm(farm);
-         // Close the modal after saving
-      Navigator.of(context).pop();
+        setState(() {});
+        Navigator.of(context).pop();
         print("Farm iserted $farm");
       } else {
         await _farmCrud.updateFarm(farm);
-         // Close the modal after saving
-      Navigator.of(context).pop();
+        setState(() {});
+        // Close the modal after saving
+        Navigator.of(context).pop();
       }
       // // Close the modal after saving
       // Navigator.of(context).pop();
