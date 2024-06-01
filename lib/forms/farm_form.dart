@@ -50,12 +50,16 @@ class _FarmModalState extends State<FarmModal> {
 
       if (widget.farm == null) {
         await _farmCrud.addFarm(farm);
+         // Close the modal after saving
+      Navigator.of(context).pop();
+        print("Farm iserted $farm");
       } else {
         await _farmCrud.updateFarm(farm);
-      }
-
-      // Close the modal after saving
+         // Close the modal after saving
       Navigator.of(context).pop();
+      }
+      // // Close the modal after saving
+      // Navigator.of(context).pop();
     }
   }
 
@@ -99,10 +103,31 @@ class _FarmModalState extends State<FarmModal> {
                 return null;
               },
             ),
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: _saveFarm,
-              child: Text(widget.farm == null ? 'Add' : 'Save'),
+            const SizedBox(height: 20.0),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.3,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.14,
+                    child: ElevatedButton(
+                      onPressed: _saveFarm,
+                      child: Text(widget.farm == null ? 'Add' : 'Save'),
+                    ),
+                  ),
+                  const SizedBox(width: 14.0),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.14,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Cancel'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

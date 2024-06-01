@@ -17,6 +17,10 @@ class _MachineryModalState extends State<MachineryModal> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _nameController;
   late TextEditingController _tagNumberController;
+    
+    // Use the machineryCrudInstance getter
+  late final MachineryCrud _machineryCrud = DatabaseHelper.instance.machineryCrudInstance;
+
 
   @override
   void initState() {
@@ -41,16 +45,13 @@ class _MachineryModalState extends State<MachineryModal> {
         tagNumber: _tagNumberController.text,
       );
 
-      final databaseHelper = DatabaseHelper.instance;
       if (widget.machinery == null) {
-        await databaseHelper.machineryCrud.addMachinery(machinery);
-      } else {
-        await databaseHelper.machineryCrud.updateMachinery(machinery);
-      }
-
-      // Close the modal after saving
+        await _machineryCrud.addMachinery(machinery);
       Navigator.of(context).pop();
-    }
+      } else {
+        await _machineryCrud.updateMachinery(machinery);
+      Navigator.of(context).pop();
+      }    }
   }
 
   @override

@@ -2,6 +2,9 @@ import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/models/employee.dart';
 import 'package:agricare/models/farm.dart';
 import 'package:agricare/models/machinery.dart';
+import 'package:agricare/utils/employee.dart';
+import 'package:agricare/utils/farm.dart';
+import 'package:agricare/utils/machinery.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
@@ -18,7 +21,14 @@ class _EmployeeFormState extends State<EmployeeForm> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _contactController = TextEditingController();
-  final _databaseHelper = DatabaseHelper.instance;
+
+  // Use the CrudInstance getter
+  late final FarmCrud _farmCrud = DatabaseHelper.instance.farmCrudInstance;
+  late final MachineryCrud _machineryCrud =
+      DatabaseHelper.instance.machineryCrudInstance;
+  late final EmployeeCrud _employeeCrud =
+      DatabaseHelper.instance.employeeCrudInstance;
+
   int? _selectedFarmId;
   List<int> _selectedMachineIds = [];
   List<Farm> _farms = [];
@@ -43,12 +53,12 @@ class _EmployeeFormState extends State<EmployeeForm> {
   }
 
   Future<void> _loadFarms() async {
-    _farms = await _databaseHelper.farmCrud.getFarms();
+    _farms = await _farmCrud.getFarms();
     setState(() {});
   }
 
   Future<void> _loadMachines() async {
-    _machines = await _databaseHelper.machineryCrud.getMachinery();
+    _machines = await _machineryCrud.getMachinery();
     setState(() {});
   }
 
@@ -63,9 +73,9 @@ class _EmployeeFormState extends State<EmployeeForm> {
       );
 
       if (widget.employee == null) {
-        await _databaseHelper.employeeCrud.addEmployee(employee);
+        await _employeeCrud.addEmployee(employee);
       } else {
-        await _databaseHelper.employeeCrud.updateEmployee(employee);
+        await _employeeCrud.updateEmployee(employee);
       }
 
       Navigator.of(context).pop();
@@ -120,9 +130,9 @@ class _EmployeeFormState extends State<EmployeeForm> {
               ),
               const SizedBox(height: 16.0),
               MultiSelectChipField<int>(
-                items: _machines
-                    .map((machine) => MultiSelectItem<int>(machine.id!, machine.name))
-                    .toList(),
+                items: _machines.map((machine) {
+                  return MultiSelectItem<int>(machine.id!, machine.name);
+                }).toList(),
                 initialValue: _selectedMachineIds,
                 title: const Text('Assigned Machines'),
                 headerColor: Colors.blue.withOpacity(0.5),
@@ -131,10 +141,12 @@ class _EmployeeFormState extends State<EmployeeForm> {
                 ),
                 selectedChipColor: Colors.blue.withOpacity(0.5),
                 selectedTextStyle: TextStyle(color: Colors.blue[800]),
-                onTap: (values) {
+                onTap: (selectedValues) {
                   setState(() {
-                    _selectedMachineIds = values.cast<int>();
+                    _selectedMachineIds = selectedValues.cast<int>();
                   });
+                  print('_selectedMachineIds : $_selectedMachineIds');
+                  return _selectedMachineIds;
                 },
               ),
             ],
@@ -156,4 +168,3 @@ class _EmployeeFormState extends State<EmployeeForm> {
     );
   }
 }
-

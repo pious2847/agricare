@@ -15,8 +15,6 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -65,7 +63,21 @@ class _DashboardState extends State<Dashboard> {
                   const SizedBox(
                     width: 10,
                   ),
-                 
+                  TextButton.icon(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const MachineryModal();
+                        },
+                      );
+                    },
+                    icon: const Icon(Iconsax.additem_copy),
+                    label: const Text('Add Machinery'),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   TextButton.icon(
                       onPressed: () {
                         showDialog(

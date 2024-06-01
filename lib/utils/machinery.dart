@@ -3,10 +3,8 @@ import 'package:agricare/models/machinery.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MachineryCrud {
-  // final DatabaseHelper _dbHelper = DatabaseHelper.instance;
-      final DatabaseHelper _dbHelper;
-    MachineryCrud(this._dbHelper);
-  
+
+  final DatabaseHelper _dbHelper = DatabaseHelper.instance;
 
   Future<int> addMachinery(Machinery machinery) async {
     Database db = await _dbHelper.initDb();
