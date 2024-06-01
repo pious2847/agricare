@@ -89,7 +89,7 @@ void _createDb(Database db, int version) async {
     CREATE TABLE IF NOT EXISTS farm(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      location TEXT NOT NULL
+      location TEXT NOT NULL,
       farmproduce TEXT NOT NULL
     )
   ''');
@@ -113,6 +113,15 @@ void _createDb(Database db, int version) async {
       FOREIGN KEY (farmAssigned) REFERENCES farm(id)
     )
   ''');
+  await db.execute('''
+  CREATE TABLE IF NOT EXISTS employee_machinery(
+    employee_id INTEGER NOT NULL,
+    machinery_id INTEGER NOT NULL,
+    FOREIGN KEY (employee_id) REFERENCES employee(id),
+    FOREIGN KEY (machinery_id) REFERENCES machinery(id),
+    PRIMARY KEY (employee_id, machinery_id)
+  )
+''');
 
   await db.execute('''
     CREATE TABLE IF NOT EXISTS supervisor(

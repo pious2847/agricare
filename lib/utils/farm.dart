@@ -21,6 +21,7 @@ class FarmCrud {
     )).toList();
   }
 
+
   Future<int> updateFarm(Farm farm) async {
     final db = await _dbHelper.database;
     return await db.update('farm', farm.toMap(), where: 'id = ?', whereArgs: [farm.id]);

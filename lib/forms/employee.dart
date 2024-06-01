@@ -5,6 +5,7 @@ import 'package:agricare/models/machinery.dart';
 import 'package:agricare/utils/employee.dart';
 import 'package:agricare/utils/farm.dart';
 import 'package:agricare/utils/machinery.dart';
+import 'package:agricare/widgets/multi_select.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
@@ -22,8 +23,8 @@ class _EmployeeFormState extends State<EmployeeForm> {
   final _nameController = TextEditingController();
   final _contactController = TextEditingController();
 
-  // Use the CrudInstance getter
   late final FarmCrud _farmCrud = DatabaseHelper.instance.farmCrudInstance;
+  
   late final MachineryCrud _machineryCrud =
       DatabaseHelper.instance.machineryCrudInstance;
   late final EmployeeCrud _employeeCrud =
@@ -40,7 +41,6 @@ class _EmployeeFormState extends State<EmployeeForm> {
     _nameController.text = widget.employee?.name ?? '';
     _contactController.text = widget.employee?.contact ?? '';
     _selectedFarmId = widget.employee?.farmAssigned;
-    _selectedMachineIds = widget.employee?.machineAssigned ?? [];
     _loadFarms();
     _loadMachines();
   }
@@ -68,14 +68,13 @@ class _EmployeeFormState extends State<EmployeeForm> {
         id: widget.employee?.id,
         name: _nameController.text,
         contact: _contactController.text,
-        machineAssigned: _selectedMachineIds,
         farmAssigned: _selectedFarmId,
       );
 
       if (widget.employee == null) {
-        await _employeeCrud.addEmployee(employee);
+        await _employeeCrud.addEmployee(employee, _selectedMachineIds);
       } else {
-        await _employeeCrud.updateEmployee(employee);
+        await _employeeCrud.updateEmployee(employee, _selectedMachineIds);
       }
 
       Navigator.of(context).pop();
@@ -90,7 +89,8 @@ class _EmployeeFormState extends State<EmployeeForm> {
         key: _formKey,
         child: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
                 controller: _nameController,
@@ -129,24 +129,18 @@ class _EmployeeFormState extends State<EmployeeForm> {
                 decoration: const InputDecoration(labelText: 'Assigned Farm'),
               ),
               const SizedBox(height: 16.0),
-              MultiSelectChipField<int>(
+              const Text('Select Machinery'),
+              const SizedBox(height: 16.0),
+              CustomMultiSelect(
                 items: _machines.map((machine) {
                   return MultiSelectItem<int>(machine.id!, machine.name);
                 }).toList(),
                 initialValue: _selectedMachineIds,
-                title: const Text('Assigned Machines'),
-                headerColor: Colors.blue.withOpacity(0.5),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blue, width: 1.8),
-                ),
-                selectedChipColor: Colors.blue.withOpacity(0.5),
-                selectedTextStyle: TextStyle(color: Colors.blue[800]),
-                onTap: (selectedValues) {
+                onSelectionChanged: (selectedValues) {
                   setState(() {
-                    _selectedMachineIds = selectedValues.cast<int>();
+                    _selectedMachineIds = selectedValues;
                   });
                   print('_selectedMachineIds : $_selectedMachineIds');
-                  return _selectedMachineIds;
                 },
               ),
             ],
