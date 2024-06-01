@@ -1,9 +1,13 @@
+import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/forms/admin.dart';
 import 'package:agricare/forms/employee.dart';
 import 'package:agricare/forms/farm_form.dart';
 import 'package:agricare/forms/machinery_modal.dart';
 import 'package:agricare/models/farm.dart';
 import 'package:agricare/models/machinery.dart';
+import 'package:agricare/utils/employee.dart';
+import 'package:agricare/widgets/totalemployee.dart';
+import 'package:agricare/widgets/totalfarms.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -15,6 +19,27 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  late final _getEmployeeTotal =
+      TotalEmployeesWidget(); // Use the TotalEmployeesWidget here
+
+  late final _getFarmsTotal = TotalFarmsWidget();
+  
+  void _updateEmployeeCount() {
+    setState(() {
+      _getEmployeeTotal;
+      _getFarmsTotal;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getEmployeeTotal;
+    _getFarmsTotal;
+    // _totalfarms = DatabaseHelper.instance.farmCrudInstance.getTotalFarms();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,7 +58,7 @@ class _DashboardState extends State<Dashboard> {
                         showDialog(
                           context: context,
                           builder: (context) {
-                            return EmployeeForm();
+                            return const EmployeeForm();
                           },
                         );
                       },
@@ -114,40 +139,34 @@ class _DashboardState extends State<Dashboard> {
                             borderRadius: BorderRadius.circular(16),
                             color: Colors.white,
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Icon(
+                                const Icon(
                                   Iconsax.user_octagon_copy,
                                   size: 80.0,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10.0,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10.0,
                                     ),
-                                    Text(
+                                    const Text(
                                       'Total Employees',
                                       style: TextStyle(
                                         fontSize: 25.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    SizedBox(height: 3.0),
-                                    Text(
-                                      '60.4%',
-                                      style: TextStyle(
-                                          fontSize: 54.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.amberAccent),
-                                    ),
+                                    const SizedBox(height: 3.0),
+                                    TotalEmployeesWidget(), // Use the TotalEmployeesWidget here
                                   ],
                                 ),
                               ],
@@ -306,40 +325,34 @@ class _DashboardState extends State<Dashboard> {
                             borderRadius: BorderRadius.circular(16),
                             color: Colors.white,
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Icon(
+                                const Icon(
                                   Iconsax.user_octagon_copy,
                                   size: 80.0,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10.0,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10.0,
                                     ),
-                                    Text(
+                                    const Text(
                                       'Total Farms',
                                       style: TextStyle(
                                         fontSize: 25.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    SizedBox(height: 3.0),
-                                    Text(
-                                      '60.4%',
-                                      style: TextStyle(
-                                          fontSize: 54.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.amberAccent),
-                                    ),
+                                    const SizedBox(height: 3.0),
+                                    TotalFarmsWidget(),
                                   ],
                                 ),
                               ],

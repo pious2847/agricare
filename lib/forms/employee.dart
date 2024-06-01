@@ -11,8 +11,9 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class EmployeeForm extends StatefulWidget {
   final Employee? employee;
-
-  const EmployeeForm({Key? key, this.employee}) : super(key: key);
+  final VoidCallback? onEmployeeSaved;
+  const EmployeeForm({Key? key, this.employee, this.onEmployeeSaved})
+      : super(key: key);
 
   @override
   _EmployeeFormState createState() => _EmployeeFormState();
@@ -37,12 +38,12 @@ class _EmployeeFormState extends State<EmployeeForm> {
 
   @override
   void initState() {
+    loadFarms();
+    loadMachines();
     super.initState();
     _nameController.text = widget.employee?.name ?? '';
     _contactController.text = widget.employee?.contact ?? '';
     _selectedFarmId = widget.employee?.farmAssigned;
-    _loadFarms();
-    _loadMachines();
   }
 
   @override
@@ -52,12 +53,12 @@ class _EmployeeFormState extends State<EmployeeForm> {
     super.dispose();
   }
 
-  Future<void> _loadFarms() async {
+  Future<void> loadFarms() async {
     _farms = await _farmCrud.getFarms();
     setState(() {});
   }
 
-  Future<void> _loadMachines() async {
+  Future<void> loadMachines() async {
     _machines = await _machineryCrud.getMachinery();
     setState(() {});
   }
@@ -73,8 +74,15 @@ class _EmployeeFormState extends State<EmployeeForm> {
 
       if (widget.employee == null) {
         await _employeeCrud.addEmployee(employee, _selectedMachineIds);
+        // Call the callback function after saving the employee
+        setState(() {
+          widget.onEmployeeSaved?.call();
+        });
       } else {
         await _employeeCrud.updateEmployee(employee, _selectedMachineIds);
+        setState(() {
+          widget.onEmployeeSaved?.call();
+        });
       }
 
       Navigator.of(context).pop();
@@ -86,69 +94,71 @@ class _EmployeeFormState extends State<EmployeeForm> {
     return AlertDialog(
       backgroundColor: Colors.white,
       title: Text(widget.employee == null ? 'Add Employee' : 'Edit Employee'),
-      content: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.13,
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  controller: _nameController,
-                  decoration: const InputDecoration(labelText: 'Name'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a name';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _contactController,
-                  decoration: const InputDecoration(labelText: 'Contact'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a contact';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16.0),
-                const SizedBox(width: 200.0),
-                DropdownButtonFormField<int>(
-                  value: _selectedFarmId,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedFarmId = value;
-                    });
-                  },
-                  items: _farms.map((farm) {
-                    return DropdownMenuItem<int>(
-                      value: farm.id,
-                      child: Text(farm.name),
-                    );
-                  }).toList(),
-                  decoration: const InputDecoration(labelText: 'Assigned Farm'),
-                ),
-                const SizedBox(height: 16.0),
-                const Text('Select Machinery'),
-                const SizedBox(height: 16.0),
-                CustomMultiSelect(
-                  items: _machines.map((machine) {
-                    return MultiSelectItem<int>(machine.id!, machine.name);
-                  }).toList(),
-                  initialValue: _selectedMachineIds,
-                  onSelectionChanged: (selectedValues) {
-                    setState(() {
-                      _selectedMachineIds = selectedValues;
-                    });
-                    print('_selectedMachineIds : $_selectedMachineIds');
-                  },
-                ),
-              ],
-            ),
+      content: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(labelText: 'Name'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a name';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _contactController,
+                decoration: const InputDecoration(labelText: 'Contact'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a contact';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16.0),
+              const SizedBox(width: 200.0),
+              DropdownButtonFormField<int>(
+                value: _selectedFarmId,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedFarmId = value;
+                  });
+                },
+                items: _farms.map((farm) {
+                  return DropdownMenuItem<int>(
+                    value: farm.id,
+                    child: Text(farm.name),
+                  );
+                }).toList(),
+                decoration: const InputDecoration(labelText: 'Assigned Farm'),
+              ),
+              const SizedBox(height: 16.0),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.3,
+              ),
+              const Text('Select Machinery'),
+              const SizedBox(height: 16.0),
+              CustomMultiSelect(
+                items: _machines.map((machine) {
+                  return MultiSelectItem<int>(machine.id!, machine.name);
+                }).toList(),
+                initialValue: _selectedMachineIds,
+                onSelectionChanged: (selectedValues) {
+                  setState(() {
+                    _selectedMachineIds = selectedValues;
+                  });
+                  print('_selectedMachineIds : $_selectedMachineIds');
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -156,6 +166,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
+            setState(() {});
           },
           child: const Text('Cancel'),
         ),

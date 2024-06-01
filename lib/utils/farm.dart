@@ -5,6 +5,12 @@ import 'package:sqflite/sqflite.dart';
 class FarmCrud {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
 
+  Future<int> getTotalFarms() async {
+  Database db = await _dbHelper.initDb();
+  List<Map<String, Object?>> result = await db.query('farm');
+  return result.length;
+}
+
   Future<int> addFarm(Farm farm) async {
     final db = await _dbHelper.database;
     return await db.insert('farm', farm.toMap());

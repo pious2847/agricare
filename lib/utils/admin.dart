@@ -3,10 +3,8 @@ import 'package:agricare/models/admin.dart';
 import 'package:sqflite/sqflite.dart';
 
 class UserCrud {
-  // final DatabaseHelper _dbHelper = DatabaseHelper.instance;
-     final DatabaseHelper _dbHelper;
-    UserCrud(this._dbHelper);
-  
+  final DatabaseHelper _dbHelper = DatabaseHelper.instance;
+
 
     // CRUD operations for User
   Future<int> addAdmin(Admin admin) async {

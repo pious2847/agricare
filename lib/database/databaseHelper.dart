@@ -1,4 +1,5 @@
 import 'package:sqflite/sqflite.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -18,10 +19,10 @@ class DatabaseHelper {
 
   static Database? _db;
 
-  late final UserCrud admincrud;
-  late final EmployeeCrud employeeCrud;
+  late final UserCrud admincrud = UserCrud();
+  late final EmployeeCrud employeeCrud = EmployeeCrud();
   late final SupervisorCrud supervisorcrud;
-  late final FarmCrud farmCrud;
+  late final FarmCrud farmCrud = FarmCrud();
   late final MachineryCrud machineryCrud;
   late final SuppliesCrud supplies;
   late final RequestedCrud requestedcrud;
@@ -41,12 +42,10 @@ class DatabaseHelper {
   }
 
   UserCrud get adminCrudInstance {
-    admincrud = UserCrud(this);
     return admincrud;
   }
 
   EmployeeCrud get employeeCrudInstance {
-    employeeCrud = EmployeeCrud(this);
     return employeeCrud;
   }
 
@@ -56,7 +55,7 @@ class DatabaseHelper {
   }
 
   FarmCrud get farmCrudInstance {
-    farmCrud = FarmCrud();
+    
     return farmCrud;
   }
 
