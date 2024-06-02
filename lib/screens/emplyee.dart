@@ -59,13 +59,13 @@ class _EmployeePageState extends State<EmployeePage> {
             // Expanded(
             //   child: SingleChildScrollView(
             //     child: DataTable(
-            //       columns: const [
-            //         DataColumn(label: Text('Name')),
-            //         DataColumn(label: Text('Contact')),
-            //         DataColumn(label: Text('Machinery Assigned')),
-            //         DataColumn(label: Text('Farm Assigned')),
-            //         DataColumn(label: Text('Actions')),
-            //       ],
+                  // columns: const [
+                  //   DataColumn(label: Text('Name')),
+                  //   DataColumn(label: Text('Contact')),
+                  //   DataColumn(label: Text('Machinery Assigned')),
+                  //   DataColumn(label: Text('Farm Assigned')),
+                  //   DataColumn(label: Text('Actions')),
+                  // ],
             //       rows: _employees.map((employee) {
             //         final machineNames = employee.machinery_id?.map((id) {
             //               final machine = _machineryCrud.getMachineById(id);

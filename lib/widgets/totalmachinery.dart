@@ -1,29 +1,31 @@
 import 'package:agricare/database/databaseHelper.dart';
+import 'package:agricare/utils/machinery.dart';
 import 'package:flutter/material.dart';
 import 'package:agricare/utils/employee.dart'; // Import your utility function here
 
-class TotalEmployeesWidget extends StatefulWidget {
+class TotalMachinerysWidget extends StatefulWidget {
+  const TotalMachinerysWidget({super.key});
+
   @override
-  State<TotalEmployeesWidget> createState() => _TotalEmployeesWidgetState();
+  State<TotalMachinerysWidget> createState() => _TotalMachinerysWidgetState();
 }
 
-class _TotalEmployeesWidgetState extends State<TotalEmployeesWidget> {
-  
-     late Future<int> _totalEmployees;
+class _TotalMachinerysWidgetState extends State<TotalMachinerysWidget> {
+     late Future<int> _TotalMachinerys;
 
- late final EmployeeCrud _employeeCrud =
-      DatabaseHelper.instance.employeeCrudInstance;
+ late final MachineryCrud _machineryCrud =
+      DatabaseHelper.instance.machineryCrudInstance;
 
   @override
   void initState() {
     super.initState();
-    _totalEmployees = _employeeCrud.getTotalEmployees();
+    _TotalMachinerys = _machineryCrud.getTotalMachinery();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<int>(
-      future: _totalEmployees, 
+      future: _TotalMachinerys, 
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator(); // Show a loading indicator while fetching the data
@@ -35,7 +37,7 @@ class _TotalEmployeesWidgetState extends State<TotalEmployeesWidget> {
             style: TextStyle(
               fontSize: 54.0,
               fontWeight: FontWeight.bold,
-              color: Colors.amberAccent,
+              color: Colors.greenAccent,
             ),
           );
         }

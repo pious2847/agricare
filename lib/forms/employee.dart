@@ -159,20 +159,27 @@ class _EmployeeFormState extends State<EmployeeForm> {
                 },
               ),
             ],
+            
           ),
         ),
       ),
       actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-            setState(() {});
-          },
-          child: const Text('Cancel'),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.14,
+          child: ElevatedButton(
+            onPressed: _saveEmployee,
+            child: Text(widget.employee == null ? 'Add' : 'Save'),
+          ),
         ),
-        ElevatedButton(
-          onPressed: _saveEmployee,
-          child: Text(widget.employee == null ? 'Add' : 'Save'),
+          SizedBox(
+          width: MediaQuery.of(context).size.width * 0.14,
+          child: TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              setState(() {});
+            },
+            child: const Text('Cancel'),
+          ),
         ),
       ],
     );

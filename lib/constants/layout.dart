@@ -2,6 +2,7 @@
 
 import 'package:agricare/screens/dashboard.dart';
 import 'package:agricare/screens/emplyee.dart';
+import 'package:agricare/screens/farms.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +41,14 @@ class _LayoutScreenState extends State<LayoutScreen> {
       body: const _NavigationBodyItem(
         header: 'Superisor',
         content: EmployeePage(),
+      ),
+    ),
+    PaneItem(
+      icon: const Icon(FluentIcons.storage_optical),
+      title: const Text('Farms'),
+      body: const _NavigationBodyItem(
+        header: 'Frams',
+        content: Farms(),
       ),
     ),
     PaneItem(
@@ -130,18 +139,20 @@ class _NavigationBodyItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (header.isNotEmpty) ...[
-            Text(
-              header,
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-            const SizedBox(height: 8.0),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (header.isNotEmpty) ...[
+              Text(
+                header,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const SizedBox(height: 8.0),
+            ],
+            content,
           ],
-          content,
-        ],
+        ),
       ),
     );
   }

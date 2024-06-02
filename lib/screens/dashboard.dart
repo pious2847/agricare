@@ -5,9 +5,11 @@ import 'package:agricare/forms/farm_form.dart';
 import 'package:agricare/forms/machinery_modal.dart';
 import 'package:agricare/models/farm.dart';
 import 'package:agricare/models/machinery.dart';
+import 'package:agricare/screens/farms.dart';
 import 'package:agricare/utils/employee.dart';
 import 'package:agricare/widgets/totalemployee.dart';
 import 'package:agricare/widgets/totalfarms.dart';
+import 'package:agricare/widgets/totalmachinery.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -23,11 +25,13 @@ class _DashboardState extends State<Dashboard> {
       TotalEmployeesWidget(); // Use the TotalEmployeesWidget here
 
   late final _getFarmsTotal = TotalFarmsWidget();
-  
+  late final _getMachineryTotal = TotalMachinerysWidget();
+
   void _updateEmployeeCount() {
     setState(() {
       _getEmployeeTotal;
       _getFarmsTotal;
+      _getMachineryTotal;
     });
   }
 
@@ -37,7 +41,7 @@ class _DashboardState extends State<Dashboard> {
     super.initState();
     _getEmployeeTotal;
     _getFarmsTotal;
-    // _totalfarms = DatabaseHelper.instance.farmCrudInstance.getTotalFarms();
+    _getMachineryTotal;
   }
 
   @override
@@ -68,7 +72,14 @@ class _DashboardState extends State<Dashboard> {
                     width: 10,
                   ),
                   TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                         showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const Farms();
+                          },
+                        );
+                      },
                       icon: const Icon(Iconsax.additem_copy),
                       label: const Text('Add Supervisor')),
                   const SizedBox(
@@ -287,14 +298,7 @@ class _DashboardState extends State<Dashboard> {
                                     SizedBox(
                                       height: 3.0,
                                     ),
-                                    Text(
-                                      '60.4%',
-                                      style: TextStyle(
-                                          fontSize: 54.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color.fromARGB(
-                                              188, 100, 218, 45)),
-                                    ),
+                                    TotalMachinerysWidget(),
                                   ],
                                 ),
                               ],

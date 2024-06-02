@@ -4,7 +4,6 @@ import 'package:agricare/models/farm.dart';
 import 'package:agricare/utils/farm.dart';
 import 'package:flutter/material.dart';
 
-
 class AdminModal extends StatefulWidget {
   final Admin? admin;
 
@@ -22,10 +21,10 @@ class _AdminModalState extends State<AdminModal> {
   @override
   void initState() {
     super.initState();
-    _usernameController = TextEditingController(text: widget.admin?.username ?? '');
+    _usernameController =
+        TextEditingController(text: widget.admin?.username ?? '');
     _passwordController =
         TextEditingController(text: widget.admin?.password ?? '');
-  
   }
 
   @override
@@ -42,11 +41,10 @@ class _AdminModalState extends State<AdminModal> {
         username: _usernameController.text,
         password: _passwordController.text,
       );
-      
+
       final databaseHelper = DatabaseHelper.instance;
 
       if (widget.admin == null) {
-          
         await databaseHelper.admincrud.addAdmin(admin);
       } else {
         await databaseHelper.admincrud.updateAdmin(admin);
@@ -60,6 +58,7 @@ class _AdminModalState extends State<AdminModal> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.white,
       title: const Text('Add Admin'),
       content: Form(
         key: _formKey,
@@ -87,14 +86,29 @@ class _AdminModalState extends State<AdminModal> {
                 return null;
               },
             ),
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: _saveAdmin,
-              child: Text(widget.admin == null ? 'Add' : 'Save'),
-            ),
           ],
         ),
       ),
+      actions: [
+        const SizedBox(height: 16.0),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.14,
+          child: ElevatedButton(
+            onPressed: _saveAdmin,
+            child: Text(widget.admin == null ? 'Add' : 'Save'),
+          ),
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.14,
+          child: TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              setState(() {});
+            },
+            child: const Text('Cancel'),
+          ),
+        ),
+      ],
     );
   }
 }

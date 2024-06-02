@@ -66,6 +66,7 @@ class _MachineryModalState extends State<MachineryModal> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.white,
       title:
           Text(widget.machinery == null ? 'Add Machinery' : 'Edit Machinery'),
       content: Form(
@@ -94,14 +95,30 @@ class _MachineryModalState extends State<MachineryModal> {
                 return null;
               },
             ),
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: _saveMachinery,
-              child: Text(widget.machinery == null ? 'Add' : 'Save'),
-            ),
+           
           ],
         ),
       ),
+      actions: [
+         const SizedBox(height: 16.0),
+            SizedBox(
+          width: MediaQuery.of(context).size.width * 0.14,
+              child: ElevatedButton(
+                onPressed: _saveMachinery,
+                child: Text(widget.machinery == null ? 'Add' : 'Save'),
+              ),
+            ),
+             SizedBox(
+          width: MediaQuery.of(context).size.width * 0.14,
+          child: TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              setState(() {});
+            },
+            child: const Text('Cancel'),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -6,6 +6,12 @@ class MachineryCrud {
 
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
 
+  Future<int> getTotalMachinery() async {
+  Database db = await _dbHelper.initDb();
+  List<Map<String, Object?>> result = await db.query('machinery');
+  return result.length;
+}
+
   Future<int> addMachinery(Machinery machinery) async {
     Database db = await _dbHelper.initDb();
     return await db.insert('machinery', machinery.toMap());

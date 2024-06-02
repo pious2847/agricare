@@ -21,17 +21,17 @@ class DatabaseHelper {
 
   late final UserCrud admincrud = UserCrud();
   late final EmployeeCrud employeeCrud = EmployeeCrud();
-  late final SupervisorCrud supervisorcrud;
+  late final SupervisorCrud supervisorcrud = SupervisorCrud(this);
   late final FarmCrud farmCrud = FarmCrud();
-  late final MachineryCrud machineryCrud;
-  late final SuppliesCrud supplies;
-  late final RequestedCrud requestedcrud;
+  late final MachineryCrud machineryCrud = MachineryCrud();
+  late final SuppliesCrud supplies = SuppliesCrud();
+  late final RequestedCrud requestedcrud = RequestedCrud(this);
 
   Future<Database> get database async {
     _db ??= await initDb();
     return _db!;
   }
-
+  
   Future<Database> initDb() async {
     // Initialize the database factory for sqflite_common_ffi
     sqfliteFfiInit();
@@ -50,7 +50,6 @@ class DatabaseHelper {
   }
 
   SupervisorCrud get supervisorCrudInstance {
-    supervisorcrud = SupervisorCrud(this);
     return supervisorcrud;
   }
 
@@ -60,17 +59,14 @@ class DatabaseHelper {
   }
 
   MachineryCrud get machineryCrudInstance {
-    machineryCrud = MachineryCrud();
     return machineryCrud;
   }
 
   SuppliesCrud get suppliesCrudInstance {
-    supplies = SuppliesCrud(this);
     return supplies;
   }
 
   RequestedCrud get requestedCrudInstance {
-    requestedcrud = RequestedCrud(this);
     return requestedcrud;
   }
 

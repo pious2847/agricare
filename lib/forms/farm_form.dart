@@ -67,6 +67,7 @@ class _FarmModalState extends State<FarmModal> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.white,
       title: const Text('Add Farm'),
       content: Form(
         key: _formKey,
@@ -105,34 +106,29 @@ class _FarmModalState extends State<FarmModal> {
               },
             ),
             const SizedBox(height: 20.0),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.3,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.14,
-                    child: ElevatedButton(
-                      onPressed: _saveFarm,
-                      child: Text(widget.farm == null ? 'Add' : 'Save'),
-                    ),
-                  ),
-                  const SizedBox(width: 14.0),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.14,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text('Cancel'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),
+      actions: [
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.14,
+          child: ElevatedButton(
+            onPressed: _saveFarm,
+            child: Text(widget.farm == null ? 'Add' : 'Save'),
+          ),
+        ),
+        const SizedBox(width: 14.0),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.14,
+          child: TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              setState(() {});
+            },
+            child: const Text('Cancel'),
+          ),
+        ),
+      ],
     );
   }
 }
