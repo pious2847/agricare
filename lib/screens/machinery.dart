@@ -1,43 +1,46 @@
 import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/forms/farm_form.dart';
+import 'package:agricare/forms/machinery_modal.dart';
 import 'package:agricare/models/farm.dart';
+import 'package:agricare/models/machinery.dart';
 import 'package:agricare/utils/farm.dart';
+import 'package:agricare/utils/machinery.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
-class Farms extends StatefulWidget {
-  const Farms({super.key});
+class Machinerys extends StatefulWidget {
+  const Machinerys({super.key});
 
   @override
-  State<Farms> createState() => _FarmsState();
+  State<Machinerys> createState() => _MachinerysState();
 }
 
-class _FarmsState extends State<Farms> {
-  late final FarmCrud _farmCrud = DatabaseHelper.instance.farmCrudInstance;
+class _MachinerysState extends State<Machinerys> {
+  late final MachineryCrud _machineryCrud = DatabaseHelper.instance.machineryCrudInstance;
 
-  List<Farm> _farms = [];
+  List<Machinery> _Machinerys = [];
 
   @override
   void initState() {
-    loadFarms();
+    loadMachinerys();
     super.initState();
   }
 
-  Future<void> loadFarms() async {
-    _farms = await _farmCrud.getFarms();
+  Future<void> loadMachinerys() async {
+    _Machinerys = await _machineryCrud.getMachinery();
     setState(() {});
   }
 
-  void _deleteFarms(int id) async {
-    await _farmCrud.deleteFarm(id);
-    loadFarms();
+  void _deleteMachinerys(int id) async {
+    await _machineryCrud.deleteMachinery(id);
+    loadMachinerys();
   }
 
-  void _editFarm(Farm farm) {
+  void _editMachinerys(Machinery machinery) {
     showDialog(
       context: context,
-      builder: (context) => FarmModal(farm: farm),
-    ).then((value) => loadFarms());
+      builder: (context) => MachineryModal(machinery: machinery),
+    ).then((value) => loadMachinerys());
   }
 
   @override
@@ -54,12 +57,12 @@ class _FarmsState extends State<Farms> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Button(
-                  child: const Text('Add Farm'),
+                  child: const Text('Add Machinery'),
                   onPressed:(){
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return const FarmModal();
+                        return const MachineryModal();
                       },
                     );
                   }
@@ -72,14 +75,13 @@ class _FarmsState extends State<Farms> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Expanded(
-              child: _farms.isNotEmpty
+              child: _Machinerys.isNotEmpty
                   ? SingleChildScrollView(
                       child: Table(
                         border: TableBorder.all(),
                         columnWidths: const {
                           0: FractionColumnWidth(0.3), // Name
-                          1: FractionColumnWidth(0.3), // Location
-                          2: FractionColumnWidth(0.3), // Farm Produce
+                          1: FractionColumnWidth(0.3), // TagNumber
                           3: FractionColumnWidth(0.1), // Actions
                         },
                         children: [
@@ -88,6 +90,15 @@ class _FarmsState extends State<Farms> {
                               color: Color.fromARGB(106, 50, 49, 48),
                             ),
                             children: [
+                                Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  'ID',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
@@ -100,21 +111,13 @@ class _FarmsState extends State<Farms> {
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Location',
+                                  'TagNumber',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Farm Produce',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
+                             
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
@@ -126,32 +129,33 @@ class _FarmsState extends State<Farms> {
                               ),
                             ],
                           ),
-                          ..._farms.map(
-                            (farm) => TableRow(
+                          ..._Machinerys.map(
+                            (machinery) => TableRow(
                               children: [
-                                Padding(
+                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(farm.name),
+                                  child: Text('${machinery.id}'),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(farm.location),
+                                  child: Text(machinery.name),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(farm.farmproduce),
+                                  child: Text(machinery.tagNumber),
                                 ),
+                             
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     IconButton(
                                       icon: const Icon(Iconsax.edit_2_copy),
-                                      onPressed: () => _editFarm(farm),
+                                      onPressed: () => _editMachinerys(machinery),
                                     ),
                                     IconButton(
                                       icon: const Icon(Iconsax.trash_copy),
-                                      onPressed: () => _deleteFarms(farm.id!),
+                                      onPressed: () => _deleteMachinerys(machinery.id!),
                                     ),
                                   ],
                                 ),
@@ -162,7 +166,7 @@ class _FarmsState extends State<Farms> {
                       ),
                     )
                   : const Center(
-                      child: Text('No farms added yet'),
+                      child: Text('No Machinerys added yet'),
                     ),
             ),
           ),
