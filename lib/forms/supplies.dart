@@ -44,7 +44,7 @@ class _SuppliesModalState extends State<SuppliesModal> {
       final supply = Supplies(
         id: widget.supply?.id,
         product: _productController.text,
-        stock: _stockController.text as int,
+        stock:  int.parse(_stockController.text),
         description: _descriptionController.text,
       );
 
@@ -67,7 +67,7 @@ class _SuppliesModalState extends State<SuppliesModal> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white ,
       title: const Text('Add Supplies'),
       content: Form(
         key: _formKey,
@@ -77,7 +77,7 @@ class _SuppliesModalState extends State<SuppliesModal> {
           children: [
             TextFormField(
               controller: _productController,
-              decoration: const InputDecoration(labelText: 'Name'),
+              decoration: const InputDecoration(labelText: 'Product'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a product';
@@ -87,7 +87,7 @@ class _SuppliesModalState extends State<SuppliesModal> {
             ),
             TextFormField(
               controller: _stockController,
-              decoration: const InputDecoration(labelText: 'Location'),
+              decoration: const InputDecoration(labelText: 'Stock'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a stock';
@@ -97,7 +97,7 @@ class _SuppliesModalState extends State<SuppliesModal> {
             ),
             TextFormField(
               controller: _descriptionController,
-              decoration: const InputDecoration(labelText: 'supply Produce'),
+              decoration: const InputDecoration(labelText: 'descriptions',),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter the supply description';

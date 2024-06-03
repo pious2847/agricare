@@ -3,10 +3,12 @@ import 'package:agricare/forms/admin.dart';
 import 'package:agricare/forms/employee.dart';
 import 'package:agricare/forms/farm_form.dart';
 import 'package:agricare/forms/machinery_modal.dart';
+import 'package:agricare/forms/supplies.dart';
 import 'package:agricare/models/farm.dart';
 import 'package:agricare/models/machinery.dart';
 import 'package:agricare/screens/farms.dart';
 import 'package:agricare/utils/employee.dart';
+import 'package:agricare/utils/farm.dart';
 import 'package:agricare/widgets/totalemployee.dart';
 import 'package:agricare/widgets/totalfarms.dart';
 import 'package:agricare/widgets/totalmachinery.dart';
@@ -21,17 +23,22 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  late final _TotalFarms;
+  late final FarmCrud _farmCrud = DatabaseHelper.instance.farmCrudInstance;
+
   late final _getEmployeeTotal =
       TotalEmployeesWidget(); // Use the TotalEmployeesWidget here
 
   late var _getFarmsTotal = TotalFarmsWidget();
   late var _getMachineryTotal = const TotalMachinerysWidget();
-  
+
   void _updateCount() {
     setState(() {
       _getEmployeeTotal;
-      _getFarmsTotal = TotalFarmsWidget();;
-      _getMachineryTotal = const TotalMachinerysWidget();;
+      _getFarmsTotal = TotalFarmsWidget();
+      ;
+      _getMachineryTotal = const TotalMachinerysWidget();
+      ;
     });
   }
 
@@ -79,7 +86,7 @@ class _DashboardState extends State<Dashboard> {
                             return const Farms();
                           },
                         ).then((value) => setState(() {
-                              _updateCount();                                                                                                                                                                   
+                              _updateCount();
                             }));
                       },
                       icon: const Icon(Iconsax.additem_copy),
@@ -102,17 +109,29 @@ class _DashboardState extends State<Dashboard> {
                     width: 10,
                   ),
                   TextButton.icon(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const SuppliesModal();
+                          },
+                        ).then((value) => setState(() {}));
+                      },
+                      icon: const Icon(Iconsax.additem_copy),
+                      label: const Text('Add Supplies')),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  TextButton.icon(
                     onPressed: () {
                       showDialog(
                         context: context,
                         builder: (context) {
                           return const MachineryModal();
                         },
-                      ).then((value) => setState(() {
-                            _getEmployeeTotal;
-                            _getFarmsTotal;
-                            _getMachineryTotal;
-                          }));
+                      ).then((value) =>
+                            _updateCount()
+                          );
                     },
                     icon: const Icon(Iconsax.additem_copy),
                     label: const Text('Add Machinery'),
@@ -241,7 +260,7 @@ class _DashboardState extends State<Dashboard> {
                                       height: 3.0,
                                     ),
                                     Text(
-                                      '60.4%',
+                                      '76',
                                       style: TextStyle(
                                           fontSize: 54.0,
                                           fontWeight: FontWeight.bold,
