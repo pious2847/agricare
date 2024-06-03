@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:agricare/database/databaseHelper.dart';
 
 class SuppliesModal extends StatefulWidget {
-  final Supplies? supply;
+  final Supplies? supplies;
 
-  const SuppliesModal({Key? key, this.supply}) : super(key: key);
+  const SuppliesModal({Key? key, this.supplies,}) : super(key: key);
 
   @override
   _SuppliesModalState createState() => _SuppliesModalState();
@@ -18,17 +18,17 @@ class _SuppliesModalState extends State<SuppliesModal> {
   late TextEditingController _stockController;
   late TextEditingController _descriptionController;
 
-  // Use the supplyCrudInstance getter
+  // Use the suppliesCrudInstance getter
   late final SuppliesCrud _suppliesCrud = DatabaseHelper.instance.suppliesCrudInstance;
 
   @override
   void initState() {
     super.initState();
-    _productController = TextEditingController(text: widget.supply?.product ?? '');
+    _productController = TextEditingController(text: widget.supplies?.product ?? '');
     _stockController =
-        TextEditingController(text: '${widget.supply?.stock}' ?? '');
+        TextEditingController(text: '${widget.supplies?.stock}' ?? '');
     _descriptionController =
-        TextEditingController(text: widget.supply?.description ?? '');
+        TextEditingController(text: widget.supplies?.description ?? '');
   }
 
   @override
@@ -39,22 +39,22 @@ class _SuppliesModalState extends State<SuppliesModal> {
     super.dispose();
   }
 
-  Future<void> _savesupply() async {
+  Future<void> _savesupplies() async {
     if (_formKey.currentState!.validate()) {
-      final supply = Supplies(
-        id: widget.supply?.id,
+      final supplies = Supplies(
+        id: widget.supplies?.id,
         product: _productController.text,
         stock:  int.parse(_stockController.text),
         description: _descriptionController.text,
       );
 
-      if (widget.supply == null) {
-        await _suppliesCrud.addSupplies(supply);
+      if (widget.supplies == null) {
+        await _suppliesCrud.addSupplies(supplies);
         setState(() {});
         Navigator.of(context).pop();
-        print("supply iserted $supply");
+        print("supplies iserted $supplies");
       } else {
-        await _suppliesCrud.updateSupplies(supply);
+        await _suppliesCrud.updateSupplies(supplies);
         setState(() {});
         // Close the modal after saving
         Navigator.of(context).pop();
@@ -100,7 +100,7 @@ class _SuppliesModalState extends State<SuppliesModal> {
               decoration: const InputDecoration(labelText: 'descriptions',),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter the supply description';
+                  return 'Please enter the supplies description';
                 }
                 return null;
               },
@@ -113,8 +113,8 @@ class _SuppliesModalState extends State<SuppliesModal> {
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.14,
           child: ElevatedButton(
-            onPressed: _savesupply,
-            child: Text(widget.supply == null ? 'Add' : 'Save'),
+            onPressed: _savesupplies,
+            child: Text(widget.supplies == null ? 'Add' : 'Save'),
           ),
         ),
         const SizedBox(width: 14.0),

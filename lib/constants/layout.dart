@@ -4,6 +4,7 @@ import 'package:agricare/screens/dashboard.dart';
 import 'package:agricare/screens/emplyee.dart';
 import 'package:agricare/screens/farms.dart';
 import 'package:agricare/screens/machinery.dart';
+import 'package:agricare/screens/supplies.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +66,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
       title: const Text('Supplies'),
       body: const _NavigationBodyItem(
         header: 'Supplies',
-        content: EmployeePage(),
+        content: SuppliesScreen(),
       ),
     ),
     PaneItem(
