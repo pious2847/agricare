@@ -2,7 +2,7 @@ import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/forms/farm_form.dart';
 import 'package:agricare/models/farm.dart';
 import 'package:agricare/utils/farm.dart';
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class Farms extends StatefulWidget {
@@ -40,77 +40,130 @@ class _FarmsState extends State<Farms> {
     ).then((value) => loadFarms());
   }
 
-@override
-Widget build(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.all(10.0),
-    child: Column(
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-              height: 40,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              TextButton.icon(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const FarmModal();
-                    },
-                  );
-                },
-                icon: const Icon(Iconsax.additem_copy),
-                label: const Text('Add Farm'),
-              )
-            ],
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 40,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Button(
+                  child: const Text('Add Farm'),
+                  onPressed:(){
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const FarmModal();
+                      },
+                    );
+                  }
+                      ,
+                ),
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
+          Expanded(
             child: _farms.isNotEmpty
-                ? DataTable(
-                    columns: const [
-                      DataColumn(label: Text('Name')),
-                      DataColumn(label: Text('Location')),
-                      DataColumn(label: Text('Farm Produce')),
-                      DataColumn(label: Text('Actions')),
-                    ],
-                    rows: _farms
-                        .map(
-                          (farm) => DataRow(cells: [
-                            DataCell(Text(farm.name)),
-                            DataCell(Text(farm.location)),
-                            DataCell(Text(farm.farmproduce)),
-                            DataCell(
+                ? SingleChildScrollView(
+                    child: Table(
+                      border: TableBorder.all(),
+                      columnWidths: const {
+                        0: FractionColumnWidth(0.3), // Name
+                        1: FractionColumnWidth(0.3), // Location
+                        2: FractionColumnWidth(0.3), // Farm Produce
+                        3: FractionColumnWidth(0.1), // Actions
+                      },
+                      children: [
+                        const TableRow(
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                          ),
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Name',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Location',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Farm Produce',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Actions',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        ..._farms.map(
+                          (farm) => TableRow(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(farm.name),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(farm.location),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(farm.farmproduce),
+                              ),
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   IconButton(
-                                    icon: const Icon(Icons.edit),
+                                    icon: const Icon(Iconsax.edit_2_copy),
                                     onPressed: () => _editFarm(farm),
                                   ),
                                   IconButton(
-                                    icon: const Icon(Icons.delete),
+                                    icon: const Icon(Iconsax.trash_copy),
                                     onPressed: () => _deleteFarms(farm.id!),
                                   ),
                                 ],
                               ),
-                            ),
-                          ]),
-                        )
-                        .toList(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 : const Center(
                     child: Text('No farms added yet'),
                   ),
           ),
-        ),
-     
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
 }
