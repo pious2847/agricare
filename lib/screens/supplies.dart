@@ -83,10 +83,10 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
                         border: TableBorder.all(),
                         columnWidths: const {
                           0: FractionColumnWidth(0.1), // ID
-                          1: FractionColumnWidth(0.3), // Product
-                          3: FractionColumnWidth(0.3), // Stock
+                          1: FractionColumnWidth(0.4), // Product
+                          3: FractionColumnWidth(0.1), // Stock
                           4: FractionColumnWidth(0.3), // Description
-                          5: FractionColumnWidth(0.1), // Actions
+                          5: FractionColumnWidth(0.05), // Actions
                         },
                         children: [
                           const TableRow(
