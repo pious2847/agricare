@@ -24,14 +24,14 @@ class _DashboardState extends State<Dashboard> {
   late final _getEmployeeTotal =
       TotalEmployeesWidget(); // Use the TotalEmployeesWidget here
 
-  late final _getFarmsTotal = TotalFarmsWidget();
-  late final _getMachineryTotal = TotalMachinerysWidget();
-
-  void _updateEmployeeCount() {
+  late var _getFarmsTotal = TotalFarmsWidget();
+  late var _getMachineryTotal = const TotalMachinerysWidget();
+  
+  void _updateCount() {
     setState(() {
       _getEmployeeTotal;
-      _getFarmsTotal;
-      _getMachineryTotal;
+      _getFarmsTotal = TotalFarmsWidget();;
+      _getMachineryTotal = const TotalMachinerysWidget();;
     });
   }
 
@@ -64,7 +64,7 @@ class _DashboardState extends State<Dashboard> {
                           builder: (context) {
                             return const EmployeeForm();
                           },
-                        );
+                        ).then((value) => setState(() {}));
                       },
                       icon: const Icon(Iconsax.additem_copy),
                       label: const Text('Add Employees')),
@@ -73,12 +73,14 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   TextButton.icon(
                       onPressed: () {
-                         showDialog(
+                        showDialog(
                           context: context,
                           builder: (context) {
                             return const Farms();
                           },
-                        );
+                        ).then((value) => setState(() {
+                              _updateCount();                                                                                                                                                                   
+                            }));
                       },
                       icon: const Icon(Iconsax.additem_copy),
                       label: const Text('Add Supervisor')),
@@ -92,7 +94,7 @@ class _DashboardState extends State<Dashboard> {
                           builder: (context) {
                             return const FarmModal();
                           },
-                        );
+                        ).then((value) => setState(() {}));
                       },
                       icon: const Icon(Iconsax.additem_copy),
                       label: const Text('Add Farm')),
@@ -106,7 +108,11 @@ class _DashboardState extends State<Dashboard> {
                         builder: (context) {
                           return const MachineryModal();
                         },
-                      );
+                      ).then((value) => setState(() {
+                            _getEmployeeTotal;
+                            _getFarmsTotal;
+                            _getMachineryTotal;
+                          }));
                     },
                     icon: const Icon(Iconsax.additem_copy),
                     label: const Text('Add Machinery'),

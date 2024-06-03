@@ -55,23 +55,26 @@ class _FarmsState extends State<Farms> {
               children: [
                 Button(
                   child: const Text('Add Farm'),
-                  onPressed:(){
+                  onPressed: () {
                     showDialog(
                       context: context,
                       builder: (context) {
                         return const FarmModal();
                       },
-                    );
-                  }
-                      ,
+                    ).then((value) => loadFarms());
+                  },
                 ),
               ],
             ),
           ),
-          SizedBox(height: 30,),
+          SizedBox(
+            height: 30,
+          ),
+
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Expanded(
+              flex: 1,
               child: _farms.isNotEmpty
                   ? SingleChildScrollView(
                       child: Table(
@@ -145,13 +148,23 @@ class _FarmsState extends State<Farms> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    IconButton(
-                                      icon: const Icon(Iconsax.edit_2_copy),
-                                      onPressed: () => _editFarm(farm),
+                                    Tooltip(
+                                      message: 'Edit',
+                                      displayHorizontally: true,
+                                      useMousePosition: false,
+                                      child: IconButton(
+                                        icon: const Icon(Iconsax.edit_2_copy),
+                                        onPressed: () => _editFarm(farm),
+                                      ),
                                     ),
-                                    IconButton(
-                                      icon: const Icon(Iconsax.trash_copy),
-                                      onPressed: () => _deleteFarms(farm.id!),
+                                    Tooltip(
+                                      message: 'Delete',
+                                      displayHorizontally: true,
+                                      useMousePosition: false,
+                                      child: IconButton(
+                                        icon: const Icon(Iconsax.trash_copy),
+                                        onPressed: () => _deleteFarms(farm.id!),
+                                      ),
                                     ),
                                   ],
                                 ),

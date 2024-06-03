@@ -44,4 +44,8 @@ class _TotalMachinerysWidgetState extends State<TotalMachinerysWidget> {
       },
     );
   }
+ Future<void> loadcount() async {
+    setState(() {});
+  }
+
 }
