@@ -61,10 +61,8 @@ class _MachinerysState extends State<Machinerys> {
                   onPressed:(){
                     showDialog(
                       context: context,
-                      builder: (context) {
-                        return const MachineryModal();
-                      },
-                    );
+                      builder: (context) => const MachineryModal(),
+                    ).then((value) => loadMachinerys());
                   }
                       ,
                 ),
