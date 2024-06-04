@@ -71,12 +71,12 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
           SizedBox(
             height: 30,
           ),
-          Expanded(
-            flex: 1,
-            child: _supplies.isNotEmpty
-                ? SizedBox(
+          SizedBox(
           width: MediaQuery.of(context).size.width,
-                  child: SingleChildScrollView(
+            child: Expanded(
+              flex: 1,
+              child: _supplies.isNotEmpty
+                  ? SingleChildScrollView(
                       child: Table(
                         border: TableBorder.all(),
                         columnWidths: const {
@@ -191,11 +191,11 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
                           ),
                         ],
                       ),
+                    )
+                  : const Center(
+                      child: Text('No supplies added yet'),
                     ),
-                )
-                : const Center(
-                    child: Text('No supplies added yet'),
-                  ),
+            ),
           ),
         ],
       ),
@@ -205,7 +205,7 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
     final result = await showDialog<String>(
       context: context,
       builder: (context) => ContentDialog(
-        title: const Text('Delete file permanently?'),
+        title: const Text('Delete permanently?'),
         content: const Text(
           'If you delete this file, you won\'t be able to recover it. Do you want to delete it?',
         ),

@@ -1,6 +1,8 @@
 import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/forms/employee.dart';
 import 'package:agricare/models/employee.dart';
+import 'package:agricare/models/farm.dart';
+import 'package:agricare/models/machinery.dart';
 import 'package:agricare/utils/employee.dart';
 import 'package:agricare/utils/farm.dart';
 import 'package:agricare/utils/machinery.dart';
@@ -20,32 +22,60 @@ class _EmployeePageState extends State<EmployeePage> {
   late final MachineryCrud _machineryCrud =
       DatabaseHelper.instance.machineryCrudInstance;
 
-  late List<Employee> _employees = [];
+  List<Employee> _employees = [];
+  List<Farm> _farms = [];
+  List<Machinery> _machines = [];
 
   @override
   void initState() {
     super.initState();
+    loadData(); 
     _loadEmployees();
   }
+
+
+  void _deleteEmployee(int id) async {
+    await _employeeCrud.deleteEmployee(id);
+    loadData();
+  }
+
+  void _editEmployee(Employee employee) {
+    showDialog(
+      context: context,
+      builder: (context) => EmployeeForm(
+        employee: employee,
+        onEmployeeSaved: loadData,
+      ),
+    );
+  }
+
+  Future<void> loadData() async {
+    _employees = await _employeeCrud.getEmployees();
+    _farms = await _farmCrud.getFarms();
+    _machines = await _machineryCrud.getMachinery();
+    setState(() {});
+  }
+
+  String getFarmName(int? farmId) {
+    if (farmId == null) return '';
+    Farm? farm = _farms.firstWhere((f) => f.id == farmId);
+    return farm.name;
+  }
+
+  // List<String> getMachineNames(Employee employee) {
+  //   List<String> machineNames = [];
+  //   for (int machineId in employee.machineIds ?? []) {
+  //     Machinery? machine = _machines.firstWhere((m) => m.id == machineId);
+  //     if (machine != null) {
+  //       machineNames.add(machine.name);
+  //     }
+  //   }
+  //   return machineNames;
+  // }
 
   Future<void> _loadEmployees() async {
     _employees = await _employeeCrud.getEmployees();
     setState(() {});
-  }
-
-  void _deleteEmployee(int id) async {
-    await _employeeCrud.deleteEmployee(id);
-    _loadEmployees();
-  }
-
-  void _editEmployee(Employee employee) {
-    Navigator.of(context)
-        .push(
-          MaterialPageRoute(
-            builder: (context) => EmployeeForm(employee: employee),
-          ),
-        )
-        .then((_) => _loadEmployees());
   }
 
   @override
@@ -53,57 +83,7 @@ class _EmployeePageState extends State<EmployeePage> {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
-        children: [
-          if (_employees.isNotEmpty)
-          Text('hellow'),
-            // Expanded(
-            //   child: SingleChildScrollView(
-            //     child: DataTable(
-                  // columns: const [
-                  //   DataColumn(label: Text('Name')),
-                  //   DataColumn(label: Text('Contact')),
-                  //   DataColumn(label: Text('Machinery Assigned')),
-                  //   DataColumn(label: Text('Farm Assigned')),
-                  //   DataColumn(label: Text('Actions')),
-                  // ],
-            //       rows: _employees.map((employee) {
-            //         final machineNames = employee.machinery_id?.map((id) {
-            //               final machine = _machineryCrud.getMachineById(id);
-            //               return machine?.name ?? '';
-            //             }).join(', ') ??
-            //             '';
-
-            //         final farmName =
-            //             _farmCrud.getFarmName(employee.farmAssigned);
-
-            //         return DataRow(
-            //           cells: [
-            //             DataCell(Text(employee.name)),
-            //             DataCell(Text(employee.contact)),
-            //             DataCell(Text(machineNames)),
-            //             DataCell(Text(farmName as String)),
-            //             DataCell(Row(
-            //               children: [
-            //                 IconButton(
-            //                   icon: const Icon(Icons.edit),
-            //                   onPressed: () => _editEmployee(employee),
-            //                 ),
-            //                 IconButton(
-            //                   icon: const Icon(Icons.delete),
-            //                   onPressed: () => _deleteEmployee(employee.id!),
-            //                 ),
-            //               ],
-            //             )),
-            //           ],
-            //         );
-            //       }).toList(),
-            //     ),
-            //   ),
-            // )
-         
-          // else
-          //   const Text('No records found'),
-        ],
+        children: [],
       ),
     );
   }

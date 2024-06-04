@@ -192,7 +192,7 @@ class _MachinerysState extends State<Machinerys> {
     final result = await showDialog<String>(
       context: context,
       builder: (context) => ContentDialog(
-        title: const Text('Delete file permanently?'),
+        title: const Text('Delete permanently?'),
         content: const Text(
           'If you delete this file, you won\'t be able to recover it. Do you want to delete it?',
         ),

@@ -36,7 +36,6 @@ class _DashboardState extends State<Dashboard> {
     setState(() {
       _getEmployeeTotal;
       _getFarmsTotal = TotalFarmsWidget();
-      ;
       _getMachineryTotal = const TotalMachinerysWidget();
       ;
     });

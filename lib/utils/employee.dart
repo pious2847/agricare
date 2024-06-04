@@ -37,38 +37,38 @@ class EmployeeCrud {
     _employeeCountController.sink.add(totalEmployees);
     return employeeId;
   }
-
+  
 Future<List<Employee>> getEmployees() async {
-    Database db = await _dbHelper.initDb();
-    var employees = await db.query(
-      'employee e LEFT JOIN employee_machinery em ON e.id = em.employee_id',
-      columns: [
-        'e.id',
-        'e.name',
-        'e.contact',
-        'e.farmAssigned',
-        'em.machinery_id',
-      ],
-    );
+  Database db = await _dbHelper.initDb();
+  var employees = await db.query(
+    'employee e LEFT JOIN employee_machinery em ON e.id = em.employee_id',
+    columns: [
+      'e.id',
+      'e.name',
+      'e.contact',
+      'e.farmAssigned',
+      'em.machinery_id',
+    ],
+  );
 
-    Map<int, Employee> employeeMap = {};
-    List<Employee> result = [];
+  Map<int, Employee> employeeMap = {};
+  List<Employee> result = [];
 
-    for (var employee in employees) {
-      int? employeeId = employee['id'] as int?;
-      if (!employeeMap.containsKey(employeeId)) {
-        employeeMap[employeeId!] = Employee(
-          id: employeeId,
-          name: employee['name'] as String,
-          contact: employee['contact'] as String,
-          farmAssigned: employee['farmAssigned'] as int?,
-        );
-        result.add(employeeMap[employeeId]!);
-      }
+  for (var employee in employees) {
+    int? employeeId = employee['id'] as int?;
+    if (!employeeMap.containsKey(employeeId)) {
+      employeeMap[employeeId!] = Employee(
+        id: employeeId,
+        name: employee['name'] as String,
+        contact: employee['contact'] as String,
+        farmAssigned: employee['farmAssigned'] as int?,
+      );
+      result.add(employeeMap[employeeId]!);
     }
-
-    return result;
   }
+
+  return result;
+}
 
   Future<int> updateEmployee(Employee employee, List<int> machineIds) async {
     Database db = await _dbHelper.initDb();
