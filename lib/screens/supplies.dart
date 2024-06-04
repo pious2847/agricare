@@ -71,12 +71,12 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
           SizedBox(
             height: 30,
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Expanded(
-              flex: 1,
-              child: _supplies.isNotEmpty
-                  ? SingleChildScrollView(
+          Expanded(
+            flex: 1,
+            child: _supplies.isNotEmpty
+                ? SizedBox(
+          width: MediaQuery.of(context).size.width,
+                  child: SingleChildScrollView(
                       child: Table(
                         border: TableBorder.all(),
                         columnWidths: const {
@@ -180,7 +180,7 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
                                         child: IconButton(
                                           icon: const Icon(Iconsax.trash_copy),
                                           onPressed: () =>
-                                              _deletesupplies(supplies.id!),
+                                              showContentDialog(context,supplies.id!),
                                         ),
                                       ),
                                     ],
@@ -191,14 +191,41 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
                           ),
                         ],
                       ),
-                    )
-                  : const Center(
-                      child: Text('No supplies added yet'),
                     ),
-            ),
+                )
+                : const Center(
+                    child: Text('No supplies added yet'),
+                  ),
           ),
         ],
       ),
     );
   }
+      void showContentDialog(BuildContext context, int id) async {
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => ContentDialog(
+        title: const Text('Delete file permanently?'),
+        content: const Text(
+          'If you delete this file, you won\'t be able to recover it. Do you want to delete it?',
+        ),
+        actions: [
+          Button(
+            child: const Text('Delete'),
+            onPressed: () {
+              _deletesupplies(id);
+              Navigator.pop(context,);
+              // Delete file here
+            },
+          ),
+          FilledButton(
+            child: const Text('Cancel'),
+            onPressed: () => Navigator.pop(context, 'User canceled dialog'),
+          ),
+        ],
+      ),
+    );
+    setState(() {});
+  }
+
 }

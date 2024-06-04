@@ -16,7 +16,8 @@ class Machinerys extends StatefulWidget {
 }
 
 class _MachinerysState extends State<Machinerys> {
-  late final MachineryCrud _machineryCrud = DatabaseHelper.instance.machineryCrudInstance;
+  late final MachineryCrud _machineryCrud =
+      DatabaseHelper.instance.machineryCrudInstance;
 
   List<Machinery> _Machinerys = [];
 
@@ -58,18 +59,31 @@ class _MachinerysState extends State<Machinerys> {
               children: [
                 Button(
                   child: const Text('Add Machinery'),
-                  onPressed:(){
+                  onPressed: () {
                     showDialog(
                       context: context,
                       builder: (context) => const MachineryModal(),
                     ).then((value) => loadMachinerys());
-                  }
-                      ,
+                  },
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Button(
+                  child: const Text('Print'),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const MachineryModal(),
+                    ).then((value) => loadMachinerys());
+                  },
                 ),
               ],
             ),
           ),
-          SizedBox(height: 30,),
+          SizedBox(
+            height: 30,
+          ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Expanded(
@@ -88,7 +102,7 @@ class _MachinerysState extends State<Machinerys> {
                               color: Color.fromARGB(106, 50, 49, 48),
                             ),
                             children: [
-                                Padding(
+                              Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
                                   'ID',
@@ -115,7 +129,6 @@ class _MachinerysState extends State<Machinerys> {
                                   ),
                                 ),
                               ),
-                             
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
@@ -130,7 +143,7 @@ class _MachinerysState extends State<Machinerys> {
                           ..._Machinerys.map(
                             (machinery) => TableRow(
                               children: [
-                                 Padding(
+                                Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text('${machinery.id}'),
                                 ),
@@ -142,18 +155,20 @@ class _MachinerysState extends State<Machinerys> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(machinery.tagNumber),
                                 ),
-                             
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     IconButton(
                                       icon: const Icon(Iconsax.edit_2_copy),
-                                      onPressed: () => _editMachinerys(machinery),
+                                      onPressed: () =>
+                                          _editMachinerys(machinery),
                                     ),
                                     IconButton(
                                       icon: const Icon(Iconsax.trash_copy),
-                                      onPressed: () => _deleteMachinerys(machinery.id!),
+                                      onPressed: () =>
+                                      showContentDialog(context, machinery.id!),
+                                          // _deleteMachinerys(machinery.id!),
                                     ),
                                   ],
                                 ),
@@ -172,4 +187,32 @@ class _MachinerysState extends State<Machinerys> {
       ),
     );
   }
+
+  void showContentDialog(BuildContext context, int id) async {
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => ContentDialog(
+        title: const Text('Delete file permanently?'),
+        content: const Text(
+          'If you delete this file, you won\'t be able to recover it. Do you want to delete it?',
+        ),
+        actions: [
+          Button(
+            child: const Text('Delete'),
+            onPressed: () {
+              _deleteMachinerys(id);
+              Navigator.pop(context,);
+              // Delete file here
+            },
+          ),
+          FilledButton(
+            child: const Text('Cancel'),
+            onPressed: () => Navigator.pop(context, 'User canceled dialog'),
+          ),
+        ],
+      ),
+    );
+    setState(() {});
+  }
+
 }

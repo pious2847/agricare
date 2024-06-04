@@ -163,7 +163,7 @@ class _FarmsState extends State<Farms> {
                                       useMousePosition: false,
                                       child: IconButton(
                                         icon: const Icon(Iconsax.trash_copy),
-                                        onPressed: () => _deleteFarms(farm.id!),
+                                        onPressed: () => showContentDialog(context,farm.id!),
                                       ),
                                     ),
                                   ],
@@ -183,4 +183,32 @@ class _FarmsState extends State<Farms> {
       ),
     );
   }
+
+    void showContentDialog(BuildContext context, int id) async {
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => ContentDialog(
+        title: const Text('Delete file permanently?'),
+        content: const Text(
+          'If you delete this file, you won\'t be able to recover it. Do you want to delete it?',
+        ),
+        actions: [
+          Button(
+            child: const Text('Delete'),
+            onPressed: () {
+              _deleteFarms(id);
+              Navigator.pop(context,);
+              // Delete file here
+            },
+          ),
+          FilledButton(
+            child: const Text('Cancel'),
+            onPressed: () => Navigator.pop(context, 'User canceled dialog'),
+          ),
+        ],
+      ),
+    );
+    setState(() {});
+  }
+
 }
