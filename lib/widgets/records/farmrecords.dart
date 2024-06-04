@@ -78,10 +78,12 @@ class _GeneratePdfState extends State<GeneratePdf> {
               const SizedBox(
                 height: 20,
               ),
-              
+
             ],
           )
+        
         ],
+      
       ),
     );
   }
