@@ -57,13 +57,11 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Button(
-                  child: const Text('Add Farm'),
+                  child: const Text('Add Supplies'),
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context) {
-                        return const FarmModal();
-                      },
+                      builder: (context) => const SuppliesModal(),
                     ).then((value) => loadsupplies());
                   },
                 ),
