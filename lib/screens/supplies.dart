@@ -36,7 +36,7 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
     loadsupplies();
   }
 
-  void _editFarm(Supplies supplies) {
+  void _editSupplies(Supplies supplies) {
     showDialog(
       context: context,
       builder: (context) => SuppliesModal(supplies: supplies),
@@ -82,9 +82,9 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
                       child: Table(
                         border: TableBorder.all(),
                         columnWidths: const {
-                          0: FractionColumnWidth(0.1), // ID
-                          1: FractionColumnWidth(0.4), // Product
-                          3: FractionColumnWidth(0.1), // Stock
+                          0: FractionColumnWidth(0.05), // ID
+                          1: FractionColumnWidth(0.3), // Product
+                          3: FractionColumnWidth(0.3), // Stock
                           4: FractionColumnWidth(0.3), // Description
                           5: FractionColumnWidth(0.05), // Actions
                         },
@@ -160,30 +160,33 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(supplies.description),
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Tooltip(
-                                      message: 'Edit',
-                                      displayHorizontally: true,
-                                      useMousePosition: false,
-                                      child: IconButton(
-                                        icon: const Icon(Iconsax.edit_2_copy),
-                                        onPressed: () => _editFarm(supplies),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.01,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Tooltip(
+                                        message: 'Edit',
+                                        displayHorizontally: true,
+                                        useMousePosition: false,
+                                        child: IconButton(
+                                          icon: const Icon(Iconsax.edit_2_copy),
+                                          onPressed: () => _editSupplies(supplies),
+                                        ),
                                       ),
-                                    ),
-                                    Tooltip(
-                                      message: 'Delete',
-                                      displayHorizontally: true,
-                                      useMousePosition: false,
-                                      child: IconButton(
-                                        icon: const Icon(Iconsax.trash_copy),
-                                        onPressed: () =>
-                                            _deletesupplies(supplies.id!),
+                                      Tooltip(
+                                        message: 'Delete',
+                                        displayHorizontally: true,
+                                        useMousePosition: false,
+                                        child: IconButton(
+                                          icon: const Icon(Iconsax.trash_copy),
+                                          onPressed: () =>
+                                              _deletesupplies(supplies.id!),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
