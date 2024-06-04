@@ -86,102 +86,101 @@ class _MachinerysState extends State<Machinerys> {
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: Expanded(
-              child: _Machinerys.isNotEmpty
-                  ? SingleChildScrollView(
-                      child: Table(
-                        border: TableBorder.all(),
-                        columnWidths: const {
-                          0: FractionColumnWidth(0.3), // Name
-                          1: FractionColumnWidth(0.3), // TagNumber
-                          3: FractionColumnWidth(0.1), // Actions
-                        },
-                        children: [
-                          const TableRow(
-                            decoration: BoxDecoration(
-                              color: Color.fromARGB(106, 50, 49, 48),
+            height: MediaQuery.of(context).size.height - 80,
+            child: _Machinerys.isNotEmpty
+                ? SingleChildScrollView(
+                    child: Table(
+                      border: TableBorder.all(),
+                      columnWidths: const {
+                        0: FractionColumnWidth(0.3), // Name
+                        1: FractionColumnWidth(0.3), // TagNumber
+                        3: FractionColumnWidth(0.1), // Actions
+                      },
+                      children: [
+                        const TableRow(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(106, 50, 49, 48),
+                          ),
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'ID',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Name',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'TagNumber',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Actions',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        ..._Machinerys.map(
+                          (machinery) => TableRow(
                             children: [
                               Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'ID',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('${machinery.id}'),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Name',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(machinery.name),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'TagNumber',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(machinery.tagNumber),
                               ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Actions',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(Iconsax.edit_2_copy),
+                                    onPressed: () =>
+                                        _editMachinerys(machinery),
                                   ),
-                                ),
+                                  IconButton(
+                                    icon: const Icon(Iconsax.trash_copy),
+                                    onPressed: () =>
+                                    showContentDialog(context, machinery.id!),
+                                        // _deleteMachinerys(machinery.id!),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          ..._Machinerys.map(
-                            (machinery) => TableRow(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('${machinery.id}'),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(machinery.name),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(machinery.tagNumber),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    IconButton(
-                                      icon: const Icon(Iconsax.edit_2_copy),
-                                      onPressed: () =>
-                                          _editMachinerys(machinery),
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Iconsax.trash_copy),
-                                      onPressed: () =>
-                                      showContentDialog(context, machinery.id!),
-                                          // _deleteMachinerys(machinery.id!),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : const Center(
-                      child: Text('No Machinerys added yet'),
+                        ),
+                      ],
                     ),
-            ),
+                  )
+                : const Center(
+                    child: Text('No Machinerys added yet'),
+                  ),
           ),
         ],
       ),
