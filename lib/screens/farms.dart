@@ -2,6 +2,7 @@ import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/forms/farm_form.dart';
 import 'package:agricare/models/farm.dart';
 import 'package:agricare/utils/farm.dart';
+import 'package:agricare/widgets/records/farmrecords.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -64,127 +65,139 @@ class _FarmsState extends State<Farms> {
                     ).then((value) => loadFarms());
                   },
                 ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Button(
+                  child: const Text('Print Preview'),
+                  onPressed: () {
+                     showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const GeneratePdf();
+                      },
+                    ).then((value) => loadFarms());
+                  },
+                ),
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
-
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: Expanded(
-              flex: 1,
-              child: _farms.isNotEmpty
-                  ? SingleChildScrollView(
-                      child: Table(
-                        border: TableBorder.all(),
-                        columnWidths: const {
-                          0: FractionColumnWidth(0.3), // Name
-                          1: FractionColumnWidth(0.3), // Location
-                          2: FractionColumnWidth(0.3), // Farm Produce
-                          3: FractionColumnWidth(0.1), // Actions
-                        },
-                        children: [
-                          const TableRow(
-                            decoration: BoxDecoration(
-                              color: Color.fromARGB(106, 50, 49, 48),
+            height: MediaQuery.of(context).size.height - 80,
+            child: _farms.isNotEmpty
+                ? SingleChildScrollView(
+                    child: Table(
+                      border: TableBorder.all(),
+                      columnWidths: const {
+                        0: FractionColumnWidth(0.3), // Name
+                        1: FractionColumnWidth(0.3), // Location
+                        2: FractionColumnWidth(0.3), // Farm Produce
+                        3: FractionColumnWidth(0.1), // Actions
+                      },
+                      children: [
+                        const TableRow(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(106, 50, 49, 48),
+                          ),
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Name',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Location',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Farm Produce',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Actions',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        ..._farms.map(
+                          (farm) => TableRow(
                             children: [
                               Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Name',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(farm.name),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Location',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(farm.location),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Farm Produce',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(farm.farmproduce),
                               ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Actions',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Tooltip(
+                                    message: 'Edit',
+                                    displayHorizontally: true,
+                                    useMousePosition: false,
+                                    child: IconButton(
+                                      icon: const Icon(Iconsax.edit_2_copy),
+                                      onPressed: () => _editFarm(farm),
+                                    ),
                                   ),
-                                ),
+                                  Tooltip(
+                                    message: 'Delete',
+                                    displayHorizontally: true,
+                                    useMousePosition: false,
+                                    child: IconButton(
+                                      icon: const Icon(Iconsax.trash_copy),
+                                      onPressed: () => showContentDialog(
+                                          context, farm.id!),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          ..._farms.map(
-                            (farm) => TableRow(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(farm.name),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(farm.location),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(farm.farmproduce),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Tooltip(
-                                      message: 'Edit',
-                                      displayHorizontally: true,
-                                      useMousePosition: false,
-                                      child: IconButton(
-                                        icon: const Icon(Iconsax.edit_2_copy),
-                                        onPressed: () => _editFarm(farm),
-                                      ),
-                                    ),
-                                    Tooltip(
-                                      message: 'Delete',
-                                      displayHorizontally: true,
-                                      useMousePosition: false,
-                                      child: IconButton(
-                                        icon: const Icon(Iconsax.trash_copy),
-                                        onPressed: () => showContentDialog(context,farm.id!),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : const Center(
-                      child: Text('No farms added yet'),
+                        ),
+                      ],
                     ),
-            ),
+                  )
+                : const Center(
+                    child: Text('No farms added yet'),
+                  ),
           ),
         ],
       ),
     );
   }
 
-    void showContentDialog(BuildContext context, int id) async {
+  void showContentDialog(BuildContext context, int id) async {
     final result = await showDialog<String>(
       context: context,
       builder: (context) => ContentDialog(
@@ -197,7 +210,9 @@ class _FarmsState extends State<Farms> {
             child: const Text('Delete'),
             onPressed: () {
               _deleteFarms(id);
-              Navigator.pop(context,);
+              Navigator.pop(
+                context,
+              );
               // Delete file here
             },
           ),
@@ -210,5 +225,4 @@ class _FarmsState extends State<Farms> {
     );
     setState(() {});
   }
-
 }

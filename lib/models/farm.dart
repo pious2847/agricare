@@ -14,4 +14,6 @@ class Farm {
     'farmproduce': farmproduce,
   };
 }
+
+  map(List Function(dynamic farm) param0) {}
 }
