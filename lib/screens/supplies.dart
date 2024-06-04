@@ -16,7 +16,8 @@ class SuppliesScreen extends StatefulWidget {
 }
 
 class _SuppliesScreenState extends State<SuppliesScreen> {
-  late final SuppliesCrud _suppliesCrud = DatabaseHelper.instance.suppliesCrudInstance;
+  late final SuppliesCrud _suppliesCrud =
+      DatabaseHelper.instance.suppliesCrudInstance;
 
   List<Supplies> _supplies = [];
 
@@ -72,136 +73,136 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
             height: 30,
           ),
           SizedBox(
-          width: MediaQuery.of(context).size.width,
-            child: Expanded(
-              flex: 1,
-              child: _supplies.isNotEmpty
-                  ? SingleChildScrollView(
-                      child: Table(
-                        border: TableBorder.all(),
-                        columnWidths: const {
-                          0: FractionColumnWidth(0.05), // ID
-                          1: FractionColumnWidth(0.3), // Product
-                          3: FractionColumnWidth(0.3), // Stock
-                          4: FractionColumnWidth(0.3), // Description
-                          5: FractionColumnWidth(0.05), // Actions
-                        },
-                        children: [
-                          const TableRow(
-                            decoration: BoxDecoration(
-                              color: Color.fromARGB(106, 50, 49, 48),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height - 80,
+            child: _supplies.isNotEmpty
+                ? SingleChildScrollView(
+                    child: Table(
+                      border: TableBorder.all(),
+                      columnWidths: const {
+                        0: FractionColumnWidth(0.05), // ID
+                        1: FractionColumnWidth(0.3), // Product
+                        3: FractionColumnWidth(0.3), // Stock
+                        4: FractionColumnWidth(0.3), // Description
+                        5: FractionColumnWidth(0.05), // Actions
+                      },
+                      children: [
+                        const TableRow(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(106, 50, 49, 48),
+                          ),
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'ID',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Products',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Stock',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Description',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Actions',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        ..._supplies.map(
+                          (supplies) => TableRow(
                             children: [
-                               Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'ID',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('${supplies.id}'),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Products',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(supplies.product),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Stock',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('${supplies.stock}'),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Description',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(supplies.description),
                               ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Actions',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.01,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Tooltip(
+                                      message: 'Edit',
+                                      displayHorizontally: true,
+                                      useMousePosition: false,
+                                      child: IconButton(
+                                        icon: const Icon(Iconsax.edit_2_copy),
+                                        onPressed: () =>
+                                            _editSupplies(supplies),
+                                      ),
+                                    ),
+                                    Tooltip(
+                                      message: 'Delete',
+                                      displayHorizontally: true,
+                                      useMousePosition: false,
+                                      child: IconButton(
+                                        icon: const Icon(Iconsax.trash_copy),
+                                        onPressed: () => showContentDialog(
+                                            context, supplies.id!),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                          ..._supplies.map(
-                            (supplies) => TableRow(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('${supplies.id}'),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(supplies.product),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('${supplies.stock}'),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(supplies.description),
-                                ),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.01,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Tooltip(
-                                        message: 'Edit',
-                                        displayHorizontally: true,
-                                        useMousePosition: false,
-                                        child: IconButton(
-                                          icon: const Icon(Iconsax.edit_2_copy),
-                                          onPressed: () => _editSupplies(supplies),
-                                        ),
-                                      ),
-                                      Tooltip(
-                                        message: 'Delete',
-                                        displayHorizontally: true,
-                                        useMousePosition: false,
-                                        child: IconButton(
-                                          icon: const Icon(Iconsax.trash_copy),
-                                          onPressed: () =>
-                                              showContentDialog(context,supplies.id!),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : const Center(
-                      child: Text('No supplies added yet'),
+                        ),
+                      ],
                     ),
-            ),
+                  )
+                : const Center(
+                    child: Text('No supplies added yet'),
+                  ),
           ),
         ],
       ),
     );
   }
-      void showContentDialog(BuildContext context, int id) async {
+
+  void showContentDialog(BuildContext context, int id) async {
     final result = await showDialog<String>(
       context: context,
       builder: (context) => ContentDialog(
@@ -214,7 +215,9 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
             child: const Text('Delete'),
             onPressed: () {
               _deletesupplies(id);
-              Navigator.pop(context,);
+              Navigator.pop(
+                context,
+              );
               // Delete file here
             },
           ),
@@ -227,5 +230,4 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
     );
     setState(() {});
   }
-
 }
