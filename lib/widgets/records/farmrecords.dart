@@ -43,7 +43,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
         children: [
           Column(
             children: [
-              Text('KAMBANG COCO-OPERATIVE FOOD FARMING AND', style: TextStyle(fontSize: 35, color: Colors.blue, fontWeight: FontWeight.bold),),
+              Text('KAMBANG CO-OPERATIVE FOOD FARMING AND', style: TextStyle(fontSize: 35, color: Colors.blue, fontWeight: FontWeight.bold),),
               Text('MARKETING SOCIETY LIMITED',style: TextStyle(fontSize: 30, color: Colors.blue, fontWeight: FontWeight.bold),)
             ],
           )
