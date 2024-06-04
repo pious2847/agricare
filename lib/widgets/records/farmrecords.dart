@@ -37,14 +37,47 @@ class _GeneratePdfState extends State<GeneratePdf> {
   Widget build(BuildContext context) {
     return ContentDialog(
       constraints: BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width * 0.6,
+        maxWidth: MediaQuery.of(context).size.width * 0.8,
+        minWidth: MediaQuery.of(context).size.width * 0.6,
       ),
       content: Column(
         children: [
           Column(
             children: [
-              Text('KAMBANG CO-OPERATIVE FOOD FARMING AND', style: TextStyle(fontSize: 35, color: Colors.blue, fontWeight: FontWeight.bold),),
-              Text('MARKETING SOCIETY LIMITED',style: TextStyle(fontSize: 30, color: Colors.blue, fontWeight: FontWeight.bold),)
+              const SizedBox(
+                height: 25,
+              ),
+              Text(
+                'KAMBANG CO-OPERATIVE FOOD FARMING AND',
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                'MARKETING SOCIETY LIMITED',
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              const Image(image: AssetImage('assets/images/logo.jpeg'), height: 100,),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                'FARM RECORDS',
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           )
         ],
