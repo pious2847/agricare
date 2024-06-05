@@ -2,6 +2,7 @@ import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/models/farm.dart';
 import 'package:agricare/models/supervisor.dart';
 import 'package:agricare/utils/farm.dart';
+import 'package:agricare/utils/supervisor.dart';
 import 'package:flutter/material.dart';
 
 class SupervisorModal extends StatefulWidget {
@@ -15,11 +16,13 @@ class SupervisorModal extends StatefulWidget {
 
 class _SupervisorModalState extends State<SupervisorModal> {
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController _nameController;
-  late TextEditingController _contactController;
-  late TextEditingController _notesController;
+  final _nameController = TextEditingController();
+  final _contactController = TextEditingController();
+  final _notesController = TextEditingController();
 
   late final FarmCrud _farmCrud = DatabaseHelper.instance.farmCrudInstance;
+  late final SupervisorCrud supervisorcrud =
+      DatabaseHelper.instance.supervisorCrudInstance;
 
   List<Farm> _farms = [];
 
@@ -27,26 +30,23 @@ class _SupervisorModalState extends State<SupervisorModal> {
 
   @override
   void initState() {
-    super.initState();
     loadFarms();
-    _nameController =
-        TextEditingController(text: widget.supervisor?.name ?? '');
-    _contactController =
-        TextEditingController(text: widget.supervisor?.contact ?? '');
-        _notesController =
-        TextEditingController(text: widget.supervisor?.notes ?? '');
-        _selectedFarmId = widget.supervisor?.farmsAssigned;
+    super.initState();
+    _nameController.text = widget.supervisor?.name ?? '';
+    _contactController.text = widget.supervisor?.contact ?? '';
+    _notesController.text = widget.supervisor?.notes ?? '';
+    _selectedFarmId = widget.supervisor?.farmsAssigned;
   }
 
   @override
   void dispose() {
     _nameController.dispose();
     _contactController.dispose();
-    _contactController.dispose();
     _notesController.dispose();
     super.dispose();
   }
- Future<void> loadFarms() async {
+
+  Future<void> loadFarms() async {
     _farms = await _farmCrud.getFarms();
     setState(() {});
   }
@@ -56,18 +56,15 @@ class _SupervisorModalState extends State<SupervisorModal> {
       final supervisor = Supervisor(
         id: widget.supervisor?.id,
         name: _nameController.text,
-        contact: _nameController.text,
+        contact: _contactController.text,
         notes: _notesController.text,
         farmsAssigned: _selectedFarmId,
-
       );
 
-      final databaseHelper = DatabaseHelper.instance;
-
       if (widget.supervisor == null) {
-        await databaseHelper.supervisorcrud.addSupervisor(supervisor);
+        await supervisorcrud.addSupervisor(supervisor);
       } else {
-        await databaseHelper.supervisorcrud.updateSupervisor(supervisor);
+        await supervisorcrud.updateSupervisor(supervisor);
       }
 
       // Close the modal after saving
@@ -98,7 +95,7 @@ class _SupervisorModalState extends State<SupervisorModal> {
             ),
             TextFormField(
               controller: _contactController,
-              decoration: const InputDecoration(labelText: 'name'),
+              decoration: const InputDecoration(labelText: 'contact'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a contact';
@@ -106,29 +103,27 @@ class _SupervisorModalState extends State<SupervisorModal> {
                 return null;
               },
             ),
-            
-               DropdownButtonFormField<int>(
-                value: _selectedFarmId,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedFarmId = value;
-                  });
-                },
-                items: _farms.map((farm) {
-                  return DropdownMenuItem<int>(
-                    value: farm.id,
-                    child: Text(farm.name),
-                  );
-                }).toList(),
-                decoration: const InputDecoration(labelText: 'Assigned Farm'),
-              ),
-              
+            DropdownButtonFormField<int>(
+              value: _selectedFarmId,
+              onChanged: (value) {
+                setState(() {
+                  _selectedFarmId = value;
+                });
+              },
+              items: _farms.map((farm) {
+                return DropdownMenuItem<int>(
+                  value: farm.id,
+                  child: Text(farm.name),
+                );
+              }).toList(),
+              decoration: const InputDecoration(labelText: 'Select Farm'),
+            ),
             TextFormField(
               controller: _notesController,
-              decoration: const InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: 'notes'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter a Password';
+                  return 'Please enter a notes';
                 }
                 return null;
               },

@@ -3,6 +3,7 @@ import 'package:agricare/forms/admin.dart';
 import 'package:agricare/forms/employee.dart';
 import 'package:agricare/forms/farm_form.dart';
 import 'package:agricare/forms/machinery_modal.dart';
+import 'package:agricare/forms/supervisor.dart';
 import 'package:agricare/forms/supplies.dart';
 import 'package:agricare/models/supplies.dart';
 import 'package:agricare/screens/farms.dart';
@@ -467,11 +468,17 @@ class _DashboardState extends State<Dashboard> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(supplies.product, style: TextStyle(color: Colors.red),),
+                                child: Text(
+                                  supplies.product,
+                                  style: TextStyle(color: Colors.red),
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('${supplies.stock}', style: TextStyle(color: Colors.red),),
+                                child: Text(
+                                  '${supplies.stock}',
+                                  style: TextStyle(color: Colors.red),
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -569,18 +576,19 @@ class _DashboardState extends State<Dashboard> {
               width: 10,
             ),
             Material.TextButton.icon(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const Farms();
-                    },
-                  ).then((value) => setState(() {
-                        _updateCount();
-                      }));
-                },
-                icon: const Icon(Iconsax.additem_copy),
-                label: const Text('Add Supervisor')),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const SupervisorModal();
+                  },
+                ).then((value) => setState(() {
+                      _updateCount();
+                    }));
+              },
+              icon: const Icon(Iconsax.additem_copy),
+              label: const Text('Add Supervisor'),
+            ),
             const SizedBox(
               width: 10,
             ),
@@ -599,16 +607,17 @@ class _DashboardState extends State<Dashboard> {
               width: 10,
             ),
             Material.TextButton.icon(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const SuppliesModal();
-                    },
-                  ).then((value) => setState(() {}));
-                },
-                icon: const Icon(Iconsax.additem_copy),
-                label: const Text('Add Supplies')),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const SuppliesModal();
+                  },
+                ).then((value) => setState(() {}));
+              },
+              icon: const Icon(Iconsax.additem_copy),
+              label: const Text('Add Supplies'),
+            ),
             const SizedBox(
               width: 10,
             ),
