@@ -195,7 +195,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
 
   Future<void> generatePdf(List<Farm> farms) async {
     final pdf = pw.Document();
-    final ByteData  img = await rootBundle.load('assets/images/logo.jpg');
+    final ByteData  img = await rootBundle.load('assets/images/logo.jpeg');
     final logo = img.buffer.asUint8List();
    
     
