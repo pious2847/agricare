@@ -2,31 +2,37 @@
 
 import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/models/farm.dart';
+import 'package:agricare/models/supplies.dart';
 import 'package:agricare/utils/farm.dart';
+import 'package:agricare/utils/supplies.dart';
 import 'package:agricare/widgets/tabels/farmstabels.dart';
+import 'package:agricare/widgets/tabels/suppliestabel.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
-class GeneratePdf extends StatefulWidget {
-  const GeneratePdf({super.key});
+class GenerateSuppliesPdf extends StatefulWidget {
+  const GenerateSuppliesPdf({super.key});
 
   @override
-  State<GeneratePdf> createState() => _GeneratePdfState();
+  State<GenerateSuppliesPdf> createState() => _GenerateSuppliesPdfState();
 }
 
-class _GeneratePdfState extends State<GeneratePdf> {
+class _GenerateSuppliesPdfState extends State<GenerateSuppliesPdf> {
   late final FarmCrud _farmCrud = DatabaseHelper.instance.farmCrudInstance;
+  late final SuppliesCrud _suppliesCrud = DatabaseHelper.instance.suppliesCrudInstance;
   List<Farm> farms = [];
+  List<Supplies> supplies = [];
+
   @override
   void initState() {
-    loadFarms();
+    loadSupplies();
     super.initState();
   }
 
-  Future<void> loadFarms() async {
-    farms = await _farmCrud.getFarms();
+  Future<void> loadSupplies() async {
+    supplies = await _suppliesCrud.getSupplies();
     setState(() {});
   }
 
@@ -71,7 +77,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                     height: 20,
                   ),
                   const Text(
-                    'FARM RECORDS',
+                    'SUPPLIES RECORDS',
                     style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -86,14 +92,14 @@ class _GeneratePdfState extends State<GeneratePdf> {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               // height: MediaQuery.of(context).size.height ,
-              child: farms.isNotEmpty
+              child: supplies.isNotEmpty
                   ? SingleChildScrollView(
                       child: Table(
                         border: TableBorder.all(),
                         columnWidths: const {
-                          0: FractionColumnWidth(0.4), // Name
-                          1: FractionColumnWidth(0.3), // Location
-                          2: FractionColumnWidth(0.3), // Farm Produce
+                          0: FractionColumnWidth(0.2), // ID
+                          1: FractionColumnWidth(0.4), // Product
+                          2: FractionColumnWidth(0.4), // Stock
                         },
                         children: [
                           const TableRow(
@@ -104,7 +110,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Name',
+                                  'ID',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -113,7 +119,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Location',
+                                  'PRODUCT',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -122,7 +128,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Farm Produce',
+                                  'STOCK',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -130,20 +136,20 @@ class _GeneratePdfState extends State<GeneratePdf> {
                               ),
                             ],
                           ),
-                          ...farms.map(
-                            (farm) => TableRow(
+                          ...supplies.map(
+                            (supply) => TableRow(
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(farm.name),
+                                  child: Text('${supply.id}'),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(farm.location),
+                                  child: Text(supply.product),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(farm.farmproduce),
+                                  child: Text('${supply.stock}'),
                                 ),
                               ],
                             ),
@@ -164,7 +170,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                   width: MediaQuery.of(context).size.width * 0.35,
                   child: FilledButton(
                     onPressed: () {
-                      generatePdf(farms);
+                      GenerateSuppliesPdf(supplies);
                     },
                     child: Text('Print'),
                   ),
@@ -189,12 +195,12 @@ class _GeneratePdfState extends State<GeneratePdf> {
     );
   }
 
- Future<void> generatePdf(List<Farm> farms) async {
+ Future<void> GenerateSuppliesPdf(List<Supplies> supplies) async {
     final pdf = pw.Document();
     final ByteData img = await rootBundle.load('assets/images/logo.jpeg');
     final logo = img.buffer.asUint8List();
 
-    final pages = farmTablePages(farms, logo);
+    final pages = SupplyTablePages(supplies, logo);
     for (var page in pages) {
       pdf.addPage(page);
     }
@@ -204,7 +210,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
   // Format the date and time manually
   final formattedDate = '${now.year}_${_twoDigits(now.month)}_${_twoDigits(now.day)}_${_twoDigits(now.hour)}-${_twoDigits(now.minute)}';
   // Create the filename with the formatted date and time
-  final filename = 'Kambang_Cooperative_Farm_Records_$formattedDate.pdf';
+  final filename = 'Kambang_Cooperative_Supplies_Records_$formattedDate.pdf';
 
   
   await Printing.sharePdf(

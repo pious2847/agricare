@@ -1,10 +1,7 @@
 import 'package:agricare/models/farm.dart';
-import 'package:agricare/screens/farms.dart';
-import 'package:fluent_ui/fluent_ui.dart';
 // import 'package:fluent_ui/fluent_ui.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
 
 const int farmsPerPage = 15;
 

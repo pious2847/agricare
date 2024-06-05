@@ -1,19 +1,21 @@
-import 'package:agricare/models/machinery.dart';
+import 'package:agricare/models/farm.dart';
+import 'package:agricare/models/supplies.dart';
+// import 'package:fluent_ui/fluent_ui.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-const int machineryPerPage = 15;
+const int suppliesPerPage = 15;
 
 
-List<pw.Page> machineryTablePages(List<Machinery> machinerys,  image) {
+List<pw.Page> SupplyTablePages(List<Supplies> supplies,  image) {
   List<pw.Page> pages = [];
 
-  for (int i = 0; i < machinerys.length; i += machineryPerPage) {
-    final chunk = machinerys.sublist(i, i + machineryPerPage > machinerys.length ? machinerys.length : i + machineryPerPage);
+  for (int i = 0; i < supplies.length; i += suppliesPerPage) {
+    final chunk = supplies.sublist(i, i + suppliesPerPage > supplies.length ? supplies.length : i + suppliesPerPage);
     pages.add(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
-        build: (context) => machineryTable(chunk, image),
+        build: (context) => supplyTable(chunk, image),
       ),
     );
   }
@@ -22,7 +24,7 @@ List<pw.Page> machineryTablePages(List<Machinery> machinerys,  image) {
 }
 
 
-pw.Widget machineryTable(List<Machinery> machinerys,  image) {
+pw.Widget supplyTable(List<Supplies> supplies,  image) {
   return pw.Column(
     children: [
       pw.Container(
@@ -55,8 +57,8 @@ pw.Widget machineryTable(List<Machinery> machinerys,  image) {
                 ),
                 pw.SizedBox(height: 20),
                 pw.Text(
-                  'MACHINERY RECORDS',
-                  style: pw.TextStyle(fontSize: 14, ),
+                  'supply RECORDS',
+                  style: pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.bold),
                 ),
                 pw.SizedBox(height: 20),
               ],
@@ -82,33 +84,33 @@ pw.Widget machineryTable(List<Machinery> machinerys,  image) {
                 pw.Padding(
                   padding: pw.EdgeInsets.all(8.0),
                   child: pw.Text(
-                    'Name',
+                    'Product',
                     style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                   ),
                 ),
                 pw.Padding(
                   padding: pw.EdgeInsets.all(8.0),
                   child: pw.Text(
-                    'Tag Number',
+                    'Stock',
                     style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                   ),
                 ),
               ],
             ),
-            ...machinerys.map(
-              (machinery) => pw.TableRow(
+            ...supplies.map(
+              (supply) => pw.TableRow(
                 children: [
                   pw.Padding(
                     padding: pw.EdgeInsets.all(8.0),
-                    child: pw.Text('${machinery.id}'),
+                    child: pw.Text('${supply.id}'),
                   ),
                   pw.Padding(
                     padding: pw.EdgeInsets.all(8.0),
-                    child: pw.Text(machinery.name),
+                    child: pw.Text(supply.product),
                   ),
                   pw.Padding(
                     padding: pw.EdgeInsets.all(8.0),
-                    child: pw.Text(machinery.tagNumber),
+                    child: pw.Text('${supply.stock}'),
                   ),
                 ],
               ),
