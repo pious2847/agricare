@@ -140,6 +140,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
                 }).toList(),
                 decoration: const InputDecoration(labelText: 'Assigned Farm'),
               ),
+              
               const SizedBox(height: 16.0),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.3,

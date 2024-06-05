@@ -5,8 +5,6 @@ import 'package:sqflite/sqflite.dart';
 class SuppliesCrud {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
 
-
-
   Future<int> addSupplies(Supplies supplies) async {
     Database db = await _dbHelper.initDb();
     return await db.insert('supplies', supplies.toMap());
@@ -26,17 +24,26 @@ class SuppliesCrud {
   }
 
   Future<List<Supplies>> getLowStock() async {
+    // Initialize the database
     Database db = await _dbHelper.initDb();
-    var lowsupplies = await db.query('supplies', where: 'stock <= 10', );
-     return lowsupplies
-        .map((supplies) => Supplies(
-              id: supplies['id'] as int,
-              product: supplies['product'] as String,
-              stock: supplies['stock'] as int,
-              description: supplies['description'] as String,
-            ))
-        .toList();
-    
+    // Query for supplies where stock is less than or equal to 10
+    try {
+      var lowsupplies =
+          await db.query('supplies', where: 'stock <= ?', whereArgs: [10]);
+      // Map the query results to a list of Supplies objects
+      return lowsupplies
+          .map((supplies) => Supplies(
+                id: supplies['id'] as int,
+                product: supplies['product'] as String,
+                stock: supplies['stock'] as int,
+                description: supplies['description'] as String,
+              ))
+          .toList();
+    } catch (e) {
+      // Handle any errors that occur during the query
+      print('Error querying low stock supplies: $e');
+      return [];
+    }
   }
 
   Future<int> updateSupplies(Supplies supplies) async {

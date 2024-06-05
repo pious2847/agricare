@@ -204,6 +204,7 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
                     child: Text('No supplies added yet'),
                   ),
           ),
+        
         ],
       ),
     );
@@ -237,4 +238,5 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
     );
     setState(() {});
   }
+
 }
