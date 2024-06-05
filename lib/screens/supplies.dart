@@ -1,10 +1,8 @@
 import 'package:agricare/database/databaseHelper.dart';
-import 'package:agricare/forms/farm_form.dart';
 import 'package:agricare/forms/supplies.dart';
-import 'package:agricare/models/farm.dart';
 import 'package:agricare/models/supplies.dart';
-import 'package:agricare/utils/farm.dart';
 import 'package:agricare/utils/supplies.dart';
+import 'package:agricare/widgets/records/suppliesrecords.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -63,6 +61,15 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
                     showDialog(
                       context: context,
                       builder: (context) => const SuppliesModal(),
+                    ).then((value) => loadsupplies());
+                  },
+                ),
+                Button(
+                  child: const Text('Print Preview'),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const GenerateSuppliesPdf(),
                     ).then((value) => loadsupplies());
                   },
                 ),

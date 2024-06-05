@@ -57,7 +57,7 @@ pw.Widget supplyTable(List<Supplies> supplies,  image) {
                 ),
                 pw.SizedBox(height: 20),
                 pw.Text(
-                  'supply RECORDS',
+                  'SUPPLIES RECORDS',
                   style: pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.bold),
                 ),
                 pw.SizedBox(height: 20),
