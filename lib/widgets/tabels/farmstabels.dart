@@ -6,7 +6,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
-farmTabels(List<Farm> farms, image) =>  pw.Column(
+farmTabels(List<Farm> farms, image) => pw.Column(
       children: [
         pw.Container(
           alignment: pw.Alignment.center,
@@ -16,7 +16,7 @@ farmTabels(List<Farm> farms, image) =>  pw.Column(
               child: pw.Column(
                 mainAxisAlignment: pw.MainAxisAlignment.center,
                 children: [
-                   pw.SizedBox(
+                  pw.SizedBox(
                     height: 25,
                   ),
                   pw.Text(
@@ -26,7 +26,7 @@ farmTabels(List<Farm> farms, image) =>  pw.Column(
                         color: PdfColor.fromHex('#89b6ed'),
                         fontWeight: pw.FontWeight.bold),
                   ),
-                   pw.SizedBox(
+                  pw.SizedBox(
                     height: 7,
                   ),
                   pw.Text(
@@ -36,15 +36,14 @@ farmTabels(List<Farm> farms, image) =>  pw.Column(
                         color: PdfColor.fromHex('#89b6ed'),
                         fontWeight: pw.FontWeight.bold),
                   ),
-                   pw.SizedBox(
+                  pw.SizedBox(
                     height: 15,
                   ),
                   pw.Container(
-   alignment: pw.Alignment.center,
-   height: 200,
-   child: image,
-),
-                   pw.SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: pw.Image(pw.MemoryImage(image))),
+                  pw.SizedBox(
                     height: 20,
                   ),
                   pw.Text(
@@ -60,68 +59,65 @@ farmTabels(List<Farm> farms, image) =>  pw.Column(
                 ],
               ),
             ),
-              
           ),
         ),
         pw.SizedBox(height: 20),
         pw.SizedBox(
           child: pw.Table(
-          border: pw.TableBorder.all(),
-          children: [
-            pw.TableRow(
-              decoration: pw.BoxDecoration(),
-              children: [
-                pw.Padding(
-                  padding: pw.EdgeInsets.all(8.0),
-                  child: pw.Text(
-                    'Name',
-                    style: pw.TextStyle(
-                      fontWeight: pw.FontWeight.bold,
-                    ),
-                  ),
-                ),
-                pw.Padding(
-                  padding: pw.EdgeInsets.all(8.0),
-                  child: pw.Text(
-                    'Location',
-                    style: pw.TextStyle(
-                      fontWeight: pw.FontWeight.bold,
-                    ),
-                  ),
-                ),
-                pw.Padding(
-                  padding: pw.EdgeInsets.all(8.0),
-                  child: pw.Text(
-                    'Name',
-                    style: pw.TextStyle(
-                      fontWeight: pw.FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            ...farms.map(
-              (farm) => pw.TableRow(
+            border: pw.TableBorder.all(),
+            children: [
+              pw.TableRow(
+                decoration: pw.BoxDecoration(),
                 children: [
                   pw.Padding(
-                    padding: const pw.EdgeInsets.all(8.0),
-                    child: pw.Text(farm.name),
+                    padding: pw.EdgeInsets.all(8.0),
+                    child: pw.Text(
+                      'Name',
+                      style: pw.TextStyle(
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
                   ),
                   pw.Padding(
-                    padding: const pw.EdgeInsets.all(8.0),
-                    child: pw.Text(farm.location),
+                    padding: pw.EdgeInsets.all(8.0),
+                    child: pw.Text(
+                      'Location',
+                      style: pw.TextStyle(
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
                   ),
                   pw.Padding(
-                    padding: const pw.EdgeInsets.all(8.0),
-                    child: pw.Text(farm.farmproduce),
+                    padding: pw.EdgeInsets.all(8.0),
+                    child: pw.Text(
+                      'Name',
+                      style: pw.TextStyle(
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
-            ),
-          ],
+              ...farms.map(
+                (farm) => pw.TableRow(
+                  children: [
+                    pw.Padding(
+                      padding: const pw.EdgeInsets.all(8.0),
+                      child: pw.Text(farm.name),
+                    ),
+                    pw.Padding(
+                      padding: const pw.EdgeInsets.all(8.0),
+                      child: pw.Text(farm.location),
+                    ),
+                    pw.Padding(
+                      padding: const pw.EdgeInsets.all(8.0),
+                      child: pw.Text(farm.farmproduce),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      
-        ),
-        
       ],
     );

@@ -87,8 +87,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                 ],
               ),
             ),
-                     
-                     SizedBox(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               // height: MediaQuery.of(context).size.height ,
               child: farms.isNotEmpty
@@ -133,7 +132,6 @@ class _GeneratePdfState extends State<GeneratePdf> {
                                   ),
                                 ),
                               ),
-                              
                             ],
                           ),
                           ...farms.map(
@@ -151,7 +149,6 @@ class _GeneratePdfState extends State<GeneratePdf> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(farm.farmproduce),
                                 ),
-                               
                               ],
                             ),
                           ),
@@ -162,7 +159,9 @@ class _GeneratePdfState extends State<GeneratePdf> {
                       child: Text('No farms added yet'),
                     ),
             ),
-          SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             Row(
               children: [
                 SizedBox(
@@ -194,23 +193,24 @@ class _GeneratePdfState extends State<GeneratePdf> {
     );
   }
 
- Future<void> generatePdf(List<Farm> farms) async {
-  final pdf = pw.Document();
-  final img = await rootBundle.load('assets/images/logo.jpg');
-    final imageBytes = img.buffer.asUint8List();
-    pw.Image logo = pw.Image(pw.MemoryImage(imageBytes));
-  pdf.addPage(
-    pw.MultiPage(
-      pageFormat: PdfPageFormat.a4,
-      build: (context) {
-        return [farmTabels(farms, logo)];
-      },
-    ),
-  );
+  Future<void> generatePdf(List<Farm> farms) async {
+    final pdf = pw.Document();
+    final ByteData  img = await rootBundle.load('assets/images/logo.jpg');
+    final logo = img.buffer.asUint8List();
+   
+    
+    pdf.addPage(
+      pw.MultiPage(
+        pageFormat: PdfPageFormat.a4,
+        build: (context) {
+          return [farmTabels(farms, logo)];
+        },
+      ),
+    );
 
-  await Printing.sharePdf(
-    bytes: await pdf.save(),
-    filename: 'Kambang-Cooperative-Farm-Records1.pdf',
-  );
-}
+    await Printing.sharePdf(
+      bytes: await pdf.save(),
+      filename: 'Kambang-Cooperative-Farm-Records1.pdf',
+    );
+  }
 }
