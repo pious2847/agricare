@@ -193,24 +193,29 @@ class _GeneratePdfState extends State<GeneratePdf> {
     );
   }
 
-  Future<void> generatePdf(List<Farm> farms) async {
+ Future<void> generatePdf(List<Farm> farms) async {
     final pdf = pw.Document();
-    final ByteData  img = await rootBundle.load('assets/images/logo.jpeg');
+    final ByteData img = await rootBundle.load('assets/images/logo.jpeg');
     final logo = img.buffer.asUint8List();
-   
-    
-    pdf.addPage(
-      pw.MultiPage(
-        pageFormat: PdfPageFormat.a4,
-        build: (context) {
-          return [farmTabels(farms, logo)];
-        },
-      ),
-    );
 
-    await Printing.sharePdf(
-      bytes: await pdf.save(),
-      filename: 'Kambang-Cooperative-Farm-Records1.pdf',
-    );
+    final pages = farmTablePages(farms, logo);
+    for (var page in pages) {
+      pdf.addPage(page);
+    }
+
+    // Get the current date and time
+  final now = DateTime.now();
+  // Format the date and time manually
+  final formattedDate = '${now.year}-${_twoDigits(now.month)}-${_twoDigits(now.day)}_${_twoDigits(now.hour)}:${_twoDigits(now.minute)}:${_twoDigits(now.second)}';
+  // Create the filename with the formatted date and time
+  final filename = 'Kambang-Cooperative-Farm-Records_$formattedDate.pdf';
+
+  await Printing.sharePdf(
+    bytes: await pdf.save(),
+    filename: filename,
+  );
   }
+  String _twoDigits(int n) {
+  return n.toString().padLeft(2, '0');
+}
 }
