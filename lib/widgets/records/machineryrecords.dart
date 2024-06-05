@@ -4,33 +4,33 @@ import 'dart:typed_data';
 
 import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/models/farm.dart';
-import 'package:agricare/screens/farms.dart';
+import 'package:agricare/models/machinery.dart';
 import 'package:agricare/utils/farm.dart';
-import 'package:agricare/widgets/tabels/farmstabels.dart';
+import 'package:agricare/utils/machinery.dart';
+import 'package:agricare/widgets/tabels/machinerytabels.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
-class GeneratePdf extends StatefulWidget {
-  const GeneratePdf({super.key});
+class GenerateMachineryPdf extends StatefulWidget {
+  const GenerateMachineryPdf({super.key});
 
   @override
-  State<GeneratePdf> createState() => _GeneratePdfState();
+  State<GenerateMachineryPdf> createState() => _GenerateMachineryPdfState();
 }
 
-class _GeneratePdfState extends State<GeneratePdf> {
-  late final FarmCrud _farmCrud = DatabaseHelper.instance.farmCrudInstance;
-  List<Farm> farms = [];
+class _GenerateMachineryPdfState extends State<GenerateMachineryPdf> {
+  late final MachineryCrud _machineryCrud = DatabaseHelper.instance.machineryCrudInstance;
+  List<Machinery> machinerys = [];
   @override
   void initState() {
-    loadFarms();
+    loadMachinerys();
     super.initState();
   }
 
-  Future<void> loadFarms() async {
-    farms = await _farmCrud.getFarms();
+  Future<void> loadMachinerys() async {
+    machinerys = await _machineryCrud.getMachinery();
     setState(() {});
   }
 
@@ -75,7 +75,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                     height: 20,
                   ),
                   const Text(
-                    'FARM RECORDS',
+                    'MACHINERY RECORDS',
                     style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -90,7 +90,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               // height: MediaQuery.of(context).size.height ,
-              child: farms.isNotEmpty
+              child: machinerys.isNotEmpty
                   ? SingleChildScrollView(
                       child: Table(
                         border: TableBorder.all(),
@@ -108,6 +108,15 @@ class _GeneratePdfState extends State<GeneratePdf> {
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
+                                  'ID',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
                                   'Name',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -117,16 +126,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Location',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Farm Produce',
+                                  'Tag Number',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -134,20 +134,20 @@ class _GeneratePdfState extends State<GeneratePdf> {
                               ),
                             ],
                           ),
-                          ...farms.map(
-                            (farm) => TableRow(
+                          ...machinerys.map(
+                            (machinery) => TableRow(
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(farm.name),
+                                  child: Text('${machinery.id}'),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(farm.location),
+                                  child: Text(machinery.name),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(farm.farmproduce),
+                                  child: Text(machinery.tagNumber),
                                 ),
                               ],
                             ),
@@ -156,7 +156,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                       ),
                     )
                   : const Center(
-                      child: Text('No farms added yet'),
+                      child: Text('No machinery added yet'),
                     ),
             ),
             SizedBox(
@@ -168,7 +168,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                   width: MediaQuery.of(context).size.width * 0.35,
                   child: FilledButton(
                     onPressed: () {
-                      generatePdf(farms);
+                      GenerateMachineryPdf(machinerys);
                     },
                     child: Text('Print'),
                   ),
@@ -193,16 +193,15 @@ class _GeneratePdfState extends State<GeneratePdf> {
     );
   }
 
- Future<void> generatePdf(List<Farm> farms) async {
+ Future<void> GenerateMachineryPdf(List<Machinery> farms) async {
     final pdf = pw.Document();
     final ByteData img = await rootBundle.load('assets/images/logo.jpeg');
     final logo = img.buffer.asUint8List();
 
-    final pages = farmTablePages(farms, logo);
+    final pages = machineryTablePages(machinerys, logo);
     for (var page in pages) {
       pdf.addPage(page);
     }
-
   // Get the current date and time
   final now = DateTime.now();
   // Format the date and time manually
@@ -210,7 +209,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
   // Create the filename with the formatted date and time
   final filename = 'Kambang_Cooperative_Farm_Records_$formattedDate.pdf';
 
-  
+
   await Printing.sharePdf(
     bytes: await pdf.save(),
     filename: filename,
@@ -218,5 +217,8 @@ class _GeneratePdfState extends State<GeneratePdf> {
   }
   String _twoDigits(int n) {
   return n.toString().padLeft(2, '0');
+  }
+
+
 }
-}
+

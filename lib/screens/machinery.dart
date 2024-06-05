@@ -5,6 +5,7 @@ import 'package:agricare/models/farm.dart';
 import 'package:agricare/models/machinery.dart';
 import 'package:agricare/utils/farm.dart';
 import 'package:agricare/utils/machinery.dart';
+import 'package:agricare/widgets/records/machineryrecords.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -70,11 +71,13 @@ class _MachinerysState extends State<Machinerys> {
                   width: 10,
                 ),
                 Button(
-                  child: const Text('Print'),
+                  child: const Text('Print Preview'),
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context) => const MachineryModal(),
+                      builder: (context){
+                       return const GenerateMachineryPdf();
+                      },
                     ).then((value) => loadMachinerys());
                   },
                 ),
@@ -161,14 +164,13 @@ class _MachinerysState extends State<Machinerys> {
                                 children: [
                                   IconButton(
                                     icon: const Icon(Iconsax.edit_2_copy),
-                                    onPressed: () =>
-                                        _editMachinerys(machinery),
+                                    onPressed: () => _editMachinerys(machinery),
                                   ),
                                   IconButton(
                                     icon: const Icon(Iconsax.trash_copy),
-                                    onPressed: () =>
-                                    showContentDialog(context, machinery.id!),
-                                        // _deleteMachinerys(machinery.id!),
+                                    onPressed: () => showContentDialog(
+                                        context, machinery.id!),
+                                    // _deleteMachinerys(machinery.id!),
                                   ),
                                 ],
                               ),
@@ -200,7 +202,9 @@ class _MachinerysState extends State<Machinerys> {
             child: const Text('Delete'),
             onPressed: () {
               _deleteMachinerys(id);
-              Navigator.pop(context,);
+              Navigator.pop(
+                context,
+              );
               // Delete file here
             },
           ),
@@ -213,5 +217,4 @@ class _MachinerysState extends State<Machinerys> {
     );
     setState(() {});
   }
-
 }
