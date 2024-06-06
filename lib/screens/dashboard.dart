@@ -6,12 +6,11 @@ import 'package:agricare/forms/machinery_modal.dart';
 import 'package:agricare/forms/supervisor.dart';
 import 'package:agricare/forms/supplies.dart';
 import 'package:agricare/models/supplies.dart';
-import 'package:agricare/screens/farms.dart';
-import 'package:agricare/utils/farm.dart';
 import 'package:agricare/utils/supplies.dart';
 import 'package:agricare/widgets/totalemployee.dart';
 import 'package:agricare/widgets/totalfarms.dart';
 import 'package:agricare/widgets/totalmachinery.dart';
+import 'package:agricare/widgets/totalsupervisors.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as Material;
 import 'package:iconsax_flutter/iconsax_flutter.dart';
@@ -32,15 +31,16 @@ class _DashboardState extends State<Dashboard> {
   late final _getEmployeeTotal =
       TotalEmployeesWidget(); // Use the TotalEmployeesWidget here
 
-  late var _getFarmsTotal = TotalFarmsWidget();
-  late var _getMachineryTotal = const TotalMachinerysWidget();
+  late final _getFarmsTotal = TotalFarmsWidget();
+  late final _getSupervisorsTotal = const TotalSupervisorWidget();
+  late final _getMachineryTotal = const TotalMachinerysWidget();
 
   void _updateCount() {
     setState(() {
+      _getSupervisorsTotal;
       _getEmployeeTotal;
-      _getFarmsTotal = TotalFarmsWidget();
-      _getMachineryTotal = const TotalMachinerysWidget();
-      ;
+      _getFarmsTotal;
+      _getMachineryTotal;
     });
   }
 
@@ -66,9 +66,7 @@ class _DashboardState extends State<Dashboard> {
     // TODO: implement initState
     super.initState();
     loadsupplies();
-    _getEmployeeTotal;
-    _getFarmsTotal;
-    _getMachineryTotal;
+    _updateCount();
   }
 
   @override
@@ -183,14 +181,7 @@ class _DashboardState extends State<Dashboard> {
                                     SizedBox(
                                       height: 3.0,
                                     ),
-                                    Text(
-                                      '76',
-                                      style: TextStyle(
-                                          fontSize: 54.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color.fromARGB(
-                                              136, 45, 218, 131)),
-                                    ),
+                                    TotalSupervisorWidget(),
                                   ],
                                 ),
                               ],
