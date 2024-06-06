@@ -47,7 +47,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                     height: 25,
                   ),
                   Text(
-                    'KAMBANG CO-OPERATIVE FOOD FARMING AND',
+                    'CUDJOE ABIMASH FARMS',
                     style: TextStyle(
                         fontSize: 30,
                         color: Colors.blue,
@@ -57,7 +57,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                     height: 7,
                   ),
                   Text(
-                    'MARKETING SOCIETY LIMITED',
+                    'COMPANY LIMITED',
                     style: TextStyle(
                         fontSize: 20,
                         color: Colors.blue,
@@ -66,7 +66,30 @@ class _GeneratePdfState extends State<GeneratePdf> {
                   const SizedBox(
                     height: 15,
                   ),
-                  const Image(image: AssetImage('assets/images/logo.jpeg')),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('P.O Box 655', style: TextStyle(fontSize: 15),),
+                            Text('Northern Region ', style: TextStyle(fontSize: 15),),
+                            Text('Tamale', style: TextStyle(fontSize: 15),),
+                          ],
+                        ),  
+                        SizedBox(width: 20,),
+                    Image(image: AssetImage('assets/images/logo.jpeg')),
+                        SizedBox(width: 20,),
+                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Email: example12"gmail.com', style: TextStyle(fontSize: 15),),
+                            Text('Phone: +233 24xxxxxxx ', style: TextStyle(fontSize: 15),),
+                          ],
+                        ),  
+                    ]
+                  ),
+                  
                   const SizedBox(
                     height: 20,
                   ),
@@ -83,6 +106,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                 ],
               ),
             ),
+            
             SizedBox(
               width: MediaQuery.of(context).size.width,
               // height: MediaQuery.of(context).size.height ,
@@ -155,7 +179,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                       child: Text('No farms added yet'),
                     ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Row(
@@ -166,10 +190,10 @@ class _GeneratePdfState extends State<GeneratePdf> {
                     onPressed: () {
                       generatePdf(farms);
                     },
-                    child: Text('Print'),
+                    child: const Text('Print'),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 SizedBox(
@@ -178,7 +202,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                   ),
                 )
               ],

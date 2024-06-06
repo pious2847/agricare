@@ -251,7 +251,7 @@ late final SupervisorCrud _supervisorCrud =
     final pdf = pw.Document();
     final ByteData img = await rootBundle.load('assets/images/logo.jpeg');
     final logo = img.buffer.asUint8List();
-
+  
     final pages = supervisorsTablePages(supervisors, logo);
     for (var page in pages) {
       pdf.addPage(page);
@@ -261,7 +261,7 @@ late final SupervisorCrud _supervisorCrud =
   // Format the date and time manually
   final formattedDate = '${now.year}_${_twoDigits(now.month)}_${_twoDigits(now.day)}_${_twoDigits(now.hour)}-${_twoDigits(now.minute)}';
   // Create the filename with the formatted date and time
-  final filename = 'Kambang_Cooperative_Farm_Records_$formattedDate.pdf';
+  final filename = 'Kambang_Cooperative_Supervisors_Records_$formattedDate.pdf';
 
 
   await Printing.sharePdf(

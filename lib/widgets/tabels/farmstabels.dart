@@ -29,43 +29,68 @@ pw.Widget farmTable(List<Farm> farms,  image) {
       pw.Container(
         alignment: pw.Alignment.center,
         child: pw.Header(
-          child: pw.SizedBox(
+          child: pw.Center(
             child: pw.Column(
               mainAxisAlignment: pw.MainAxisAlignment.center,
               children: [
                 pw.Text(
-                  'KAMBANG CO-OPERATIVE FOOD FARMING AND',
+                 'CUDJOE ABIMASH FARMS',
                   style: pw.TextStyle(
-                      fontSize: 19,
+                      fontSize: 28,
                       color: PdfColor.fromHex('#89b6ed'),
                       fontWeight: pw.FontWeight.bold),
                 ),
                 pw.SizedBox(height: 7),
                 pw.Text(
-                  'MARKETING SOCIETY LIMITED',
+                  'COMPANY LIMITED',
                   style: pw.TextStyle(
-                      fontSize: 16,
+                      fontSize: 20,
                       color: PdfColor.fromHex('#89b6ed'),
                       fontWeight: pw.FontWeight.bold),
                 ),
                 pw.SizedBox(height: 15),
-                pw.Container(
+                 pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.center,
+                    children:[
+                        pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            pw.Text('P.O Box 655', style: const pw.TextStyle(fontSize: 10),),
+                            pw.Text('Northern Region ', style: const pw.TextStyle(fontSize: 10),),
+                            pw.Text('Tamale', style: const pw.TextStyle(fontSize: 10),),
+                          ],
+                        ),  
+                        pw.SizedBox(width: 20,),
+                    pw.Container(
                   width: 50.0,
                   height: 50.0,
-                  child: pw.Image(pw.MemoryImage(image)),
+                  child: pw.Image(pw.MemoryImage(image), height: 100, width: 100),
                 ),
+                        pw.SizedBox(width: 20,),
+                         pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            pw.Text('Email: example12"gmail.com', style: const pw.TextStyle(fontSize: 10),),
+                            pw.Text('Phone: +233 24xxxxxxx ', style: const pw.TextStyle(fontSize: 10),),
+                          ],
+                        ),  
+                    ]
+                  ),
+                  
+                
                 pw.SizedBox(height: 20),
                 pw.Text(
                   'FARM RECORDS',
-                  style: pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.bold),
+                  style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
                 ),
-                pw.SizedBox(height: 20),
+                pw.SizedBox(height: 9),
               ],
             ),
           ),
         ),
+      
       ),
-      pw.SizedBox(height: 20),
+      pw.SizedBox(height: 10),
       pw.SizedBox(
         child: pw.Table(
           border: pw.TableBorder.all(),
@@ -74,21 +99,21 @@ pw.Widget farmTable(List<Farm> farms,  image) {
               decoration: pw.BoxDecoration(color: PdfColor.fromHex('#89b6ed')),
               children: [
                 pw.Padding(
-                  padding: pw.EdgeInsets.all(8.0),
+                  padding: const pw.EdgeInsets.all(8.0),
                   child: pw.Text(
                     'Name',
                     style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                   ),
                 ),
                 pw.Padding(
-                  padding: pw.EdgeInsets.all(8.0),
+                  padding: const pw.EdgeInsets.all(8.0),
                   child: pw.Text(
                     'Location',
                     style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                   ),
                 ),
                 pw.Padding(
-                  padding: pw.EdgeInsets.all(8.0),
+                  padding: const pw.EdgeInsets.all(8.0),
                   child: pw.Text(
                     'Farm Produce',
                     style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
@@ -100,15 +125,15 @@ pw.Widget farmTable(List<Farm> farms,  image) {
               (farm) => pw.TableRow(
                 children: [
                   pw.Padding(
-                    padding: pw.EdgeInsets.all(8.0),
+                    padding: const pw.EdgeInsets.all(8.0),
                     child: pw.Text(farm.name),
                   ),
                   pw.Padding(
-                    padding: pw.EdgeInsets.all(8.0),
+                    padding: const pw.EdgeInsets.all(8.0),
                     child: pw.Text(farm.location),
                   ),
                   pw.Padding(
-                    padding: pw.EdgeInsets.all(8.0),
+                    padding: const pw.EdgeInsets.all(8.0),
                     child: pw.Text(farm.farmproduce),
                   ),
                 ],

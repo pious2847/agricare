@@ -2,6 +2,7 @@ import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/models/supervisor.dart';
 import 'package:agricare/utils/farm.dart';
 import 'package:agricare/utils/supervisor.dart';
+import 'package:flutter/material.dart' as Material;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -44,43 +45,66 @@ pw.Widget machineryTable(List<Supervisor> supervisors, image) {
       pw.Container(
         alignment: pw.Alignment.center,
         child: pw.Header(
-          child: pw.SizedBox(
+          child: pw.Center(
             child: pw.Column(
               mainAxisAlignment: pw.MainAxisAlignment.center,
               children: [
                 pw.Text(
-                  'KAMBANG CO-OPERATIVE FOOD FARMING AND',
+                 'CUDJOE ABIMASH FARMS',
                   style: pw.TextStyle(
-                      fontSize: 19,
+                      fontSize: 28,
                       color: PdfColor.fromHex('#89b6ed'),
                       fontWeight: pw.FontWeight.bold),
                 ),
                 pw.SizedBox(height: 7),
                 pw.Text(
-                  'MARKETING SOCIETY LIMITED',
+                  'COMPANY LIMITED',
                   style: pw.TextStyle(
-                      fontSize: 16,
+                      fontSize: 20,
                       color: PdfColor.fromHex('#89b6ed'),
                       fontWeight: pw.FontWeight.bold),
                 ),
                 pw.SizedBox(height: 15),
-                pw.Container(
+                 pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.center,
+                    children:[
+                        pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            pw.Text('P.O Box 655', style: const pw.TextStyle(fontSize: 10),),
+                            pw.Text('Northern Region ', style: const pw.TextStyle(fontSize: 10),),
+                            pw.Text('Tamale', style: const pw.TextStyle(fontSize: 10),),
+                          ],
+                        ),  
+                        pw.SizedBox(width: 20,),
+                    pw.Container(
                   width: 50.0,
                   height: 50.0,
-                  child: pw.Image(pw.MemoryImage(image)),
+                  child: pw.Image(pw.MemoryImage(image), height: 100, width: 100),
                 ),
+                        pw.SizedBox(width: 20,),
+                         pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            pw.Text('Email: example12"gmail.com', style: const pw.TextStyle(fontSize: 10),),
+                            pw.Text('Phone: +233 24xxxxxxx ', style: const pw.TextStyle(fontSize: 10),),
+                          ],
+                        ),  
+                    ]
+                  ),
+                  
+                
                 pw.SizedBox(height: 20),
                 pw.Text(
-                  'MACHINERY RECORDS',
-                  style: pw.TextStyle(
-                    fontSize: 14,
-                  ),
+                  'FARM RECORDS',
+                  style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
                 ),
-                pw.SizedBox(height: 20),
+                pw.SizedBox(height: 9),
               ],
             ),
           ),
         ),
+      
       ),
       pw.SizedBox(height: 20),
       pw.SizedBox(
@@ -128,7 +152,10 @@ pw.Widget machineryTable(List<Supervisor> supervisors, image) {
                     padding: pw.EdgeInsets.all(8.0),
                     child: pw.Text(supervisor.contact),
                   ),
-                 
+                  pw.Padding(
+                    padding: pw.EdgeInsets.all(8.0),
+                    child: pw.Text('${supervisor.farmsAssigned}'),
+                  ),
                 ],
               ),
             ),
