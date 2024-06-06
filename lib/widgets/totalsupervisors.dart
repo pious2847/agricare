@@ -13,13 +13,13 @@ class TotalSupervisorWidget extends StatefulWidget {
 class _TotalSupervisorWidgetState extends State<TotalSupervisorWidget> {
   late Future<int> _TotalSupervisors;
 
-   late final SupervisorCrud supervisorcrud =
+   late final SupervisorCrud _supervisorCrud =
       DatabaseHelper.instance.supervisorCrudInstance;
 
   @override
   void initState() {
     super.initState();
-    _TotalSupervisors = supervisorcrud.getTotalSupervisors();
+    _TotalSupervisors = _supervisorCrud.getTotalSupervisors();
   }
 
   @override
@@ -28,14 +28,14 @@ class _TotalSupervisorWidgetState extends State<TotalSupervisorWidget> {
       future: _TotalSupervisors,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator(); // Show a loading indicator while fetching the data
+          return const CircularProgressIndicator(); // Show a loading indicator while fetching the data
         } else if (snapshot.hasError) {
           return Text(
               'Error: ${snapshot.error}'); // Show an error message if fetching fails
         } else {
           return Text(
             '${snapshot.data}',
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 54.0,
                 fontWeight: FontWeight.bold,
                 color: Color.fromARGB(136, 45, 218, 131)),

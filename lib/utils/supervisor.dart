@@ -10,7 +10,7 @@ class SupervisorCrud {
   
     Future<int> getTotalSupervisors() async {
   Database db = await _dbHelper.initDb();
-  List<Map<String, Object?>> result = await db.query('farm');
+  List<Map<String, Object?>> result = await db.query('supervisor');
   return result.length;
 }
   Future<int> addSupervisor(Supervisor supervisor) async {

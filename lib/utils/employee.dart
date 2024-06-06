@@ -74,7 +74,7 @@ Future<List<Employee>> getEmployees() async {
     Database db = await _dbHelper.initDb();
     int rowsAffected = await db.update('employee', employee.toMap(), where: 'id = ?', whereArgs: [employee.id]);
 
-    // Delete existing machinery assignments
+    // Delete existing machinery asscignments
     await db.delete('employee_machinery', where: 'employee_id = ?', whereArgs: [employee.id]);
 
     // Insert new machinery assignments
