@@ -557,7 +557,7 @@ class _DashboardState extends State<Dashboard> {
                   showDialog(
                     context: context,
                     builder: (context) {
-                      return const EmployeeForm();
+                      return const EmployeeModal();
                     },
                   ).then((value) => setState(() {}));
                 },

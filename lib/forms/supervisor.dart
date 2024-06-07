@@ -34,7 +34,7 @@ class _SupervisorModalState extends State<SupervisorModal> {
     _nameController.text = widget.supervisor?.name ?? '';
     _contactController.text = widget.supervisor?.contact ?? '';
     _notesController.text = widget.supervisor?.notes ?? '';
-    _selectedFarm = widget.supervisor?.farmsAssigned ?? null;
+    _selectedFarm = widget.supervisor?.farmsAssigned;
 
     loadFarms();
   }
@@ -128,6 +128,7 @@ class _SupervisorModalState extends State<SupervisorModal> {
                 return null;
               },
             ),
+            
             TextFormField(
               controller: _notesController,
               decoration: const InputDecoration(labelText: 'notes'),

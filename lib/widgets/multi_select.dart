@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class CustomMultiSelect extends StatefulWidget {
-  final List<MultiSelectItem<int>> items;
-  final List<int> initialValue;
-  final Function(List<int>) onSelectionChanged;
+  final List<MultiSelectItem<String>> items;
+  final List<String> initialValue;
+  final Function(List<String>) onSelectionChanged;
 
   CustomMultiSelect({
     required this.items,
@@ -17,7 +17,7 @@ class CustomMultiSelect extends StatefulWidget {
 }
 
 class _CustomMultiSelectState extends State<CustomMultiSelect> {
-  late List<int> _selectedValues;
+  late List<String> _selectedValues;
 
   @override
   void initState() {

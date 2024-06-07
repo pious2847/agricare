@@ -3,10 +3,8 @@ import 'package:agricare/forms/supervisor.dart';
 import 'package:agricare/models/supervisor.dart';
 import 'package:agricare/utils/farm.dart';
 import 'package:agricare/utils/supervisor.dart';
-import 'package:agricare/widgets/records/farmrecords.dart';
 import 'package:agricare/widgets/records/supervisorsrecords.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart' as Material;
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class SupervisorPage extends StatefulWidget {

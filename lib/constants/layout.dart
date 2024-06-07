@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:agricare/screens/dashboard.dart';
-import 'package:agricare/screens/emplyee.dart';
+import 'package:agricare/screens/employee.dart';
 import 'package:agricare/screens/farms.dart';
 import 'package:agricare/screens/machinery.dart';
 import 'package:agricare/screens/supervisors.dart';

@@ -71,6 +71,8 @@ class DatabaseHelper {
   }
 
   
+
+
 void _createDb(Database db, int version) async {
   await db.execute('''
     CREATE TABLE IF NOT EXISTS admin(
@@ -103,21 +105,11 @@ void _createDb(Database db, int version) async {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       contact TEXT NOT NULL,
-      machineAssigned INTEGER,
-      farmAssigned INTEGER,
-      FOREIGN KEY (machineAssigned) REFERENCES machinery(id),
-      FOREIGN KEY (farmAssigned) REFERENCES farm(id)
+      farmAssigned TEXT NOT NULL,
+      machineryAssigned TEXT NOT NULL
     )
   ''');
-  await db.execute('''
-  CREATE TABLE IF NOT EXISTS employee_machinery(
-    employee_id INTEGER NOT NULL,
-    machinery_id INTEGER NOT NULL,
-    FOREIGN KEY (employee_id) REFERENCES employee(id),
-    FOREIGN KEY (machinery_id) REFERENCES machinery(id),
-    PRIMARY KEY (employee_id, machinery_id)
-  )
-''');
+  
 
   await db.execute('''
     CREATE TABLE IF NOT EXISTS supervisor(
@@ -132,102 +124,20 @@ void _createDb(Database db, int version) async {
   await db.execute('''
     CREATE TABLE IF NOT EXISTS supplies(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      quantity INTEGER NOT NULL,
-      supplier TEXT NOT NULL,
-      dateSupplied TEXT NOT NULL
+      product TEXT NOT NULL,
+      stock INTEGER NOT NULL,
+      description TEXT NOT NULL
     )
   ''');
 
   await db.execute('''
     CREATE TABLE IF NOT EXISTS requested(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      item TEXT NOT NULL,
+      product TEXT NOT NULL,
+      farmRequesting INTEGER NOT NULL,
       quantity INTEGER NOT NULL,
-      requestDate TEXT NOT NULL,
-      fulfilled INTEGER NOT NULL,
-      employeeAssigned INTEGER,
-      FOREIGN KEY (employeeAssigned) REFERENCES employee(id)
+      approved INTEGER NOT NULL
     )
   ''');
 }
-
-// void _createDb(Database db, int version) async {
-//   await db.execute('''
-//     CREATE TABLE IF NOT EXISTS admin(
-//       id INTEGER PRIMARY KEY AUTOINCREMENT,
-//       username TEXT NOT NULL,
-//       password TEXT NOT NULL
-//     )
-//   ''');
-
-//   print('user table created');
-//   await db.execute('''
-//     CREATE TABLE IF NOT EXISTS farm(
-//       id INTEGER PRIMARY KEY AUTOINCREMENT,
-//       name TEXT NOT NULL,
-//       location TEXT NOT NULL,
-//       farmproduce TEXT NOT NULL
-//     )
-//   ''');
-
-//   await db.execute('''
-//     CREATE TABLE IF NOT EXISTS machinery(
-//       id INTEGER PRIMARY KEY AUTOINCREMENT,
-//       name TEXT NOT NULL,
-//       tagNumber TEXT NOT NULL
-//     )
-//   ''');
-
-//   await db.execute('''
-//     CREATE TABLE IF NOT EXISTS employee(
-//       id INTEGER PRIMARY KEY AUTOINCREMENT,
-//       name TEXT NOT NULL,
-//       contact TEXT NOT NULL,
-//       machineAssigned INTEGER,
-//       farmAssigned INTEGER,
-//       FOREIGN KEY (machineAssigned) REFERENCES machinery(id),
-//       FOREIGN KEY (farmAssigned) REFERENCES farm(id)
-//     )
-//   ''');
-//   await db.execute('''
-//   CREATE TABLE IF NOT EXISTS employee_machinery(
-//     employee_id INTEGER NOT NULL,
-//     machinery_id INTEGER NOT NULL,
-//     FOREIGN KEY (employee_id) REFERENCES employee(id),
-//     FOREIGN KEY (machinery_id) REFERENCES machinery(id),
-//     PRIMARY KEY (employee_id, machinery_id)
-//   )
-// ''');
-
-//   await db.execute('''
-//     CREATE TABLE IF NOT EXISTS supervisor(
-//       id INTEGER PRIMARY KEY AUTOINCREMENT,
-//       name TEXT NOT NULL,
-//       contact TEXT NOT NULL,
-//       farmsAssigned TEXT NOT NULL,
-//       notes TEXT NOT NULL,
-//     )
-//   ''');
-
-//   await db.execute('''
-//     CREATE TABLE IF NOT EXISTS supplies(
-//       id INTEGER PRIMARY KEY AUTOINCREMENT,
-//       product TEXT NOT NULL,
-//       stock INTEGER NOT NULL,
-//       description TEXT NOT NULL
-//     )
-//   ''');
-
-//   await db.execute('''
-//     CREATE TABLE IF NOT EXISTS requested(
-//       id INTEGER PRIMARY KEY AUTOINCREMENT,
-//       product TEXT NOT NULL,
-//       farmRequesting INTEGER NOT NULL,
-//       quantity INTEGER NOT NULL,
-//       approved INTEGER NOT NULL,
-//     )
-//   ''');
-// }
-
 }

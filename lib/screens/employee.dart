@@ -1,45 +1,46 @@
 import 'package:agricare/database/databaseHelper.dart';
-import 'package:agricare/forms/machinery_modal.dart';
-import 'package:agricare/models/machinery.dart';
-import 'package:agricare/utils/machinery.dart';
-import 'package:agricare/widgets/records/machineryrecords.dart';
+import 'package:agricare/forms/employee.dart';
+import 'package:agricare/models/employee.dart';
+import 'package:agricare/utils/employee.dart';
+import 'package:agricare/widgets/records/employeerecords.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
-class Machinerys extends StatefulWidget {
-  const Machinerys({super.key});
+class EmployeePage extends StatefulWidget {
+  const EmployeePage({super.key});
 
   @override
-  State<Machinerys> createState() => _MachinerysState();
+  State<EmployeePage> createState() => _EmployeePageState();
 }
 
-class _MachinerysState extends State<Machinerys> {
-  late final MachineryCrud _machineryCrud =
-      DatabaseHelper.instance.machineryCrudInstance;
-
-  List<Machinery> _Machinerys = [];
+class _EmployeePageState extends State<EmployeePage> {
+  late final EmployeeCrud _employeesCrud =
+      DatabaseHelper.instance.employeeCrudInstance;
+ 
+  List<Employee> _employees = [];
 
   @override
   void initState() {
-    loadMachinerys();
+    loadEmployees();
     super.initState();
   }
 
-  Future<void> loadMachinerys() async {
-    _Machinerys = await _machineryCrud.getMachinery();
+  Future<void> loadEmployees() async {
+    _employees = await _employeesCrud.getEmployees();
     setState(() {});
   }
 
-  void _deleteMachinerys(int id) async {
-    await _machineryCrud.deleteMachinery(id);
-    loadMachinerys();
+  void _deleteEmployees(int id) async {
+    await _employeesCrud.deleteEmployee(id);
+    loadEmployees();
   }
 
-  void _editMachinerys(Machinery machinery) {
+
+  void _editEmployees(Employee employee) {
     showDialog(
       context: context,
-      builder: (context) => MachineryModal(machinery: machinery),
-    ).then((value) => loadMachinerys());
+      builder: (context) => EmployeeModal(employee: employee),
+    ).then((value) => loadEmployees());
   }
 
   @override
@@ -56,61 +57,56 @@ class _MachinerysState extends State<Machinerys> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Button(
-                  child: const Text('Add Machinery'),
+                  child: const Text('Add Employee'),
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context) => const MachineryModal(),
-                    ).then((value) => loadMachinerys());
+                      builder: (context) {
+                        return const EmployeeModal();
+                      },
+                    ).then((value) => loadEmployees());
                   },
                 ),
-                SizedBox(
-                  width: 10,
+                const SizedBox(
+                  width: 20,
                 ),
                 Button(
                   child: const Text('Print Preview'),
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context){
-                       return const GenerateMachineryPdf();
+                      builder: (context) {
+                        return const GenerateEmployeesPdf();
                       },
-                    ).then((value) => loadMachinerys());
+                    ).then((value) => loadEmployees());
                   },
                 ),
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height - 80,
-            child: _Machinerys.isNotEmpty
+            child: _employees.isNotEmpty
                 ? SingleChildScrollView(
                     child: Table(
                       border: TableBorder.all(),
                       columnWidths: const {
                         0: FractionColumnWidth(0.3), // Name
-                        1: FractionColumnWidth(0.3), // TagNumber
-                        3: FractionColumnWidth(0.1), // Actions
+                        1: FractionColumnWidth(0.2), // Contact
+                        2: FractionColumnWidth(0.2), // Assigned Farm
+                        3: FractionColumnWidth(0.2), // Notes
+                        4: FractionColumnWidth(0.1), // Action
                       },
                       children: [
                         const TableRow(
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(106, 50, 49, 48),
+                            color: Color.fromARGB(213, 21, 131, 196),
                           ),
                           children: [
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                'ID',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
@@ -123,7 +119,25 @@ class _MachinerysState extends State<Machinerys> {
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
-                                'TagNumber',
+                                'Contact',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Assigned Farm',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Notes',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -140,34 +154,46 @@ class _MachinerysState extends State<Machinerys> {
                             ),
                           ],
                         ),
-                        ..._Machinerys.map(
-                          (machinery) => TableRow(
+                        ..._employees.map(
+                          (Employee) => TableRow(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('${machinery.id}'),
+                                child: Text(Employee.name),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(machinery.name),
+                                child: Text(Employee.contact),
                               ),
+                               Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('${Employee.farmAssigned}'),
+                              ),
+                              
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(machinery.tagNumber),
+                                child: Text('${Employee.machineryAssigned}'),
                               ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  IconButton(
-                                    icon: const Icon(Iconsax.edit_2_copy),
-                                    onPressed: () => _editMachinerys(machinery),
+                                  Tooltip(
+                                    message: 'Edit',
+                                    displayHorizontally: true,
+                                    useMousePosition: false,
+                                    child: IconButton(
+                                      icon: const Icon(Iconsax.edit_2_copy),
+                                      onPressed: () => _editEmployees(Employee),
+                                    ),
                                   ),
-                                  IconButton(
-                                    icon: const Icon(Iconsax.trash_copy),
-                                    onPressed: () => showContentDialog(
-                                        context, machinery.id!),
-                                    // _deleteMachinerys(machinery.id!),
+                                  Tooltip(
+                                    message: 'Delete',
+                                    displayHorizontally: true,
+                                    useMousePosition: false,
+                                    child: IconButton(
+                                      icon: const Icon(Iconsax.trash_copy),
+                                      onPressed: () => showContentDialog(context, Employee.id!),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -178,9 +204,10 @@ class _MachinerysState extends State<Machinerys> {
                     ),
                   )
                 : const Center(
-                    child: Text('No Machinerys added yet'),
+                    child: Text('No farms added yet'),
                   ),
           ),
+        
         ],
       ),
     );
@@ -198,20 +225,19 @@ class _MachinerysState extends State<Machinerys> {
           Button(
             child: const Text('Delete'),
             onPressed: () {
-              _deleteMachinerys(id);
-              Navigator.pop(
-                context,
-              );
-              // Delete file here
+              _deleteEmployees(id);
+              Navigator.pop(context);
             },
           ),
           FilledButton(
             child: const Text('Cancel'),
-            onPressed: () => Navigator.pop(context, 'User canceled dialog'),
+            onPressed: () {
+              Navigator.pop(context, 'User canceled deletion');
+            },
           ),
         ],
       ),
     );
-    setState(() {});
+    debugPrint('Content Dialog Result: $result');
   }
 }

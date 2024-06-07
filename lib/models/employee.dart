@@ -2,13 +2,15 @@ class Employee {
   int? id;
   String name;
   String contact;
-  int? farmAssigned;
+  String? farmAssigned;
+  String machineryAssigned;
 
   Employee({
     this.id,
     required this.name,
     required this.contact,
-    this.farmAssigned,
+    required this.farmAssigned,
+    required this.machineryAssigned
   });
 
   Map<String, dynamic> toMap() {
@@ -17,6 +19,7 @@ class Employee {
       'name': name,
       'contact': contact,
       'farmAssigned': farmAssigned,
+      'machineryAssigned': machineryAssigned
     };
   }
 }

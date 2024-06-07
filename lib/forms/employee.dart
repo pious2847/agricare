@@ -9,17 +9,17 @@ import 'package:agricare/widgets/multi_select.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-class EmployeeForm extends StatefulWidget {
+class EmployeeModal extends StatefulWidget {
   final Employee? employee;
   final VoidCallback? onEmployeeSaved;
-  const EmployeeForm({Key? key, this.employee, this.onEmployeeSaved})
+  const EmployeeModal({Key? key, this.employee, this.onEmployeeSaved})
       : super(key: key);
 
   @override
-  _EmployeeFormState createState() => _EmployeeFormState();
+  _EmployeeModalState createState() => _EmployeeModalState();
 }
 
-class _EmployeeFormState extends State<EmployeeForm> {
+class _EmployeeModalState extends State<EmployeeModal> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _contactController = TextEditingController();
@@ -31,8 +31,8 @@ class _EmployeeFormState extends State<EmployeeForm> {
   late final EmployeeCrud _employeeCrud =
       DatabaseHelper.instance.employeeCrudInstance;
 
-  int? _selectedFarmId;
-  List<int> _selectedMachineIds = [];
+  String? _selectedFarm;
+  List<String> _selectedMachineIds = [];
   List<Farm> _farms = [];
   List<Machinery> _machines = [];
 
@@ -43,7 +43,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
     super.initState();
     _nameController.text = widget.employee?.name ?? '';
     _contactController.text = widget.employee?.contact ?? '';
-    _selectedFarmId = widget.employee?.farmAssigned;
+    _selectedFarm = widget.employee?.farmAssigned;
   }
 
   @override
@@ -55,6 +55,9 @@ class _EmployeeFormState extends State<EmployeeForm> {
 
   Future<void> loadFarms() async {
     _farms = await _farmCrud.getFarms();
+     if (_selectedFarm == null && _farms.isNotEmpty) {
+      _selectedFarm = _farms[0].name; // Set a default value
+    }
     setState(() {});
   }
 
@@ -69,17 +72,20 @@ class _EmployeeFormState extends State<EmployeeForm> {
         id: widget.employee?.id,
         name: _nameController.text,
         contact: _contactController.text,
-        farmAssigned: _selectedFarmId,
+        farmAssigned: _selectedFarm,
+        machineryAssigned: _selectedMachineIds.join('/'),
       );
 
       if (widget.employee == null) {
-        await _employeeCrud.addEmployee(employee, _selectedMachineIds);
+        await _employeeCrud.addEmployee(
+          employee,
+        );
         // Call the callback function after saving the employee
         setState(() {
           widget.onEmployeeSaved?.call();
         });
       } else {
-        await _employeeCrud.updateEmployee(employee, _selectedMachineIds);
+        await _employeeCrud.updateEmployee(employee);
         setState(() {
           widget.onEmployeeSaved?.call();
         });
@@ -125,22 +131,27 @@ class _EmployeeFormState extends State<EmployeeForm> {
               ),
               const SizedBox(height: 16.0),
               const SizedBox(width: 200.0),
-              DropdownButtonFormField<int>(
-                value: _selectedFarmId,
+              DropdownButtonFormField<String?>(
+                value: _selectedFarm,
                 onChanged: (value) {
                   setState(() {
-                    _selectedFarmId = value;
+                    _selectedFarm = value!;
                   });
                 },
                 items: _farms.map((farm) {
-                  return DropdownMenuItem<int>(
-                    value: farm.id,
+                  return DropdownMenuItem<String>(
+                    value: farm.name,
                     child: Text(farm.name),
                   );
                 }).toList(),
-                decoration: const InputDecoration(labelText: 'Assigned Farm'),
+                decoration: const InputDecoration(labelText: 'Select Farm'),
+                validator: (value) {
+                  if (value == null) {
+                    return 'Please select a farm';
+                  }
+                  return null;
+                },
               ),
-              
               const SizedBox(height: 16.0),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.3,
@@ -149,18 +160,17 @@ class _EmployeeFormState extends State<EmployeeForm> {
               const SizedBox(height: 16.0),
               CustomMultiSelect(
                 items: _machines.map((machine) {
-                  return MultiSelectItem<int>(machine.id!, machine.name);
+                  return MultiSelectItem<String>(machine.name, machine.name);
                 }).toList(),
                 initialValue: _selectedMachineIds,
                 onSelectionChanged: (selectedValues) {
                   setState(() {
                     _selectedMachineIds = selectedValues;
                   });
-                  print('_selectedMachineIds : $_selectedMachineIds');
+                  print('_selectedMachineIds : ${_selectedMachineIds.join('/')}');
                 },
               ),
             ],
-            
           ),
         ),
       ),
@@ -172,7 +182,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
             child: Text(widget.employee == null ? 'Add' : 'Save'),
           ),
         ),
-          SizedBox(
+        SizedBox(
           width: MediaQuery.of(context).size.width * 0.14,
           child: TextButton(
             onPressed: () {
