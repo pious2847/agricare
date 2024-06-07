@@ -38,7 +38,7 @@ class DatabaseHelper {
     databaseFactory = databaseFactoryFfi;
 
     String path = join(await getDatabasesPath(), 'farm_management1.db');
-    return await openDatabase(path, version: 1, onCreate: _createDb, singleInstance: true);
+    return await openDatabase(path, version: 1, onCreate: _createDb,);
   }
 
   UserCrud get adminCrudInstance {
@@ -85,7 +85,7 @@ void _createDb(Database db, int version) async {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       location TEXT NOT NULL,
-      farmproduce TEXT NOT NULL
+      farmproduce TEXT NOT NULL,
     )
   ''');
 
@@ -124,7 +124,7 @@ void _createDb(Database db, int version) async {
       name TEXT NOT NULL,
       contact TEXT NOT NULL,
       farmsAssigned TEXT NOT NULL,
-      notes TEXT,
+      notes TEXT NOT NULL,
     )
   ''');
 
@@ -141,10 +141,9 @@ void _createDb(Database db, int version) async {
     CREATE TABLE IF NOT EXISTS requested(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       product TEXT NOT NULL,
-      farmRequesting INTEGER,
+      farmRequesting INTEGER NOT NULL,
       quantity INTEGER NOT NULL,
       approved INTEGER NOT NULL,
-      FOREIGN KEY (farmRequesting) REFERENCES farm(id)
     )
   ''');
 }

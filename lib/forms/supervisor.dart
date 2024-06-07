@@ -35,7 +35,7 @@ class _SupervisorModalState extends State<SupervisorModal> {
     _nameController.text = widget.supervisor?.name ?? '';
     _contactController.text = widget.supervisor?.contact ?? '';
     _notesController.text = widget.supervisor?.notes ?? '';
-    _selectedFarm = widget.supervisor!.farmsAssigned;
+    _selectedFarm = widget.supervisor?.farmsAssigned ?? '';
   }
 
   @override

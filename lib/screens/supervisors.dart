@@ -173,21 +173,11 @@ class _SupervisorPageState extends State<SupervisorPage> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(supervisor.contact),
                               ),
-                              Padding(
+                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: FutureBuilder<String>(
-                                  future: _getFarmName(supervisor.farmsAssigned),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState == ConnectionState.waiting) {
-                                      return const Material.CircularProgressIndicator();
-                                    } else if (snapshot.hasError) {
-                                      return const Text('Error');
-                                    } else {
-                                      return Text(snapshot.data ?? 'Unknown Farm');
-                                    }
-                                  },
-                                ),
+                                child: Text('${supervisor.farmsAssigned}'),
                               ),
+                              
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(supervisor.notes),

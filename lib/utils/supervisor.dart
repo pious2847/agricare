@@ -11,7 +11,12 @@ class SupervisorCrud {
     Future<int> getTotalSupervisors() async {
   Database db = await _dbHelper.initDb();
   List<Map<String, Object?>> result = await db.query('supervisor');
-  return result.length;
+  if(result.length == 0){
+    return 0;
+  }
+    return result.length;
+
+  
 }
   Future<int> addSupervisor(Supervisor supervisor) async {
     Database db = await _dbHelper.initDb();
@@ -25,7 +30,7 @@ class SupervisorCrud {
       id: supervisor['id'] as int,
       name: supervisor['name'] as String,
       contact: supervisor['contact'] as String,
-      farmsAssigned: supervisor['farmsAssigned'] as int,
+      farmsAssigned: supervisor['farmsAssigned'] as String,
       notes: supervisor['notes'] as String, 
     )).toList();
   }
