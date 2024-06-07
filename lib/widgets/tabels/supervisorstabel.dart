@@ -114,6 +114,13 @@ pw.Widget machineryTable(List<Supervisor> supervisors, image) {
             pw.TableRow(
               decoration: pw.BoxDecoration(color: PdfColor.fromHex('#89b6ed')),
               children: [
+                 pw.Padding(
+                  padding: pw.EdgeInsets.all(8.0),
+                  child: pw.Text(
+                    'ID',
+                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold, color: PdfColor.fromHex('#ffffff')),
+                  ),
+                ),
                 pw.Padding(
                   padding: pw.EdgeInsets.all(8.0),
                   child: pw.Text(
