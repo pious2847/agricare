@@ -47,7 +47,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
       ),
     ),
     PaneItem(
-      icon: const Icon(FluentIcons.storage_optical),
+      icon: const Icon(FluentIcons.folder),
       title: const Text('Farms'),
       body: const _NavigationBodyItem(
         header: 'Frams',

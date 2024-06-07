@@ -29,13 +29,13 @@ class SuppliesCrud {
     // Query for supplies where stock is less than or equal to 10
     try {
       var lowsupplies =
-          await db.query('supplies', where: 'stock <= ?', whereArgs: [10]);
+          await db.query('supplies', where: 'quantity <= ?', whereArgs: [10]);
       // Map the query results to a list of Supplies objects
       return lowsupplies
           .map((supplies) => Supplies(
                 id: supplies['id'] as int,
                 product: supplies['product'] as String,
-                stock: supplies['stock'] as int,
+                stock: supplies['quantity'] as int,
                 description: supplies['description'] as String,
               ))
           .toList();

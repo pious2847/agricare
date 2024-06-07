@@ -30,12 +30,13 @@ class _SupervisorModalState extends State<SupervisorModal> {
 
   @override
   void initState() {
-    loadFarms();
     super.initState();
     _nameController.text = widget.supervisor?.name ?? '';
     _contactController.text = widget.supervisor?.contact ?? '';
     _notesController.text = widget.supervisor?.notes ?? '';
-    _selectedFarm = widget.supervisor?.farmsAssigned ?? '';
+    _selectedFarm = widget.supervisor?.farmsAssigned ?? null;
+
+    loadFarms();
   }
 
   @override
@@ -48,6 +49,9 @@ class _SupervisorModalState extends State<SupervisorModal> {
 
   Future<void> loadFarms() async {
     _farms = await _farmCrud.getFarms();
+    if (_selectedFarm == null && _farms.isNotEmpty) {
+      _selectedFarm = _farms[0].name; // Set a default value
+    }
     setState(() {});
   }
 
@@ -117,13 +121,19 @@ class _SupervisorModalState extends State<SupervisorModal> {
                 );
               }).toList(),
               decoration: const InputDecoration(labelText: 'Select Farm'),
+              validator: (value) {
+                if (value == null) {
+                  return 'Please select a farm';
+                }
+                return null;
+              },
             ),
             TextFormField(
               controller: _notesController,
               decoration: const InputDecoration(labelText: 'notes'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter a notes';
+                  return 'Please enter a note';
                 }
                 return null;
               },
