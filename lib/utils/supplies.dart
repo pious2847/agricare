@@ -23,19 +23,31 @@ class SuppliesCrud {
         .toList();
   }
 
+  Future<int> getTotalSupplies() async {
+  Database db = await _dbHelper.initDb();
+  List<Map<String, Object?>> result = await db.query('supplies');
+  if(result.isEmpty){
+    return 0;
+  }else{
+    return result.length;
+  }
+
+  
+}
+ 
   Future<List<Supplies>> getLowStock() async {
     // Initialize the database
     Database db = await _dbHelper.initDb();
     // Query for supplies where stock is less than or equal to 10
     try {
       var lowsupplies =
-          await db.query('supplies', where: 'quantity <= ?', whereArgs: [10]);
+          await db.query('supplies', where: 'stock <= ?', whereArgs: [10]);
       // Map the query results to a list of Supplies objects
       return lowsupplies
           .map((supplies) => Supplies(
                 id: supplies['id'] as int,
                 product: supplies['product'] as String,
-                stock: supplies['quantity'] as int,
+                stock: supplies['stock'] as int,
                 description: supplies['description'] as String,
               ))
           .toList();

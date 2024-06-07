@@ -19,6 +19,7 @@ import 'package:agricare/widgets/tabels/supervisorstabel.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart' as Material;
+import 'package:flutter/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
@@ -103,7 +104,9 @@ late final EmployeeCrud _employeeCrud =
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('P.O Box 655', style: TextStyle(fontSize: 15),),
+                            SizedBox(height: 8),
                             Text('Northern Region ', style: TextStyle(fontSize: 15),),
+                            SizedBox(height: 8),
                             Text('Tamale', style: TextStyle(fontSize: 15),),
                           ],
                         ),  
@@ -112,8 +115,10 @@ late final EmployeeCrud _employeeCrud =
                         SizedBox(width: 20,),
                          Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text('Email: example12"gmail.com', style: TextStyle(fontSize: 15),),
+                            SizedBox(height: 8),
                             Text('Phone: +233 24xxxxxxx ', style: TextStyle(fontSize: 15),),
                           ],
                         ),  

@@ -35,7 +35,7 @@ class _CustomMultiSelectState extends State<CustomMultiSelect> {
           onChanged: (bool? checked) {
             setState(() {
               if (checked == true) {
-                _selectedValues.add(item!.value);
+                _selectedValues.add(item.value);
               } else {
                 _selectedValues.remove(item.value);
               }

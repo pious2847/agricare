@@ -127,7 +127,7 @@ class _GenerateSuppliesPdfState extends State<GenerateSuppliesPdf> {
                         children: [
                           const TableRow(
                             decoration: BoxDecoration(
-                              color: Color.fromARGB(225, 116, 101, 204),
+                            color: Color.fromARGB(213, 21, 131, 196),
                             ),
                             children: [
                               Padding(

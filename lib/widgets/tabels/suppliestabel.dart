@@ -1,6 +1,4 @@
-import 'package:agricare/models/farm.dart';
 import 'package:agricare/models/supplies.dart';
-// import 'package:fluent_ui/fluent_ui.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 

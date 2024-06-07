@@ -11,6 +11,7 @@ import 'package:agricare/widgets/totalemployee.dart';
 import 'package:agricare/widgets/totalfarms.dart';
 import 'package:agricare/widgets/totalmachinery.dart';
 import 'package:agricare/widgets/totalsupervisors.dart';
+import 'package:agricare/widgets/totalsupplies.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as Material;
 import 'package:iconsax_flutter/iconsax_flutter.dart';
@@ -34,6 +35,7 @@ class _DashboardState extends State<Dashboard> {
   late final _getFarmsTotal = TotalFarmsWidget();
   late final _getSupervisorsTotal = const TotalSupervisorWidget();
   late final _getMachineryTotal = const TotalMachinerysWidget();
+  late final _getTotalSupplies = TotalSuppliesWidget();
 
   void _updateCount() {
     setState(() {
@@ -41,6 +43,7 @@ class _DashboardState extends State<Dashboard> {
       _getEmployeeTotal;
       _getFarmsTotal;
       _getMachineryTotal;
+      _getTotalSupplies;
     });
   }
 
@@ -353,14 +356,7 @@ class _DashboardState extends State<Dashboard> {
                                     SizedBox(
                                       height: 3.0,
                                     ),
-                                    Text(
-                                      '60.4%',
-                                      style: TextStyle(
-                                          fontSize: 54.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color.fromARGB(
-                                              136, 45, 218, 131)),
-                                    ),
+                                    TotalSuppliesWidget(),
                                   ],
                                 ),
                               ],

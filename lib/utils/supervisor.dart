@@ -19,6 +19,7 @@ class SupervisorCrud {
 
   
 }
+ 
   Future<int> addSupervisor(Supervisor supervisor) async {
     Database db = await _dbHelper.initDb();
     return await db.insert('supervisor', supervisor.toMap());

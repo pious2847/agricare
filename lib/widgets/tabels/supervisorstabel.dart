@@ -2,7 +2,6 @@ import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/models/supervisor.dart';
 import 'package:agricare/utils/farm.dart';
 import 'package:agricare/utils/supervisor.dart';
-import 'package:flutter/material.dart' as Material;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 

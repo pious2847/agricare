@@ -84,6 +84,7 @@ pw.Widget machineryTable(List<Employee> employees, image) {
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             pw.Text('Email: example12"gmail.com', style: const pw.TextStyle(fontSize: 10),),
+                            pw.SizedBox(height: 8),
                             pw.Text('Phone: +233 24xxxxxxx ', style: const pw.TextStyle(fontSize: 10),),
                           ],
                         ),  
@@ -93,7 +94,7 @@ pw.Widget machineryTable(List<Employee> employees, image) {
                 
                 pw.SizedBox(height: 20),
                 pw.Text(
-                  'employees RECORDS',
+                  'EMPLOYEES RECORDS',
                   style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
                 ),
                 pw.SizedBox(height: 9),

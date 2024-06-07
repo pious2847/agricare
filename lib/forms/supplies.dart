@@ -26,7 +26,7 @@ class _SuppliesModalState extends State<SuppliesModal> {
     super.initState();
     _productController = TextEditingController(text: widget.supplies?.product ?? '');
     _stockController =
-        TextEditingController(text: '${widget.supplies?.stock}' ?? '');
+        TextEditingController(text: '${widget.supplies?.stock}' ?? '0');
     _descriptionController =
         TextEditingController(text: widget.supplies?.description ?? '');
   }
