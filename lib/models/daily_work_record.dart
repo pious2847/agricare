@@ -5,8 +5,18 @@ class DailyWorkRecord {
   late String farm;
   late String suppliesUsed;
   late String suppliesLeft;
+  // ignore: non_constant_identifier_names
+  int ExpensesTotal;
 
-  DailyWorkRecord(this.id, this.work, this.employeeName,this.farm, this.suppliesUsed, this.suppliesLeft );
+  DailyWorkRecord(
+      {this.id,
+      required this.work,
+      required this.employeeName,
+      required this.farm,
+      required this.suppliesUsed,
+      required this.suppliesLeft,
+      // ignore: non_constant_identifier_names
+      required this.ExpensesTotal});
 
   Map<String, dynamic> toMap() {
     return {
@@ -15,7 +25,7 @@ class DailyWorkRecord {
       'employeeName': employeeName,
       'farm': farm,
       'suppliesUsed': suppliesUsed,
-      'suppliesLeft':suppliesLeft
+      'suppliesLeft': suppliesLeft
     };
   }
 }

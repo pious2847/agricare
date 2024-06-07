@@ -1,61 +1,81 @@
+import 'package:agricare/models/farm.dart';
+import 'package:agricare/models/requested.dart';
 import 'package:agricare/models/supplies.dart';
+import 'package:agricare/utils/farm.dart';
+import 'package:agricare/utils/requested.dart';
 import 'package:agricare/utils/supplies.dart';
 import 'package:flutter/material.dart';
 import 'package:agricare/database/databaseHelper.dart';
-import 'package:flutter/services.dart';
 
-class SuppliesModal extends StatefulWidget {
-  final Supplies? supplies;
+class RequestedModal extends StatefulWidget {
+  final Requested? requested;
 
-  const SuppliesModal({Key? key, this.supplies,}) : super(key: key);
+  const RequestedModal({Key? key, this.requested,}) : super(key: key);
 
   @override
-  _SuppliesModalState createState() => _SuppliesModalState();
+  _RequestedModalState createState() => _RequestedModalState();
 }
 
-class _SuppliesModalState extends State<SuppliesModal> {
+class _RequestedModalState extends State<RequestedModal> {
   final _formKey = GlobalKey<FormState>();
+ 
   late TextEditingController _productController;
-  late TextEditingController _stockController;
-  late TextEditingController _descriptionController;
+  late TextEditingController _quantityController;
+  late TextEditingController _farmRequestingController;
 
-  // Use the suppliesCrudInstance getter
-  late final SuppliesCrud _suppliesCrud = DatabaseHelper.instance.suppliesCrudInstance;
+  // Use the requestedCrudInstance getter
+  late final RequestedCrud _requestedCrud = DatabaseHelper.instance.requestedCrudInstance;
+  late final FarmCrud _farmCrud = DatabaseHelper.instance.farmCrudInstance;
+  
+  String? _selectedFarm;
+  List<Farm> _farms = [];
+
 
   @override
   void initState() {
     super.initState();
-    _productController = TextEditingController(text: widget.supplies?.product ?? '');
-    _stockController =
-        TextEditingController(text: '${widget.supplies?.stock}' ?? '0');
-    _descriptionController =
-        TextEditingController(text: widget.supplies?.description ?? '');
+    _productController = TextEditingController(text: widget.requested?.product ?? '');
+    _quantityController =
+        TextEditingController(text: '${widget.requested?.quantity}' ?? ' ');
+    _selectedFarm = widget.requested?.farmRequesting;
+
+    _farmRequestingController =
+        TextEditingController(text: widget.requested?.farmRequesting ?? '');
   }
+
 
   @override
   void dispose() {
     _productController.dispose();
-    _stockController.dispose();
-    _descriptionController.dispose();
+    _quantityController.dispose();
+    _farmRequestingController.dispose();
     super.dispose();
   }
 
-  Future<void> _savesupplies() async {
+   Future<void> loadFarms() async {
+    _farms = await _farmCrud.getFarms();
+     if (_selectedFarm == null && _farms.isNotEmpty) {
+      _selectedFarm = _farms[0].name; // Set a default value
+    }
+    setState(() {});
+  }
+
+  Future<void> _saverequested() async {
     if (_formKey.currentState!.validate()) {
-      final supplies = Supplies(
-        id: widget.supplies?.id,
+      final requested = Requested(
+        id: widget.requested?.id,
         product: _productController.text,
-        stock:  int.parse(_stockController.text),
-        description: _descriptionController.text,
+        quantity:  int.parse(_quantityController.text),
+        farmRequesting: _farmRequestingController.text,
       );
 
-      if (widget.supplies == null) {
-        await _suppliesCrud.addSupplies(supplies);
+      if (widget.requested == null) {
+        await _requestedCrud.addRequested(requested);
         setState(() {});
         Navigator.of(context).pop();
-        print("supplies iserted $supplies");
+        print("requested iserted $requested");
       } else {
-        await _suppliesCrud.updateSupplies(supplies);
+        await _requestedCrud.updateRequested(requested);
         setState(() {});
         // Close the modal after saving
         Navigator.of(context).pop();
@@ -69,7 +89,7 @@ class _SuppliesModalState extends State<SuppliesModal> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white ,
-      title: const Text('Add Supplies'),
+      title: const Text('Add requested'),
       content: Form(
         key: _formKey,
         child: Column(
@@ -87,25 +107,22 @@ class _SuppliesModalState extends State<SuppliesModal> {
               },
             ),
             TextFormField(
-              controller: _stockController,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ], // Only numbe
               keyboardType: TextInputType.number,
+              controller: _quantityController,
               decoration: const InputDecoration(labelText: 'Stock'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter a stock';
+                  return 'Please enter a quantity';
                 }
                 return null;
               },
             ),
             TextFormField(
-              controller: _descriptionController,
+              controller: _farmRequestingController,
               decoration: const InputDecoration(labelText: 'descriptions',),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter the supplies description';
+                  return 'Please enter the requested description';
                 }
                 return null;
               },
@@ -118,8 +135,8 @@ class _SuppliesModalState extends State<SuppliesModal> {
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.14,
           child: ElevatedButton(
-            onPressed: _savesupplies,
-            child: Text(widget.supplies == null ? 'Add' : 'Save'),
+            onPressed: _saverequested,
+            child: Text(widget.requested == null ? 'Add' : 'Save'),
           ),
         ),
         const SizedBox(width: 14.0),

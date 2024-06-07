@@ -10,6 +10,7 @@ class RequestedCrud {
   
   Future<int> addRequested(Requested requested) async {
     Database db = await _dbHelper.initDb();
+
     return await db.insert('requested', requested.toMap());
   }
 
@@ -19,9 +20,8 @@ class RequestedCrud {
     return requestedList.map((requested) => Requested(
       id: requested['id'] as int,
       product: requested['product'] as String,
-      farmRequesting: requested['farmRequesting'] as int,
       quantity: requested['quantity'] as int,
-      approved: requested['approved'] as int,
+      farmRequesting: requested['farmRequesting'] as String,
     )).toList();
   }
 

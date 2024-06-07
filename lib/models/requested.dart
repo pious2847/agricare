@@ -1,19 +1,17 @@
 class Requested {
   int? id;
   String product;
-  int? farmRequesting;
+  String farmRequesting;
   int quantity;
-  int approved;
 
-  Requested({this.id, required this.product, this.farmRequesting, required this.quantity, required this.approved});
+  Requested({this.id, required this.product, required this.farmRequesting, required this.quantity,});
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'product': product,
-      'farmRequesting': farmRequesting,
       'quantity': quantity,
-      'approved': approved,
+      'farmRequesting': farmRequesting,
     };
   }
 }
