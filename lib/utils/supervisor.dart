@@ -11,7 +11,7 @@ class SupervisorCrud {
     Future<int> getTotalSupervisors() async {
   Database db = await _dbHelper.initDb();
   List<Map<String, Object?>> result = await db.query('supervisor');
-  if(result.length == 0){
+  if(result.isEmpty){
     return 0;
   }
     return result.length;
