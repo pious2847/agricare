@@ -26,7 +26,7 @@ class _SupervisorModalState extends State<SupervisorModal> {
 
   List<Farm> _farms = [];
 
-  int? _selectedFarmId;
+  String? _selectedFarm;
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _SupervisorModalState extends State<SupervisorModal> {
     _nameController.text = widget.supervisor?.name ?? '';
     _contactController.text = widget.supervisor?.contact ?? '';
     _notesController.text = widget.supervisor?.notes ?? '';
-    _selectedFarmId = widget.supervisor?.farmsAssigned;
+    _selectedFarm = widget.supervisor!.farmsAssigned;
   }
 
   @override
@@ -58,7 +58,7 @@ class _SupervisorModalState extends State<SupervisorModal> {
         name: _nameController.text,
         contact: _contactController.text,
         notes: _notesController.text,
-        farmsAssigned: _selectedFarmId,
+        farmsAssigned: _selectedFarm,
       );
 
       if (widget.supervisor == null) {
@@ -103,16 +103,16 @@ class _SupervisorModalState extends State<SupervisorModal> {
                 return null;
               },
             ),
-            DropdownButtonFormField<int>(
-              value: _selectedFarmId,
+            DropdownButtonFormField<String?>(
+              value: _selectedFarm,
               onChanged: (value) {
                 setState(() {
-                  _selectedFarmId = value;
+                  _selectedFarm = value!;
                 });
               },
               items: _farms.map((farm) {
-                return DropdownMenuItem<int>(
-                  value: farm.id,
+                return DropdownMenuItem<String>(
+                  value: farm.name,
                   child: Text(farm.name),
                 );
               }).toList(),

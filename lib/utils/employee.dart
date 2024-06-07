@@ -33,7 +33,7 @@ class EmployeeCrud {
         'machinery_id': machineId,
       });
     }
-      int totalEmployees = await getTotalEmployees();
+    int totalEmployees = await getTotalEmployees();
     _employeeCountController.sink.add(totalEmployees);
     return employeeId;
   }

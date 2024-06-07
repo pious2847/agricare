@@ -77,7 +77,7 @@ late final SupervisorCrud _supervisorCrud =
                     height: 25,
                   ),
                   Text(
-                    'KAMBANG CO-OPERATIVE FOOD FARMING AND',
+                    'CUDJOE ABIMASH FARMS',
                     style: TextStyle(
                         fontSize: 30,
                         color: Colors.blue,
@@ -87,7 +87,7 @@ late final SupervisorCrud _supervisorCrud =
                     height: 7,
                   ),
                   Text(
-                    'MARKETING SOCIETY LIMITED',
+                    'COMPANY LIMITED',
                     style: TextStyle(
                         fontSize: 20,
                         color: Colors.blue,
@@ -96,12 +96,35 @@ late final SupervisorCrud _supervisorCrud =
                   const SizedBox(
                     height: 15,
                   ),
-                  const Image(image: AssetImage('assets/images/logo.jpeg')),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('P.O Box 655', style: TextStyle(fontSize: 15),),
+                            Text('Northern Region ', style: TextStyle(fontSize: 15),),
+                            Text('Tamale', style: TextStyle(fontSize: 15),),
+                          ],
+                        ),  
+                        SizedBox(width: 20,),
+                    Image(image: AssetImage('assets/images/logo.jpeg')),
+                        SizedBox(width: 20,),
+                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Email: example12"gmail.com', style: TextStyle(fontSize: 15),),
+                            Text('Phone: +233 24xxxxxxx ', style: TextStyle(fontSize: 15),),
+                          ],
+                        ),  
+                    ]
+                  ),
+                  
                   const SizedBox(
                     height: 20,
                   ),
                   const Text(
-                    'SUPERVISORS RECORDS',
+                    'SUPERVISOR RECORDS',
                     style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -183,20 +206,9 @@ late final SupervisorCrud _supervisorCrud =
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(supervisor.contact),
                               ),
-                              Padding(
+                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: FutureBuilder<String>(
-                                  future: _getFarmName(supervisor.farmsAssigned),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState == ConnectionState.waiting) {
-                                      return const Material.CircularProgressIndicator();
-                                    } else if (snapshot.hasError) {
-                                      return const Text('Error');
-                                    } else {
-                                      return Text(snapshot.data ?? 'Unknown Farm');
-                                    }
-                                  },
-                                ),
+                                child: Text('${supervisor.farmsAssigned}'),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -251,7 +263,7 @@ late final SupervisorCrud _supervisorCrud =
     final pdf = pw.Document();
     final ByteData img = await rootBundle.load('assets/images/logo.jpeg');
     final logo = img.buffer.asUint8List();
-  
+
     final pages = supervisorsTablePages(supervisors, logo);
     for (var page in pages) {
       pdf.addPage(page);

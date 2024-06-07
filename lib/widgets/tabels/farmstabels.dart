@@ -80,7 +80,7 @@ pw.Widget farmTable(List<Farm> farms,  image) {
                 
                 pw.SizedBox(height: 20),
                 pw.Text(
-                  'FARM RECORDS',
+                  'SUPPIES RECORDS',
                   style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
                 ),
                 pw.SizedBox(height: 9),

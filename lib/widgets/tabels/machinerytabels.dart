@@ -79,7 +79,7 @@ pw.Widget machineryTable(List<Machinery> machinerys,  image) {
                 
                 pw.SizedBox(height: 20),
                 pw.Text(
-                  'FARM RECORDS',
+                  'MACHINERY RECORDS',
                   style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
                 ),
                 pw.SizedBox(height: 9),

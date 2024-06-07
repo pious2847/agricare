@@ -2,10 +2,10 @@ class Supervisor {
   int? id;
   String name;
   String contact;
-  int? farmsAssigned;
+  String? farmsAssigned;
   String notes;
 
-  Supervisor({this.id, required this.name, required this.contact, this.farmsAssigned, required this.notes});
+  Supervisor({this.id, required this.name, required this.contact, required this.farmsAssigned, required this.notes});
 
   Map<String, dynamic> toMap() {
     return {

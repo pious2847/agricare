@@ -37,7 +37,7 @@ class DatabaseHelper {
     sqfliteFfiInit();
     databaseFactory = databaseFactoryFfi;
 
-    String path = join(await getDatabasesPath(), 'farm_management.db');
+    String path = join(await getDatabasesPath(), 'farm_management1.db');
     return await openDatabase(path, version: 1, onCreate: _createDb, singleInstance: true);
   }
 
@@ -123,9 +123,8 @@ void _createDb(Database db, int version) async {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       contact TEXT NOT NULL,
-      farmsAssigned INTEGER,
+      farmsAssigned TEXT NOT NULL,
       notes TEXT,
-      FOREIGN KEY (farmsAssigned) REFERENCES farm(id)
     )
   ''');
 

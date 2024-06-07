@@ -20,7 +20,6 @@ class GenerateSuppliesPdf extends StatefulWidget {
 }
 
 class _GenerateSuppliesPdfState extends State<GenerateSuppliesPdf> {
-  late final FarmCrud _farmCrud = DatabaseHelper.instance.farmCrudInstance;
   late final SuppliesCrud _suppliesCrud = DatabaseHelper.instance.suppliesCrudInstance;
   List<Farm> farms = [];
   List<Supplies> supplies = [];
@@ -44,7 +43,7 @@ class _GenerateSuppliesPdfState extends State<GenerateSuppliesPdf> {
             maxWidth: MediaQuery.of(context).size.width * 0.8, minWidth: 700),
         content: Column(
           children: [
-            SizedBox(
+                       SizedBox(
               width: MediaQuery.of(context).size.width * 0.6,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +52,7 @@ class _GenerateSuppliesPdfState extends State<GenerateSuppliesPdf> {
                     height: 25,
                   ),
                   Text(
-                    'KAMBANG CO-OPERATIVE FOOD FARMING AND',
+                    'CUDJOE ABIMASH FARMS',
                     style: TextStyle(
                         fontSize: 30,
                         color: Colors.blue,
@@ -63,7 +62,7 @@ class _GenerateSuppliesPdfState extends State<GenerateSuppliesPdf> {
                     height: 7,
                   ),
                   Text(
-                    'MARKETING SOCIETY LIMITED',
+                    'COMPANY LIMITED',
                     style: TextStyle(
                         fontSize: 20,
                         color: Colors.blue,
@@ -72,7 +71,30 @@ class _GenerateSuppliesPdfState extends State<GenerateSuppliesPdf> {
                   const SizedBox(
                     height: 15,
                   ),
-                  const Image(image: AssetImage('assets/images/logo.jpeg')),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('P.O Box 655', style: TextStyle(fontSize: 15),),
+                            Text('Northern Region ', style: TextStyle(fontSize: 15),),
+                            Text('Tamale', style: TextStyle(fontSize: 15),),
+                          ],
+                        ),  
+                        SizedBox(width: 20,),
+                    Image(image: AssetImage('assets/images/logo.jpeg')),
+                        SizedBox(width: 20,),
+                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Email: example12"gmail.com', style: TextStyle(fontSize: 15),),
+                            Text('Phone: +233 24xxxxxxx ', style: TextStyle(fontSize: 15),),
+                          ],
+                        ),  
+                    ]
+                  ),
+                  
                   const SizedBox(
                     height: 20,
                   ),
@@ -89,6 +111,7 @@ class _GenerateSuppliesPdfState extends State<GenerateSuppliesPdf> {
                 ],
               ),
             ),
+            
             SizedBox(
               width: MediaQuery.of(context).size.width,
               // height: MediaQuery.of(context).size.height ,
