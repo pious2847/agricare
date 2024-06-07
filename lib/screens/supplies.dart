@@ -96,7 +96,7 @@ class _SuppliesScreenState extends State<SuppliesScreen> {
                       children: [
                         const TableRow(
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(106, 50, 49, 48),
+                            color: Color.fromARGB(213, 21, 131, 196),
                           ),
                           children: [
                             Padding(
