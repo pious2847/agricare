@@ -1,7 +1,8 @@
 import 'package:agricare/database/databaseHelper.dart';
-import 'package:agricare/forms/supplies.dart';
-import 'package:agricare/models/supplies.dart';
-import 'package:agricare/utils/supplies.dart';
+import 'package:agricare/forms/daily_works.dart';
+import 'package:agricare/models/daily_work_record.dart';
+import 'package:agricare/utils/daily_work_records.dart';
+import 'package:agricare/widgets/records/dailyrecords.dart';
 import 'package:agricare/widgets/records/suppliesrecords.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
@@ -14,32 +15,32 @@ class DailyWorkRecordsScreen extends StatefulWidget {
 }
 
 class _DailyWorkRecordsScreenState extends State<DailyWorkRecordsScreen> {
-  late final SuppliesCrud _suppliesCrud =
-      DatabaseHelper.instance.suppliesCrudInstance;
+  late final DailyCrud _dailyrecordsCrud =
+      DatabaseHelper.instance.dailyCrudInstance;
 
-  List<Supplies> _supplies = [];
+  List<DailyWorkRecord> _dailyrecords = [];
 
   @override
   void initState() {
-    loadsupplies();
+    loadrecords();
     super.initState();
   }
 
-  Future<void> loadsupplies() async {
-    _supplies = await _suppliesCrud.getSupplies();
+  Future<void> loadrecords() async {
+    _dailyrecords = await _dailyrecordsCrud.getDailyRecords();
     setState(() {});
   }
 
-  void _deletesupplies(int id) async {
-    await _suppliesCrud.deleteSupplies(id);
-    loadsupplies();
+  void _deletedailyrecords(int id) async {
+    await _dailyrecordsCrud.deleteDailyRecords(id);
+    loadrecords();
   }
 
-  void _editSupplies(Supplies supplies) {
+  void _editDailyRecord(DailyWorkRecord dailyrecords) {
     showDialog(
       context: context,
-      builder: (context) => SuppliesModal(supplies: supplies),
-    ).then((value) => loadsupplies());
+      builder: (context) => DailyRecordsModal(dailyrecords: dailyrecords),
+    ).then((value) => loadrecords());
   }
 
   @override
@@ -56,12 +57,12 @@ class _DailyWorkRecordsScreenState extends State<DailyWorkRecordsScreen> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Button(
-                  child: const Text('Add Supplies'),
+                  child: const Text('Add Daily Records'),
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context) => const SuppliesModal(),
-                    ).then((value) => loadsupplies());
+                      builder: (context) => const DailyRecordsModal(),
+                    ).then((value) => loadrecords());
                   },
                 ),
                 Button(
@@ -69,8 +70,8 @@ class _DailyWorkRecordsScreenState extends State<DailyWorkRecordsScreen> {
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context) => const GenerateSuppliesPdf(),
-                    ).then((value) => loadsupplies());
+                      builder: (context) => const GenerateDailyRecordsPdf(),
+                    ).then((value) => loadrecords());
                   },
                 ),
               ],
@@ -82,16 +83,19 @@ class _DailyWorkRecordsScreenState extends State<DailyWorkRecordsScreen> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height - 80,
-            child: _supplies.isNotEmpty
+            child: _dailyrecords.isNotEmpty
                 ? SingleChildScrollView(
                     child: Table(
                       border: TableBorder.all(),
                       columnWidths: const {
                         0: FractionColumnWidth(0.05), // ID
-                        1: FractionColumnWidth(0.3), // Product
-                        2: FractionColumnWidth(0.08), // Stock
-                        3: FlexColumnWidth(), // Description
-                        4: FractionColumnWidth(0.1), // Actions
+                        1: FractionColumnWidth(0.1), // worktype
+                        2: FractionColumnWidth(0.08), // farm
+                        3: FractionColumnWidth(0.1), // suppliesUsed
+                        4: FractionColumnWidth(0.2), // suppliesLeft
+                        5: FractionColumnWidth(0.08), // dailyexpenses
+                        6: FlexColumnWidth(), // notes
+                        7: FractionColumnWidth(0.1), // Actions
                       },
                       children: [
                         const TableRow(
@@ -111,7 +115,7 @@ class _DailyWorkRecordsScreenState extends State<DailyWorkRecordsScreen> {
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
-                                'Products',
+                                'Work Type',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -120,7 +124,7 @@ class _DailyWorkRecordsScreenState extends State<DailyWorkRecordsScreen> {
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
-                                'Stock',
+                                'Done By',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -129,7 +133,43 @@ class _DailyWorkRecordsScreenState extends State<DailyWorkRecordsScreen> {
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
-                                'Description',
+                                'Farm',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                             Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Supplies Used',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Remaining Supplies',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Daily Expenses',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                             Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'Note',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -146,24 +186,40 @@ class _DailyWorkRecordsScreenState extends State<DailyWorkRecordsScreen> {
                             ),
                           ],
                         ),
-                        ..._supplies.map(
-                          (supplies) => TableRow(
+                        ..._dailyrecords.map(
+                          (records) => TableRow(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('${supplies.id}'),
+                                child: Text('${records.id}'),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(supplies.product),
+                                child: Text(records.worktype),
+                              ),
+                                Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(records.employeeName),
+                              ),
+                                Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(records.farm),
+                              ),
+                                Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(records.suppliesUsed),
+                              ),
+                                Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(records.suppliesLeft),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('${supplies.stock}'),
+                                child: Text('${records.dailyexpenses}'),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(supplies.description),
+                                child: Text(records.notes),
                               ),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.01,
@@ -178,7 +234,7 @@ class _DailyWorkRecordsScreenState extends State<DailyWorkRecordsScreen> {
                                       child: IconButton(
                                         icon: const Icon(Iconsax.edit_2_copy),
                                         onPressed: () =>
-                                            _editSupplies(supplies),
+                                            _editDailyRecord(records),
                                       ),
                                     ),
                                     Tooltip(
@@ -188,7 +244,7 @@ class _DailyWorkRecordsScreenState extends State<DailyWorkRecordsScreen> {
                                       child: IconButton(
                                         icon: const Icon(Iconsax.trash_copy),
                                         onPressed: () => showContentDialog(
-                                            context, supplies.id!),
+                                            context, records.id!),
                                       ),
                                     ),
                                   ],
@@ -201,7 +257,7 @@ class _DailyWorkRecordsScreenState extends State<DailyWorkRecordsScreen> {
                     ),
                   )
                 : const Center(
-                    child: Text('No supplies added yet'),
+                    child: Text('No record added yet'),
                   ),
           ),
         
@@ -222,7 +278,7 @@ class _DailyWorkRecordsScreenState extends State<DailyWorkRecordsScreen> {
           Button(
             child: const Text('Delete'),
             onPressed: () {
-              _deletesupplies(id);
+              _deletedailyrecords(id);
               Navigator.pop(
                 context,
               );

@@ -14,7 +14,7 @@ class DailyCrud{
     return await db.insert('dailyrecords', dailyWorkRecord.toMap());
   }
 
-    Future<List<DailyWorkRecord>> getDailyRecords() async {
+  Future<List<DailyWorkRecord>> getDailyRecords() async {
     Database db = await _dbHelper.initDb();
     var dailyrecords = await db.query('dailyrecords');
 
@@ -27,6 +27,12 @@ class DailyCrud{
         suppliesLeft: dailyrecord['suppliesLeft'] as String,
         dailyexpenses: dailyrecord['dailyexpenses'] as int,
         notes: dailyrecord['notes'] as String)).toList();
+  }
+  Future<int> getTotalDailyExpenses() async {
+    Database db = await _dbHelper.initDb();
+    var result = await db.rawQuery('SELECT SUM(dailyexpenses) AS total FROM dailyrecords');
+    int totalExpenses = Sqflite.firstIntValue(result) ?? 0;
+    return totalExpenses;
   }
     Future<int> updateDailyRecords(DailyWorkRecord dailyWorkRecord, ) async {
     Database db = await _dbHelper.initDb();

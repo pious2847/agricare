@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:agricare/screens/dailyrecords.dart';
 import 'package:agricare/screens/dashboard.dart';
 import 'package:agricare/screens/employee.dart';
 import 'package:agricare/screens/farms.dart';
@@ -38,6 +39,13 @@ class _LayoutScreenState extends State<LayoutScreen> {
       body: const _NavigationBodyItem(
         header: 'Employee',
         content: EmployeePage(),
+      ),
+    ),PaneItem(
+      icon: const Icon(FluentIcons.file_a_s_p_x),
+      title: const Text('Daily Records'),
+      body: const _NavigationBodyItem(
+        header: 'Daily Records',
+        content: DailyWorkRecordsScreen(),
       ),
     ),
     PaneItem(

@@ -1,28 +1,21 @@
-import 'package:agricare/database/databaseHelper.dart';
-import 'package:agricare/models/employee.dart';
-import 'package:agricare/models/supervisor.dart';
-import 'package:agricare/utils/employee.dart';
-import 'package:agricare/utils/farm.dart';
-import 'package:agricare/utils/supervisor.dart';
-import 'package:flutter/material.dart' as Material;
+import 'package:agricare/models/daily_work_record.dart';
+import 'package:agricare/models/supplies.dart';
+import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-const int employeesPerPage = 15;
+const int dailyrecordsPerPage = 15;
 
-List<pw.Page> employeesTablePages(List<Employee> employees, image) {
+
+List<pw.Page> DailyRecordsTablePages(List<DailyWorkRecord> dailyrecords,  image, _totalexpenditure) {
   List<pw.Page> pages = [];
 
-  for (int i = 0; i < employees.length; i += employeesPerPage) {
-    final chunk = employees.sublist(
-        i,
-        i + employeesPerPage > employees.length
-            ? employees.length
-            : i + employeesPerPage);
+  for (int i = 0; i < dailyrecords.length; i += dailyrecordsPerPage) {
+    final chunk = dailyrecords.sublist(i, i + dailyrecordsPerPage > dailyrecords.length ? dailyrecords.length : i + dailyrecordsPerPage);
     pages.add(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
-        build: (context) => machineryTable(chunk, image),
+        build: (context) => supplyTable(chunk, image, _totalexpenditure),
       ),
     );
   }
@@ -30,18 +23,13 @@ List<pw.Page> employeesTablePages(List<Employee> employees, image) {
   return pages;
 }
 
-pw.Widget machineryTable(List<Employee> employees, image) {
-  late final EmployeeCrud _employeeCrud =
-      DatabaseHelper.instance.employeeCrudInstance;
 
-  List<Employee> _employees = [];
-
-
+pw.Widget supplyTable(List<DailyWorkRecord> dailyrecords,  image, _totalexpenditure) {
   return pw.Column(
     children: [
       pw.Container(
         alignment: pw.Alignment.center,
-        child: pw.Header(
+               child: pw.Header(
           child: pw.Center(
             child: pw.Column(
               mainAxisAlignment: pw.MainAxisAlignment.center,
@@ -84,17 +72,14 @@ pw.Widget machineryTable(List<Employee> employees, image) {
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             pw.Text('Email: example12"gmail.com', style: const pw.TextStyle(fontSize: 10),),
-                            pw.SizedBox(height: 8),
                             pw.Text('Phone: +233 24xxxxxxx ', style: const pw.TextStyle(fontSize: 10),),
                           ],
                         ),  
                     ]
-                  ),
-                  
-                
+                  ),  
                 pw.SizedBox(height: 20),
                 pw.Text(
-                  'EMPLOYEES RECORDS',
+                  'SUPPLIES RECORDS',
                   style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
                 ),
                 pw.SizedBox(height: 9),
@@ -102,7 +87,6 @@ pw.Widget machineryTable(List<Employee> employees, image) {
             ),
           ),
         ),
-      
       ),
       pw.SizedBox(height: 20),
       pw.SizedBox(
@@ -112,69 +96,111 @@ pw.Widget machineryTable(List<Employee> employees, image) {
             pw.TableRow(
               decoration: pw.BoxDecoration(color: PdfColor.fromHex('#89b6ed')),
               children: [
+              
+                pw.Padding(
+                  padding: pw.EdgeInsets.all(8.0),
+                  child: pw.Text(
+                    'WORK TYPE',
+                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 8 ),
+                  ),
+                ),
+                pw.Padding(
+                  padding: pw.EdgeInsets.all(8.0),
+                  child: pw.Text(
+                    'DONE BY',
+                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 8 ),
+                  ),
+                ),
                  pw.Padding(
                   padding: pw.EdgeInsets.all(8.0),
                   child: pw.Text(
-                    'ID',
-                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold, color: PdfColor.fromHex('#ffffff')),
+                    'FARM',
+                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 8 ),
                   ),
                 ),
-                pw.Padding(
+                 pw.Padding(
                   padding: pw.EdgeInsets.all(8.0),
                   child: pw.Text(
-                    'Name',
-                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 8),
+                    'SUPPLIES USED',
+                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 8 ),
                   ),
                 ),
-                pw.Padding(
+                 pw.Padding(
                   padding: pw.EdgeInsets.all(8.0),
                   child: pw.Text(
-                    'Contact',
-                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 8),
+                    'SUPPLIES LEFT',
+                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 8 ),
                   ),
                 ),
-                pw.Padding(
+                 pw.Padding(
                   padding: pw.EdgeInsets.all(8.0),
                   child: pw.Text(
-                    'Assigned Farm',
-                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 8),
+                    'DAILY EXPENSES',
+                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 8 ),
                   ),
                 ),
-                  pw.Padding(
-                  padding: pw.EdgeInsets.all(8.0),
-                  child: pw.Text(
-                    'Assigned Machinery',
-                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 8),
-                  ),
-                ),
+                
               ],
             ),
-            ...employees.map(
-              (employee) => pw.TableRow(
+            ...dailyrecords.map(
+              (records) => pw.TableRow(
                 children: [
                   pw.Padding(
                     padding: pw.EdgeInsets.all(8.0),
-                    child: pw.Text('${employee.id}', style: pw.TextStyle(fontSize: 8)),
+                    child: pw.Text(records.worktype, style: pw.TextStyle(fontSize: 8) ),
+                  ),
+                   pw.Padding(
+                    padding: pw.EdgeInsets.all(8.0),
+                    child: pw.Text(records.employeeName, style: pw.TextStyle(fontSize: 8) ),
+                  ),
+                   pw.Padding(
+                    padding: pw.EdgeInsets.all(8.0),
+                    child: pw.Text(records.farm, style: pw.TextStyle(fontSize: 8) ),
+                  ),
+                   pw.Padding(
+                    padding: pw.EdgeInsets.all(8.0),
+                    child: pw.Text(records.suppliesUsed, style: pw.TextStyle(fontSize: 8) ),
+                  ),
+                   pw.Padding(
+                    padding: pw.EdgeInsets.all(8.0),
+                    child: pw.Text(records.suppliesLeft, style: pw.TextStyle(fontSize: 8) ),
                   ),
                   pw.Padding(
                     padding: pw.EdgeInsets.all(8.0),
-                    child: pw.Text(employee.name, style: pw.TextStyle(fontSize: 8)),
+                    child: pw.Text('${records.dailyexpenses}', style: pw.TextStyle(fontSize: 8) ),
                   ),
-                                    pw.Padding(
-                    padding: pw.EdgeInsets.all(8.0),
-                    child: pw.Text(employee.contact, style: pw.TextStyle(fontSize: 8)),
-                  ),
-                  pw.Padding(
-                    padding: pw.EdgeInsets.all(8.0),
-                    child: pw.Text('${employee.farmAssigned}', style: pw.TextStyle(fontSize: 8)),
-                  ),
-                  pw.Padding(
-                    padding: pw.EdgeInsets.all(8.0),
-                    child: pw.Text('${employee.machineryAssigned}', style: pw.TextStyle(fontSize: 8)),
-                  ),
-                ],
-              ),
+                ], 
+              )
             ),
+           pw.TableRow(children: [
+                             pw.Padding(
+                              padding: pw.EdgeInsets.all(8.0),
+                              child: pw.Text(''),
+                            ),
+                              pw.Padding(
+                              padding: pw.EdgeInsets.all(8.0),
+                              child: pw.Text(''),
+                            ),
+                              pw.Padding(
+                              padding: pw.EdgeInsets.all(8.0),
+                              child: pw.Text(''),
+                            ),
+                             pw.Padding(
+                              padding: pw.EdgeInsets.all(8.0),
+                              child: pw.Text(''),
+                            ),
+                             pw.Padding(
+                              padding: pw.EdgeInsets.all(8.0),
+                              child: pw.Text('Total Expenditure'),
+                            ),
+                            pw.Padding(
+                              padding: const pw.EdgeInsets.all(8.0),
+                              child: pw.Text('${_totalexpenditure}',
+                                  style:
+                                      pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                            ),
+                          ]),
+                        
           ],
         ),
       ),
