@@ -40,12 +40,11 @@ class _RequestedModalState extends State<RequestedModal> {
   void initState() {
     super.initState();
     loadSupplies();
+    loadFarms();
     _selectedsupply = widget.requested?.product;
     _quantityController =
         TextEditingController(text: '${widget.requested?.quantity}');
     _selectedFarm = widget.requested?.farmRequesting;
-
-   
   }
 
   @override
@@ -77,6 +76,7 @@ class _RequestedModalState extends State<RequestedModal> {
         product: '$_selectedsupply',
         quantity: int.parse(_quantityController.text),
         farmRequesting: '$_selectedFarm',
+        approved: 1
       );
 
       if (widget.requested == null) {
@@ -106,28 +106,27 @@ class _RequestedModalState extends State<RequestedModal> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-              DropdownButtonFormField<String?>(
-                value: _selectedsupply,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedsupply = value!;
-                  });
-                },
-                items: _supplies.map((supply) {
-                  return DropdownMenuItem<String>(
-                    value: supply.product,
-                    child: Text(supply.product),
-                  );
-                }).toList(),
-                decoration: const InputDecoration(labelText: 'Select Farm'),
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please select a farm';
-                  }
-                  return null;
-                },
-              ),
-              
+            DropdownButtonFormField<String?>(
+              value: _selectedsupply,
+              onChanged: (value) {
+                setState(() {
+                  _selectedsupply = value!;
+                });
+              },
+              items: _supplies.map((supply) {
+                return DropdownMenuItem<String>(
+                  value: supply.product,
+                  child: Text(supply.product),
+                );
+              }).toList(),
+              decoration: const InputDecoration(labelText: 'Select Farm'),
+              validator: (value) {
+                if (value == null) {
+                  return 'Please select a farm';
+                }
+                return null;
+              },
+            ),
             TextFormField(
               keyboardType: TextInputType.number,
               controller: _quantityController,
@@ -139,28 +138,27 @@ class _RequestedModalState extends State<RequestedModal> {
                 return null;
               },
             ),
-              DropdownButtonFormField<String?>(
-                value: _selectedFarm,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedFarm = value!;
-                  });
-                },
-                items: _farms.map((farm) {
-                  return DropdownMenuItem<String>(
-                    value: farm.name,
-                    child: Text(farm.name),
-                  );
-                }).toList(),
-                decoration: const InputDecoration(labelText: 'Select Farm'),
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please select a farm';
-                  }
-                  return null;
-                },
-              ),
-              
+            DropdownButtonFormField<String?>(
+              value: _selectedFarm,
+              onChanged: (value) {
+                setState(() {
+                  _selectedFarm = value!;
+                });
+              },
+              items: _farms.map((farm) {
+                return DropdownMenuItem<String>(
+                  value: farm.name,
+                  child: Text(farm.name),
+                );
+              }).toList(),
+              decoration: const InputDecoration(labelText: 'Select Farm'),
+              validator: (value) {
+                if (value == null) {
+                  return 'Please select a farm';
+                }
+                return null;
+              },
+            ),
             const SizedBox(height: 20.0),
           ],
         ),

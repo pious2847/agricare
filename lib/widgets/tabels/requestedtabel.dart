@@ -1,15 +1,16 @@
-import 'package:agricare/models/supplies.dart';
+import 'package:agricare/models/requested.dart';
+import 'package:agricare/models/requested.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-const int suppliesPerPage = 15;
+const int requestedPerPage = 15;
 
 
-List<pw.Page> SupplyTablePages(List<Supplies> supplies,  image) {
+List<pw.Page> RequestedTablePages(List<Requested> requested,  image) {
   List<pw.Page> pages = [];
 
-  for (int i = 0; i < supplies.length; i += suppliesPerPage) {
-    final chunk = supplies.sublist(i, i + suppliesPerPage > supplies.length ? supplies.length : i + suppliesPerPage);
+  for (int i = 0; i < requested.length; i += requestedPerPage) {
+    final chunk = requested.sublist(i, i + requestedPerPage > requested.length ? requested.length : i + requestedPerPage);
     pages.add(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
@@ -22,7 +23,7 @@ List<pw.Page> SupplyTablePages(List<Supplies> supplies,  image) {
 }
 
 
-pw.Widget supplyTable(List<Supplies> supplies,  image) {
+pw.Widget supplyTable(List<Requested> requested,  image) {
   return pw.Column(
     children: [
       pw.Container(
@@ -77,7 +78,7 @@ pw.Widget supplyTable(List<Supplies> supplies,  image) {
                   ),  
                 pw.SizedBox(height: 20),
                 pw.Text(
-                  'SUPPLIES RECORDS',
+                  'SUPPLIES REQUESTED RECORDS',
                   style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
                 ),
                 pw.SizedBox(height: 9),
@@ -111,13 +112,20 @@ pw.Widget supplyTable(List<Supplies> supplies,  image) {
                 pw.Padding(
                   padding: pw.EdgeInsets.all(8.0),
                   child: pw.Text(
-                    'Stock',
+                    'Quantity',
+                    style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                  ),
+                ),
+                 pw.Padding(
+                  padding: pw.EdgeInsets.all(8.0),
+                  child: pw.Text(
+                    'Farm Requesting',
                     style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
                   ),
                 ),
               ],
             ),
-            ...supplies.map(
+            ...requested.map(
               (supply) => pw.TableRow(
                 children: [
                   pw.Padding(
@@ -130,8 +138,13 @@ pw.Widget supplyTable(List<Supplies> supplies,  image) {
                   ),
                   pw.Padding(
                     padding: pw.EdgeInsets.all(8.0),
-                    child: pw.Text('${supply.stock}'),
+                    child: pw.Text('${supply.quantity}'),
                   ),
+                   pw.Padding(
+                    padding: pw.EdgeInsets.all(8.0),
+                    child: pw.Text(supply.farmRequesting),
+                  ),
+                  
                 ],
               ),
             ),

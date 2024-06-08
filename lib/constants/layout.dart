@@ -4,6 +4,7 @@ import 'package:agricare/screens/dashboard.dart';
 import 'package:agricare/screens/employee.dart';
 import 'package:agricare/screens/farms.dart';
 import 'package:agricare/screens/machinery.dart';
+import 'package:agricare/screens/requested.dart';
 import 'package:agricare/screens/settings.dart';
 import 'package:agricare/screens/supervisors.dart';
 import 'package:agricare/screens/supplies.dart';
@@ -76,7 +77,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
       title: const Text('Requested'),
       body: const _NavigationBodyItem(
         header: 'Requested',
-        content: EmployeePage(),
+        content: RequestedScreen(),
       ),
     ),
 

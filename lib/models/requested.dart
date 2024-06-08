@@ -3,8 +3,9 @@ class Requested {
   String product;
   String farmRequesting;
   int quantity;
+  int approved;
 
-  Requested({this.id, required this.product, required this.farmRequesting, required this.quantity,});
+  Requested({this.id, required this.product, required this.farmRequesting, required this.quantity, required this.approved});
 
   Map<String, dynamic> toMap() {
     return {
@@ -12,6 +13,7 @@ class Requested {
       'product': product,
       'quantity': quantity,
       'farmRequesting': farmRequesting,
+      'approved':approved,
     };
   }
 }

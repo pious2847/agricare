@@ -93,9 +93,9 @@ class _RequestedScreenState extends State<RequestedScreen> {
                       columnWidths: const {
                         0: FractionColumnWidth(0.05), // ID
                         1: FractionColumnWidth(0.3), // Product
-                        3: FractionColumnWidth(0.3), // Stock
+                        3: FractionColumnWidth(0.15), // quantity
                         4: FractionColumnWidth(0.3), // Description
-                        5: FractionColumnWidth(0.05), // Actions
+                        5: FractionColumnWidth(0.06), // Actions
                       },
                       children: [
                         const TableRow(
@@ -205,7 +205,7 @@ class _RequestedScreenState extends State<RequestedScreen> {
                     ),
                   )
                 : const Center(
-                    child: Text('No supplies added yet'),
+                    child: Text('No supplies requested yet'),
                   ),
           ),
         ],

@@ -6,6 +6,7 @@ import 'package:agricare/models/requested.dart';
 import 'package:agricare/models/supplies.dart';
 import 'package:agricare/utils/requested.dart';
 import 'package:agricare/utils/supplies.dart';
+import 'package:agricare/widgets/tabels/requestedtabel.dart';
 import 'package:agricare/widgets/tabels/suppliestabel.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
@@ -232,12 +233,12 @@ class _GenerateRequestedPdfState extends State<GenerateRequestedPdf> {
     );
   }
 
- Future<void> GenerateRequestedPdf(List<Supplies> requested) async {
+ Future<void> GenerateRequestedPdf(List<Requested> requested) async {
     final pdf = pw.Document();
     final ByteData img = await rootBundle.load('assets/images/logo.jpeg');
     final logo = img.buffer.asUint8List();
 
-    final pages = SupplyTablePages(requested, logo);
+    final pages = RequestedTablePages(requested, logo);
     for (var page in pages) {
       pdf.addPage(page);
     }

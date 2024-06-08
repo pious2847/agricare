@@ -16,25 +16,25 @@ class RequestedCrud {
     Database db = await _dbHelper.initDb();
     final supply = await _suppliesCrud.getSuppliesByname(selectedSupply);
     final remainingstock = supply!.stock - requested.quantity;
-    
+
     if (supply == null) {
-        // If the supply is not found, rollback the transaction
-        return Future.error('Supply not found');
-      }
+      // If the supply is not found, rollback the transaction
+      return Future.error('Supply not found');
+    }
 
-      final remainingStock = supply.stock - requested.quantity;
+    final remainingStock = supply.stock - requested.quantity;
 
-      if (remainingStock < 0) {
-        // If there's not enough stock, rollback the transaction
-        return Future.error('Insufficient stock');
-      }
+    if (remainingStock < 0) {
+      // If there's not enough stock, rollback the transaction
+      return Future.error('Insufficient stock');
+    }
     final updatesupplies = Supplies(
         id: supply.id,
         product: supply.product,
         stock: remainingstock,
         description: supply.description);
-     await _suppliesCrud.updateSupplies(updatesupplies);
-     
+    await _suppliesCrud.updateSupplies(updatesupplies);
+    print('object updated');
     return await db.insert('requested', requested.toMap());
   }
 
@@ -43,11 +43,11 @@ class RequestedCrud {
     var requestedList = await db.query('requested');
     return requestedList
         .map((requested) => Requested(
-              id: requested['id'] as int,
-              product: requested['product'] as String,
-              quantity: requested['quantity'] as int,
-              farmRequesting: requested['farmRequesting'] as String,
-            ))
+            id: requested['id'] as int,
+            product: requested['product'] as String,
+            quantity: requested['quantity'] as int,
+            farmRequesting: requested['farmRequesting'] as String,
+            approved: requested['approved'] as int))
         .toList();
   }
 

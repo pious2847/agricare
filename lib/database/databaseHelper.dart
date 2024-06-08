@@ -18,6 +18,7 @@ class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._instance();
 
   static Database? _db;
+  static bool _defaultAdminInserted = false; // Add this flag
 
   late final UserCrud admincrud = UserCrud();
   late final EmployeeCrud employeeCrud = EmployeeCrud();
@@ -83,6 +84,13 @@ void _createDb(Database db, int version) async {
   ''');
 
   print('user table created');
+
+  // Insert the default admin user only if it hasn't been inserted before
+  if (!_defaultAdminInserted) {
+    await admincrud.insertDefaultAdmin();
+    _defaultAdminInserted = true;
+  }
+
   await db.execute('''
     CREATE TABLE IF NOT EXISTS farm(
       id INTEGER PRIMARY KEY AUTOINCREMENT,

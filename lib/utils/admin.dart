@@ -4,7 +4,13 @@ import 'package:sqflite/sqflite.dart';
 
 class UserCrud {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
-
+  Future<void> insertDefaultAdmin() async {
+    Database db = await _dbHelper.initDb();
+  await db.insert('admin', {
+    'username': 'admin', // Set the default username
+    'password': 'admin', // Set the default password
+  });
+}
   // CRUD operations for User
   Future<int> addAdmin(Admin admin) async {
     Database db = await _dbHelper.initDb();
