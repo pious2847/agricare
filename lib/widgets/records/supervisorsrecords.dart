@@ -4,17 +4,12 @@ import 'dart:typed_data';
 
 import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/forms/supervisor.dart';
-import 'package:agricare/models/farm.dart';
-import 'package:agricare/models/machinery.dart';
 import 'package:agricare/models/supervisor.dart';
 import 'package:agricare/utils/farm.dart';
-import 'package:agricare/utils/machinery.dart';
 import 'package:agricare/utils/supervisor.dart';
-import 'package:agricare/widgets/tabels/machinerytabels.dart';
 import 'package:agricare/widgets/tabels/supervisorstabel.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/material.dart' as Material;
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
@@ -113,8 +108,8 @@ late final SupervisorCrud _supervisorCrud =
                          Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Email: example12"gmail.com', style: TextStyle(fontSize: 15),),
-                            Text('Phone: +233 24xxxxxxx ', style: TextStyle(fontSize: 15),),
+                            Text('Email: cudjeoabimash@yahoo.com', style: TextStyle(fontSize: 15),),
+                            Text('Phone: +233 24 346 1063 ', style: TextStyle(fontSize: 15),),
                           ],
                         ),  
                     ]

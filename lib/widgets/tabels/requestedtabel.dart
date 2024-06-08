@@ -1,5 +1,4 @@
 import 'package:agricare/models/requested.dart';
-import 'package:agricare/models/requested.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -70,8 +69,8 @@ pw.Widget supplyTable(List<Requested> requested,  image) {
                          pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
-                            pw.Text('Email: example12"gmail.com', style: const pw.TextStyle(fontSize: 10),),
-                            pw.Text('Phone: +233 24xxxxxxx ', style: const pw.TextStyle(fontSize: 10),),
+                            pw.Text('Email: cudjeoabimash@yahoo.com', style: const pw.TextStyle(fontSize: 10),),
+                            pw.Text('Phone: +233 24 346 1063 ', style: const pw.TextStyle(fontSize: 10),),
                           ],
                         ),  
                     ]

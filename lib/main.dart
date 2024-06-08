@@ -8,10 +8,9 @@ void main()  async  {
   // Must add this line.
   await windowManager.ensureInitialized();
    WindowOptions windowOptions = const WindowOptions(
-    size: Size(800, 600),
-    center: true,
-    skipTaskbar: false,
-    titleBarStyle: TitleBarStyle.hidden,
+    minimumSize: Size(1280, 800),
+    title: 'AgriCare',
+    skipTaskbar: false
   );
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();

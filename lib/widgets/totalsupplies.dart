@@ -1,10 +1,6 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:agricare/database/databaseHelper.dart';
-import 'package:agricare/utils/farm.dart';
 import 'package:agricare/utils/supplies.dart';
 import 'package:flutter/material.dart';
-// Import your utility function here
 
 class TotalSuppliesWidget extends StatefulWidget {
   const TotalSuppliesWidget({super.key});

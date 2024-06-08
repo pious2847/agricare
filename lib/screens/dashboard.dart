@@ -123,7 +123,7 @@ class _DashboardState extends State<Dashboard> {
                                     const Text(
                                       'Total Employees',
                                       style: TextStyle(
-                                        fontSize: 25.0,
+                                        fontSize: 19,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -178,7 +178,7 @@ class _DashboardState extends State<Dashboard> {
                                     Text(
                                       'Total Supervisors',
                                       style: TextStyle(
-                                          fontSize: 25.0,
+                                          fontSize: 19,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     ),
@@ -235,7 +235,7 @@ class _DashboardState extends State<Dashboard> {
                                     Text(
                                       'Total Machinery',
                                       style: TextStyle(
-                                          fontSize: 25.0,
+                                          fontSize: 19,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     ),
@@ -295,7 +295,7 @@ class _DashboardState extends State<Dashboard> {
                                     const Text(
                                       'Total Farms',
                                       style: TextStyle(
-                                        fontSize: 25.0,
+                                        fontSize: 19,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -350,7 +350,7 @@ class _DashboardState extends State<Dashboard> {
                                     Text(
                                       'Total Products',
                                       style: TextStyle(
-                                          fontSize: 25.0,
+                                          fontSize: 19,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     ),
@@ -544,108 +544,117 @@ class _DashboardState extends State<Dashboard> {
   SizedBox TotalCards(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: 40,
+      // height: 80,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Row(
+        child: Column(
           children: [
-            Material.TextButton.icon(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const DailyRecordsModal();
+            Row(
+              children: [
+                 Material.TextButton.icon(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const DailyRecordsModal();
+                        },
+                      ).then((value) => setState(() {}));
                     },
-                  ).then((value) => setState(() {}));
-                },
-                icon: const Icon(Iconsax.additem_copy),
-                label: const Text('Add Daily Records')),
-            Material.TextButton.icon(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const EmployeeModal();
+                    icon: const Icon(Iconsax.additem_copy),
+                    label: const Text('Add Daily Records')),
+                Material.TextButton.icon(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const EmployeeModal();
+                        },
+                      ).then((value) => setState(() {}));
                     },
-                  ).then((value) => setState(() {}));
-                },
-                icon: const Icon(Iconsax.additem_copy),
-                label: const Text('Add Employees')),
-            const SizedBox(
-              width: 10,
-            ),
-            Material.TextButton.icon(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const SupervisorModal();
+                    icon: const Icon(Iconsax.additem_copy),
+                    label: const Text('Add Employees')),
+                const SizedBox(
+                  width: 10,
+                ),
+                Material.TextButton.icon(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const SupervisorModal();
+                      },
+                    ).then((value) => setState(() {
+                          _updateCount();
+                        }));
                   },
-                ).then((value) => setState(() {
-                      _updateCount();
-                    }));
-              },
-              icon: const Icon(Iconsax.additem_copy),
-              label: const Text('Add Supervisor'),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Material.TextButton.icon(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const FarmModal();
+                  icon: const Icon(Iconsax.additem_copy),
+                  label: const Text('Add Supervisor'),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Material.TextButton.icon(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const FarmModal();
+                        },
+                      ).then((value) => setState(() {}));
                     },
-                  ).then((value) => setState(() {}));
-                },
-                icon: const Icon(Iconsax.additem_copy),
-                label: const Text('Add Farm')),
-            const SizedBox(
-              width: 10,
+                    icon: const Icon(Iconsax.additem_copy),
+                    label: const Text('Add Farm')),
+                const SizedBox(
+                  width: 10,
+                ),
+              ]
             ),
-            Material.TextButton.icon(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const SuppliesModal();
+            Row(
+              children: [
+               
+                Material.TextButton.icon(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const SuppliesModal();
+                      },
+                    ).then((value) => setState(() {}));
                   },
-                ).then((value) => setState(() {}));
-              },
-              icon: const Icon(Iconsax.additem_copy),
-              label: const Text('Add Supplies'),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Material.TextButton.icon(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const MachineryModal();
+                  icon: const Icon(Iconsax.additem_copy),
+                  label: const Text('Add Supplies'),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Material.TextButton.icon(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const MachineryModal();
+                      },
+                    ).then((value) => _updateCount());
                   },
-                ).then((value) => _updateCount());
-              },
-              icon: const Icon(Iconsax.additem_copy),
-              label: const Text('Add Machinery'),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Material.TextButton.icon(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const AdminModal();
+                  icon: const Icon(Iconsax.additem_copy),
+                  label: const Text('Add Machinery'),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Material.TextButton.icon(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const AdminModal();
+                        },
+                      );
                     },
-                  );
-                },
-                icon: const Icon(Iconsax.additem_copy),
-                label: const Text('Add Admin')),
+                    icon: const Icon(Iconsax.additem_copy),
+                    label: const Text('Add Admin')),
+              ],
+            ),
           ],
         ),
       ),

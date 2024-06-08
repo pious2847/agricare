@@ -84,7 +84,7 @@ class _GeneratePdfState extends State<GeneratePdf> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('Email: example12"gmail.com', style: TextStyle(fontSize: 15),),
-                            Text('Phone: +233 24xxxxxxx ', style: TextStyle(fontSize: 15),),
+                            Text('Phone: +233 24 346 1063 ', style: TextStyle(fontSize: 15),),
                           ],
                         ),  
                     ]

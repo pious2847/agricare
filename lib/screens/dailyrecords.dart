@@ -3,7 +3,6 @@ import 'package:agricare/forms/daily_works.dart';
 import 'package:agricare/models/daily_work_record.dart';
 import 'package:agricare/utils/daily_work_records.dart';
 import 'package:agricare/widgets/records/dailyrecords.dart';
-import 'package:agricare/widgets/records/suppliesrecords.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 

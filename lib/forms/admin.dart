@@ -1,7 +1,5 @@
 import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/models/admin.dart';
-import 'package:agricare/models/farm.dart';
-import 'package:agricare/utils/farm.dart';
 import 'package:flutter/material.dart';
 
 class AdminModal extends StatefulWidget {

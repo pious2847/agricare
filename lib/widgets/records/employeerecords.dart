@@ -1,25 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:typed_data';
 
 import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/forms/employee.dart';
-import 'package:agricare/forms/supervisor.dart';
 import 'package:agricare/models/employee.dart';
-import 'package:agricare/models/farm.dart';
-import 'package:agricare/models/machinery.dart';
-import 'package:agricare/models/supervisor.dart';
 import 'package:agricare/utils/employee.dart';
-import 'package:agricare/utils/farm.dart';
-import 'package:agricare/utils/machinery.dart';
-import 'package:agricare/utils/supervisor.dart';
 import 'package:agricare/widgets/tabels/employeetabel.dart';
-import 'package:agricare/widgets/tabels/machinerytabels.dart';
-import 'package:agricare/widgets/tabels/supervisorstabel.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/material.dart' as Material;
-import 'package:flutter/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
@@ -33,7 +21,6 @@ class GenerateEmployeesPdf extends StatefulWidget {
 class _GenerateEmployeesPdfState extends State<GenerateEmployeesPdf> {
 late final EmployeeCrud _employeeCrud =
       DatabaseHelper.instance.employeeCrudInstance;
-  late final FarmCrud _farmsCrud = DatabaseHelper.instance.farmCrudInstance;
 
   List<Employee> _employees = [];
 
@@ -117,9 +104,9 @@ late final EmployeeCrud _employeeCrud =
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('Email: example12"gmail.com', style: TextStyle(fontSize: 15),),
+                            Text('Email: cudjeoabimash@yahoo.com', style: TextStyle(fontSize: 15),),
                             SizedBox(height: 8),
-                            Text('Phone: +233 24xxxxxxx ', style: TextStyle(fontSize: 15),),
+                            Text('Phone: +233 24 346 1063 ', style: TextStyle(fontSize: 15),),
                           ],
                         ),  
                     ]

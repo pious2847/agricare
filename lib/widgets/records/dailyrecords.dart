@@ -2,17 +2,10 @@
 
 import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/models/daily_work_record.dart';
-import 'package:agricare/models/farm.dart';
-import 'package:agricare/models/supplies.dart';
 import 'package:agricare/utils/daily_work_records.dart';
-import 'package:agricare/utils/farm.dart';
-import 'package:agricare/utils/supplies.dart';
 import 'package:agricare/widgets/tabels/dailyrecordstabel.dart';
-import 'package:agricare/widgets/tabels/farmstabels.dart';
-import 'package:agricare/widgets/tabels/suppliestabel.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
@@ -110,11 +103,11 @@ class _GenerateDailyRecordsPdfState extends State<GenerateDailyRecordsPdf> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Email: example12"gmail.com',
+                              'Email: cudjeoabimash@yahoo.com',
                               style: TextStyle(fontSize: 15),
                             ),
                             Text(
-                              'Phone: +233 24xxxxxxx ',
+                              'Phone: +233 24 346 1063 ',
                               style: TextStyle(fontSize: 15),
                             ),
                           ],

@@ -85,8 +85,8 @@ pw.Widget machineryTable(List<Supervisor> supervisors, image) {
                          pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
-                            pw.Text('Email: example12"gmail.com', style: const pw.TextStyle(fontSize: 10),),
-                            pw.Text('Phone: +233 24xxxxxxx ', style: const pw.TextStyle(fontSize: 10),),
+                            pw.Text('Email: cudjeoabimash@yahoo.com', style: const pw.TextStyle(fontSize: 10),),
+                            pw.Text('Phone: +233 24 346 1063 ', style: const pw.TextStyle(fontSize: 10),),
                           ],
                         ),  
                     ]

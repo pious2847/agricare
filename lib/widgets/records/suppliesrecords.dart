@@ -3,9 +3,7 @@
 import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/models/farm.dart';
 import 'package:agricare/models/supplies.dart';
-import 'package:agricare/utils/farm.dart';
 import 'package:agricare/utils/supplies.dart';
-import 'package:agricare/widgets/tabels/farmstabels.dart';
 import 'package:agricare/widgets/tabels/suppliestabel.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
@@ -88,8 +86,8 @@ class _GenerateSuppliesPdfState extends State<GenerateSuppliesPdf> {
                          Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Email: example12"gmail.com', style: TextStyle(fontSize: 15),),
-                            Text('Phone: +233 24xxxxxxx ', style: TextStyle(fontSize: 15),),
+                            Text('Email: cudjeoabimash@yahoo.com', style: TextStyle(fontSize: 15),),
+                            Text('Phone: +233 24 346 1063 ', style: TextStyle(fontSize: 15),),
                           ],
                         ),  
                     ]
