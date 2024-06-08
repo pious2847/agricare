@@ -43,7 +43,7 @@ class _RequestedModalState extends State<RequestedModal> {
     loadFarms();
     _selectedsupply = widget.requested?.product;
     _quantityController =
-        TextEditingController(text: '${widget.requested?.quantity}');
+        TextEditingController(text: '${widget.requested?.quantity ?? ''}',);
     _selectedFarm = widget.requested?.farmRequesting;
   }
 
@@ -134,6 +134,10 @@ class _RequestedModalState extends State<RequestedModal> {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a quantity';
+                }
+                final selectedsupply = _supplies.singleWhere((supply) => supply.product == _selectedsupply);
+                if (int.parse(value) > selectedsupply.stock) {
+                  return 'Insufficient Stock';
                 }
                 return null;
               },

@@ -1,5 +1,6 @@
 import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/forms/admin.dart';
+import 'package:agricare/forms/daily_works.dart';
 import 'package:agricare/forms/employee.dart';
 import 'package:agricare/forms/farm_form.dart';
 import 'package:agricare/forms/machinery_modal.dart';
@@ -548,6 +549,17 @@ class _DashboardState extends State<Dashboard> {
         padding: const EdgeInsets.all(10.0),
         child: Row(
           children: [
+            Material.TextButton.icon(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const DailyRecordsModal();
+                    },
+                  ).then((value) => setState(() {}));
+                },
+                icon: const Icon(Iconsax.additem_copy),
+                label: const Text('Add Daily Records')),
             Material.TextButton.icon(
                 onPressed: () {
                   showDialog(

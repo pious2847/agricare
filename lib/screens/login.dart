@@ -16,60 +16,31 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      PopLoginModal();
+    });
+  }
+
+  void PopLoginModal() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => showContentDialog(),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: Colors.white,
-      title: const Text('Login'),
-      content: SizedBox(
-        width: 350,
-        height: MediaQuery.of(context).size.height *0.4,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextFormField(
-                  controller: _usernameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Username',
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your username';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16.0),
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 24.0),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: ElevatedButton(
-                    onPressed: _handleLogin,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: const Text('Login'),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+    return Scaffold(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        color: Colors.white,
+        child: const Image(
+          image: AssetImage('assets/images/background.jpg'),
+         fit: BoxFit.cover, 
         ),
       ),
     );
@@ -111,5 +82,66 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       }
     }
+  }
+
+  Widget showContentDialog() {
+    return Container(
+      child: AlertDialog(
+        backgroundColor: Colors.white,
+        title: const Text('Login'),
+        content: SizedBox(
+          width: 350,
+          height: MediaQuery.of(context).size.height * 0.4,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    controller: _usernameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Username',
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your username';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextFormField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 24.0),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: ElevatedButton(
+                      onPressed: _handleLogin,
+                      child: const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text('Login'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

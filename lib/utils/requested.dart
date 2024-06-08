@@ -25,7 +25,6 @@ class RequestedCrud {
     final remainingStock = supply.stock - requested.quantity;
 
     if (remainingStock < 0) {
-      // If there's not enough stock, rollback the transaction
       return Future.error('Insufficient stock');
     }
     final updatesupplies = Supplies(

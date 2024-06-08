@@ -93,9 +93,9 @@ class _RequestedScreenState extends State<RequestedScreen> {
                       columnWidths: const {
                         0: FractionColumnWidth(0.05), // ID
                         1: FractionColumnWidth(0.3), // Product
-                        3: FractionColumnWidth(0.15), // quantity
-                        4: FractionColumnWidth(0.3), // Description
-                        5: FractionColumnWidth(0.06), // Actions
+                        2: FractionColumnWidth(0.08), // Quantity
+                        3: FlexColumnWidth(), // Farm Requesting
+                        4: FractionColumnWidth(0.1), // Actions
                       },
                       children: [
                         const TableRow(

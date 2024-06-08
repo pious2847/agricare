@@ -46,15 +46,12 @@ class EmployeeCrud {
   Future<int> updateEmployee(Employee employee, ) async {
     Database db = await _dbHelper.initDb();
     return await db.update('employee', employee.toMap(), where: 'id = ?', whereArgs: [employee.id]);
-    
-
   }
 
   Future<int> deleteEmployee(int id) async {
     Database db = await _dbHelper.initDb();
-    await db.delete('employee_machinery',
-        where: 'employee_id = ?', whereArgs: [id]);
     return await db.delete('employee', where: 'id = ?', whereArgs: [id]);
+
   }
 
   void dispose() {

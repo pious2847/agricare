@@ -1,3 +1,4 @@
+import 'package:agricare/utils/daily_work_records.dart';
 import 'package:sqflite/sqflite.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
@@ -27,6 +28,7 @@ class DatabaseHelper {
   late final MachineryCrud machineryCrud = MachineryCrud();
   late final SuppliesCrud supplies = SuppliesCrud();
   late final RequestedCrud requestedcrud = RequestedCrud(this);
+  late final DailyCrud dailycrud = DailyCrud();
 
   Future<Database> get database async {
     _db ??= await initDb();
@@ -69,6 +71,9 @@ class DatabaseHelper {
 
   RequestedCrud get requestedCrudInstance {
     return requestedcrud;
+  }
+  DailyCrud get dailyCrudInstance {
+    return dailycrud;
   }
 
   
@@ -142,9 +147,20 @@ void _createDb(Database db, int version) async {
     CREATE TABLE IF NOT EXISTS requested(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       product TEXT NOT NULL,
-      farmRequesting INTEGER NOT NULL,
+      farmRequesting TEXT NOT NULL,
       quantity INTEGER NOT NULL,
       approved INTEGER NOT NULL
+    )
+  ''');
+    await db.execute('''
+    CREATE TABLE IF NOT EXISTS dailyrecords(
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      worktype TEXT NOT NULL,
+      farm TEXT NOT NULL,
+      suppliesused TEXT NOT NULL,
+      suppliesleft TEXT NOT NULL,
+      dailyexpenses INTEGER NOT NULL,
+      note TEXT NOT NULL
     )
   ''');
 }
