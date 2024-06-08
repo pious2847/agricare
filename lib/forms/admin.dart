@@ -37,7 +37,7 @@ class _AdminModalState extends State<AdminModal> {
   Future<void> _saveAdmin() async {
     if (_formKey.currentState!.validate()) {
       final admin = Admin(
-        id: widget.admin?.id,
+        id: widget.admin!.id,
         username: _usernameController.text,
         password: _passwordController.text,
       );

@@ -22,6 +22,21 @@ class SuppliesCrud {
             ))
         .toList();
   }
+  
+Future<Supplies?> getSuppliesByname(String product) async {
+    Database db = await _dbHelper.initDb();
+    final List<Map<String, dynamic>> maps = await db.query(
+      'supplies',
+      where: 'product = ?',
+      whereArgs: [product],
+    );
+
+    if (maps.isNotEmpty) {
+      return Supplies.fromMap(maps.first);
+    }
+
+    return null;
+  }
 
   Future<int> getTotalSupplies() async {
   Database db = await _dbHelper.initDb();
@@ -58,7 +73,7 @@ class SuppliesCrud {
     }
   }
 
-  Future<int> updateSupplies(Supplies supplies) async {
+  Future<int> updateSupplies(Supplies supplies,) async {
     Database db = await _dbHelper.initDb();
     return await db.update('supplies', supplies.toMap(),
         where: 'id = ?', whereArgs: [supplies.id]);

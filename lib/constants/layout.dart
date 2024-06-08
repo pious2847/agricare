@@ -4,6 +4,7 @@ import 'package:agricare/screens/dashboard.dart';
 import 'package:agricare/screens/employee.dart';
 import 'package:agricare/screens/farms.dart';
 import 'package:agricare/screens/machinery.dart';
+import 'package:agricare/screens/settings.dart';
 import 'package:agricare/screens/supervisors.dart';
 import 'package:agricare/screens/supplies.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -94,7 +95,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
             PaneItem(
               icon: const Icon(FluentIcons.settings),
               title: const Text('Settings'),
-              body: const _NavigationBodyItem(content: Text('Settings')),
+              body: const _NavigationBodyItem(content: SettingsPage()),
             ),
           ],
         ),

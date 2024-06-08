@@ -1,4 +1,5 @@
 import 'package:agricare/constants/layout.dart';
+import 'package:agricare/screens/login.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return FluentApp(
       theme: FluentThemeData(brightness: Brightness.light),
       debugShowCheckedModeBanner: false,
-      home: const LayoutScreen(),
+      home: LoginScreen(),
     );
   }
 }

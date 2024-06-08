@@ -152,6 +152,7 @@ class _EmployeeModalState extends State<EmployeeModal> {
                   return null;
                 },
               ),
+              
               const SizedBox(height: 16.0),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.3,

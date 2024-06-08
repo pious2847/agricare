@@ -1,6 +1,9 @@
 import 'package:agricare/database/databaseHelper.dart';
+import 'package:agricare/forms/requested.dart';
 import 'package:agricare/forms/supplies.dart';
+import 'package:agricare/models/requested.dart';
 import 'package:agricare/models/supplies.dart';
+import 'package:agricare/utils/requested.dart';
 import 'package:agricare/utils/supplies.dart';
 import 'package:agricare/widgets/records/suppliesrecords.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -14,32 +17,32 @@ class RequestedScreen extends StatefulWidget {
 }
 
 class _RequestedScreenState extends State<RequestedScreen> {
-  late final SuppliesCrud _suppliesCrud =
-      DatabaseHelper.instance.suppliesCrudInstance;
+  late final RequestedCrud _requestedCrud =
+      DatabaseHelper.instance.requestedCrudInstance;
 
-  List<Supplies> _supplies = [];
+  List<Requested> _requested = [];
 
   @override
   void initState() {
-    loadsupplies();
+    loadRequested();
     super.initState();
   }
 
-  Future<void> loadsupplies() async {
-    _supplies = await _suppliesCrud.getSupplies();
+  Future<void> loadRequested() async {
+    _requested = await _requestedCrud.getRequested();
     setState(() {});
   }
 
-  void _deletesupplies(int id) async {
-    await _suppliesCrud.deleteSupplies(id);
-    loadsupplies();
+  void _deleteRequested(int id) async {
+    await _requestedCrud.deleteRequested(id);
+    loadRequested();
   }
 
-  void _editSupplies(Supplies supplies) {
+  void _editRequested(Requested requested) {
     showDialog(
       context: context,
-      builder: (context) => SuppliesModal(supplies: supplies),
-    ).then((value) => loadsupplies());
+      builder: (context) => RequestedModal(requested: requested),
+    ).then((value) => loadRequested());
   }
 
   @override
@@ -56,12 +59,12 @@ class _RequestedScreenState extends State<RequestedScreen> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Button(
-                  child: const Text('Add Supplies'),
+                  child: const Text('Add Requested'),
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context) => const SuppliesModal(),
-                    ).then((value) => loadsupplies());
+                      builder: (context) => const RequestedModal(),
+                    ).then((value) => loadRequested());
                   },
                 ),
                 Button(
@@ -69,8 +72,8 @@ class _RequestedScreenState extends State<RequestedScreen> {
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context) => const GenerateSuppliesPdf(),
-                    ).then((value) => loadsupplies());
+                      builder: (context) => const GenerateRequestedPdf(),
+                    ).then((value) => loadRequested());
                   },
                 ),
               ],
@@ -82,7 +85,7 @@ class _RequestedScreenState extends State<RequestedScreen> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height - 80,
-            child: _supplies.isNotEmpty
+            child: _requested.isNotEmpty
                 ? SingleChildScrollView(
                     child: Table(
                       border: TableBorder.all(),
@@ -120,7 +123,7 @@ class _RequestedScreenState extends State<RequestedScreen> {
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
-                                'Stock',
+                                'Quantity',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -129,7 +132,7 @@ class _RequestedScreenState extends State<RequestedScreen> {
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
-                                'Description',
+                                'Farm Requesting',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -146,24 +149,24 @@ class _RequestedScreenState extends State<RequestedScreen> {
                             ),
                           ],
                         ),
-                        ..._supplies.map(
-                          (supplies) => TableRow(
+                        ..._requested.map(
+                          (requesting) => TableRow(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('${supplies.id}'),
+                                child: Text('${requesting.id}'),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(supplies.product),
+                                child: Text(requesting.product),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text('${supplies.stock}'),
+                                child: Text('${requesting.quantity}'),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(supplies.description),
+                                child: Text(requesting.farmRequesting),
                               ),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.01,
@@ -178,7 +181,7 @@ class _RequestedScreenState extends State<RequestedScreen> {
                                       child: IconButton(
                                         icon: const Icon(Iconsax.edit_2_copy),
                                         onPressed: () =>
-                                            _editSupplies(supplies),
+                                            _editRequested(requesting),
                                       ),
                                     ),
                                     Tooltip(
@@ -188,7 +191,7 @@ class _RequestedScreenState extends State<RequestedScreen> {
                                       child: IconButton(
                                         icon: const Icon(Iconsax.trash_copy),
                                         onPressed: () => showContentDialog(
-                                            context, supplies.id!),
+                                            context, requesting.id!),
                                       ),
                                     ),
                                   ],
@@ -204,7 +207,6 @@ class _RequestedScreenState extends State<RequestedScreen> {
                     child: Text('No supplies added yet'),
                   ),
           ),
-        
         ],
       ),
     );
@@ -222,7 +224,7 @@ class _RequestedScreenState extends State<RequestedScreen> {
           Button(
             child: const Text('Delete'),
             onPressed: () {
-              _deletesupplies(id);
+              _deleteRequested(id);
               Navigator.pop(
                 context,
               );
@@ -238,5 +240,4 @@ class _RequestedScreenState extends State<RequestedScreen> {
     );
     setState(() {});
   }
-
 }

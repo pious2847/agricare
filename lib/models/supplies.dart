@@ -14,4 +14,13 @@ class Supplies {
       'description': description
     };
   }
+     // Add this factory method
+  factory Supplies.fromMap(Map<String, dynamic> map) {
+    return Supplies(
+      id: map['id'],
+      product: map['product'],
+      stock: map['stock'],
+      description: map['description'],
+    );
+  }
 }
