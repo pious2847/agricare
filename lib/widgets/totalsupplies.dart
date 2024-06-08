@@ -36,7 +36,7 @@ class _TotalSuppliesWidgetState extends State<TotalSuppliesWidget> {
             style: TextStyle(
                 fontSize: 54.0,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(136, 45, 218, 131)),
+                color: Color.fromARGB(135, 63, 28, 128)),
           );
         }
       },

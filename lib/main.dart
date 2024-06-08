@@ -10,7 +10,8 @@ void main()  async  {
    WindowOptions windowOptions = const WindowOptions(
     minimumSize: Size(1280, 800),
     title: 'AgriCare',
-    skipTaskbar: false
+    skipTaskbar: false,
+    center: true
   );
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();

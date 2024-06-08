@@ -541,7 +541,7 @@ class _DashboardState extends State<Dashboard> {
     setState(() {});
   }
 
-  SizedBox TotalCards(BuildContext context) {
+SizedBox TotalCards(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       // height: 80,
