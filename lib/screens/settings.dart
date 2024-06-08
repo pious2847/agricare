@@ -128,53 +128,58 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextFormField(
-              controller: _oldPasswordController,
-              decoration: const InputDecoration(labelText: 'Old Password'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your old password';
-                }
-                return null;
-              },
+    return Column(
+      children: [
+        Text('Change Password', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,)),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextFormField(
+                  controller: _oldPasswordController,
+                  decoration: const InputDecoration(labelText: 'Old Password'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your old password';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16.0),
+                TextFormField(
+                  controller: _newPasswordController,
+                  decoration: const InputDecoration(labelText: 'New Password'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a new password';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16.0),
+                TextFormField(
+                  controller: _confirmPasswordController,
+                  decoration: const InputDecoration(labelText: 'Confirm Password'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please confirm your new password';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: _saveAdmin,
+                  child: const Text('Change Password'),
+                ),
+              ],
             ),
-            const SizedBox(height: 16.0),
-            TextFormField(
-              controller: _newPasswordController,
-              decoration: const InputDecoration(labelText: 'New Password'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a new password';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 16.0),
-            TextFormField(
-              controller: _confirmPasswordController,
-              decoration: const InputDecoration(labelText: 'Confirm Password'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please confirm your new password';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: _saveAdmin,
-              child: const Text('Change Password'),
-            ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

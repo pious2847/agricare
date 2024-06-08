@@ -102,7 +102,7 @@ class _DailyRecordsModalState extends State<DailyRecordsModal> {
           children: [
             TextFormField(
               controller: _worktypeController,
-              decoration: const InputDecoration(labelText: 'Work Type', border: OutlineInputBorder(), enabledBorder: OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: 'Work Type'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a work type';
@@ -113,7 +113,7 @@ class _DailyRecordsModalState extends State<DailyRecordsModal> {
             SizedBox(height: 5),
             TextFormField(
               controller: _donebyController,
-              decoration: const InputDecoration(labelText: 'Work Done By', border: OutlineInputBorder(), enabledBorder: OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: 'Work Done By'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a  Name';
@@ -124,7 +124,7 @@ class _DailyRecordsModalState extends State<DailyRecordsModal> {
             SizedBox(height: 5),
              TextFormField(
               controller: _farmController,
-              decoration: const InputDecoration(labelText: 'Farm', border: OutlineInputBorder(), enabledBorder: OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: 'Farm'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a  Farm';
@@ -135,7 +135,7 @@ class _DailyRecordsModalState extends State<DailyRecordsModal> {
             SizedBox(height: 5),
             TextFormField(
               controller: _suppliesUsedController,
-              decoration: const InputDecoration(labelText: 'Supplies Used(e.g ....(10)/...(50))', border: OutlineInputBorder(), enabledBorder: OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: 'Supplies Used(e.g ....(10)/...(50))'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Supplies Used';
@@ -146,7 +146,7 @@ class _DailyRecordsModalState extends State<DailyRecordsModal> {
             SizedBox(height: 5),
             TextFormField(
               controller: _suppliesLeftController,
-              decoration: const InputDecoration(labelText: 'Supplies Left(e.g ....(10)/...(50))', border: OutlineInputBorder(), enabledBorder: OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: 'Supplies Left(e.g ....(10)/...(50))'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Supplies Left';
@@ -161,7 +161,7 @@ class _DailyRecordsModalState extends State<DailyRecordsModal> {
                 FilteringTextInputFormatter.digitsOnly
               ], // Only numbe
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'daily expenses', border: OutlineInputBorder(), enabledBorder: OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: 'daily expenses'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a daily expenses';
@@ -173,7 +173,7 @@ class _DailyRecordsModalState extends State<DailyRecordsModal> {
             TextFormField(
               controller: _notesController,
               decoration: const InputDecoration(
-                labelText: 'descriptions', border: OutlineInputBorder(), enabledBorder: OutlineInputBorder()
+                labelText: 'descriptions'
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {

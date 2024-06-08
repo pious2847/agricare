@@ -1,7 +1,5 @@
 import 'package:agricare/constants/layout.dart';
 import 'package:agricare/database/databaseHelper.dart';
-import 'package:agricare/models/admin.dart';
-import 'package:agricare/screens/dashboard.dart'; // Replace with your dashboard screen
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,12 +12,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  late final AdminCrud = DatabaseHelper.instance.adminCrudInstance;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       PopLoginModal();
+      addDefaultAdmin();
     });
   }
 
@@ -31,6 +31,18 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void addDefaultAdmin() async {
+    final pref = await SharedPreferences.getInstance();
+   late final alreadyadded = pref.getBool('admincreated');
+    
+    if (alreadyadded !=  true) {
+      await AdminCrud.insertDefaultAdmin();
+      final pref = await SharedPreferences.getInstance();
+      pref.setBool('admincreated', true);
+      print('admincreated');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
         color: Colors.white,
         child: const Image(
           image: AssetImage('assets/images/background.jpg'),
-         fit: BoxFit.cover, 
+          fit: BoxFit.cover,
         ),
       ),
     );

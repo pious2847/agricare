@@ -19,9 +19,9 @@ class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._instance();
 
   static Database? _db;
-  static bool _defaultAdminInserted = false; // Add this flag
 
-  late final UserCrud admincrud = UserCrud();
+
+  late final AdminCrud admincrud = AdminCrud();
   late final EmployeeCrud employeeCrud = EmployeeCrud();
   late final SupervisorCrud supervisorcrud = SupervisorCrud(this);
   late final FarmCrud farmCrud = FarmCrud();
@@ -34,17 +34,23 @@ class DatabaseHelper {
     _db ??= await initDb();
     return _db!;
   }
-  
-  Future<Database> initDb() async {
-    // Initialize the database factory for sqflite_common_ffi
-    sqfliteFfiInit();
-    databaseFactory = databaseFactoryFfi;
 
-    String path = join(await getDatabasesPath(), 'farm_management.db');
-    return await openDatabase(path, version: 1, onCreate: _createDb,);
-  }
+Future<Database> initDb() async {
+  // Initialize the database factory for sqflite_common_ffi
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi; // Initialize the databaseFactory
 
-  UserCrud get adminCrudInstance {
+  String path = join(await getDatabasesPath(), 'farm_management.db');
+  return await databaseFactoryFfi.openDatabase(
+    path,
+    options: OpenDatabaseOptions(
+      version: 1,
+      onCreate: _createDb,
+    ),
+  );
+}
+
+  AdminCrud get adminCrudInstance {
     return admincrud;
   }
 
@@ -57,7 +63,6 @@ class DatabaseHelper {
   }
 
   FarmCrud get farmCrudInstance {
-    
     return farmCrud;
   }
 
@@ -72,15 +77,15 @@ class DatabaseHelper {
   RequestedCrud get requestedCrudInstance {
     return requestedcrud;
   }
+
   DailyCrud get dailyCrudInstance {
     return dailycrud;
   }
 
-  
 
+  void _createDb(Database db, int version) async {
 
-void _createDb(Database db, int version) async {
-  await db.execute('''
+    await db.execute('''
     CREATE TABLE IF NOT EXISTS admin(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT NOT NULL,
@@ -88,15 +93,10 @@ void _createDb(Database db, int version) async {
     )
   ''');
 
-  print('user table created');
 
-  // Insert the default admin user only if it hasn't been inserted before
-  if (!_defaultAdminInserted) {
-    await admincrud.insertDefaultAdmin();
-    _defaultAdminInserted = true;
-  }
+    print('user table created');
 
-  await db.execute('''
+    await db.execute('''
     CREATE TABLE IF NOT EXISTS farm(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
@@ -105,7 +105,7 @@ void _createDb(Database db, int version) async {
     )
   ''');
 
-  await db.execute('''
+    await db.execute('''
     CREATE TABLE IF NOT EXISTS machinery(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
@@ -113,7 +113,7 @@ void _createDb(Database db, int version) async {
     )
   ''');
 
-  await db.execute('''
+    await db.execute('''
     CREATE TABLE IF NOT EXISTS employee(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
@@ -122,9 +122,8 @@ void _createDb(Database db, int version) async {
       machineryAssigned TEXT NOT NULL
     )
   ''');
-  
 
-  await db.execute('''
+    await db.execute('''
     CREATE TABLE IF NOT EXISTS supervisor(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
@@ -134,7 +133,7 @@ void _createDb(Database db, int version) async {
     )
   ''');
 
-  await db.execute('''
+    await db.execute('''
     CREATE TABLE IF NOT EXISTS supplies(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       product TEXT NOT NULL,
@@ -143,7 +142,7 @@ void _createDb(Database db, int version) async {
     )
   ''');
 
-  await db.execute('''
+    await db.execute('''
     CREATE TABLE IF NOT EXISTS requested(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       product TEXT NOT NULL,
@@ -153,15 +152,17 @@ void _createDb(Database db, int version) async {
     )
   ''');
     await db.execute('''
-    CREATE TABLE IF NOT EXISTS dailyrecords(
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      worktype TEXT NOT NULL,
-      farm TEXT NOT NULL,
-      suppliesused TEXT NOT NULL,
-      suppliesleft TEXT NOT NULL,
-      dailyexpenses INTEGER NOT NULL,
-      note TEXT NOT NULL
-    )
-  ''');
-}
+      CREATE TABLE IF NOT EXISTS dailyrecords (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        worktype TEXT NOT NULL,
+        employeeName TEXT NOT NULL,
+        farm TEXT NOT NULL,
+        suppliesUsed TEXT NOT NULL,
+        suppliesLeft TEXT NOT NULL,
+        dailyexpenses INTEGER NOT NULL,
+        notes TEXT NOT NULL
+      )
+    ''');
+
+  }
 }

@@ -2,10 +2,11 @@ import 'package:agricare/database/databaseHelper.dart';
 import 'package:agricare/models/admin.dart';
 import 'package:sqflite/sqflite.dart';
 
-class UserCrud {
+class AdminCrud {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
+  
   Future<void> insertDefaultAdmin() async {
-    Database db = await _dbHelper.initDb();
+  Database db = await _dbHelper.initDb();
   await db.insert('admin', {
     'username': 'admin', // Set the default username
     'password': 'admin', // Set the default password
