@@ -96,9 +96,10 @@ class _LayoutScreenState extends State<LayoutScreen> {
     return Scaffold(
       body: NavigationView(
         pane: NavigationPane(
+          
           selected: topIndex,
           onChanged: (index) => setState(() => topIndex = index),
-          displayMode: PaneDisplayMode.compact,
+          displayMode: PaneDisplayMode.open,
           items: items,
           footerItems: [
             PaneItem(

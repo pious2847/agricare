@@ -1,8 +1,22 @@
-import 'package:agricare/constants/layout.dart';
+
 import 'package:agricare/screens/login.dart';
+import 'package:window_manager/window_manager.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 
-void main() {
+void main()  async  {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Must add this line.
+  await windowManager.ensureInitialized();
+   WindowOptions windowOptions = const WindowOptions(
+    size: Size(800, 600),
+    center: true,
+    skipTaskbar: false,
+    titleBarStyle: TitleBarStyle.hidden,
+  );
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
   runApp(const MyApp());
 }
 
