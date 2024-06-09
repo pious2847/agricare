@@ -39,8 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
       await AdminCrud.insertDefaultAdmin();
       final pref = await SharedPreferences.getInstance();
       pref.setBool('admincreated', true);
-      print('admincreated');
-    }
+      }
   }
 
   @override
